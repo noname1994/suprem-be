@@ -1,0 +1,17 @@
+1. Tự động sinh và in mã vạch ngay trên hệ thông  (cần có máy in mã vạch): (mã vạch này để gắn với từng sản phẩm ?)
+
+2. Sử dụng đầu đọc mã vạch để bán hàng, xuất nhập (cần có máy quét mã vạch)
+
+3.  Hỗ trợ 4 cấp danh mục sản phẩm (mã Ghosh- Màu - Size - Chất liệu) - phần này chưa hiểu
+
+4. Tạo biên bản bàn giao vận đơn, giúp gửi nhiều đơn hàng cùng lúc (nghĩa là tạo ra phiếu giao hàng, đưa cho shipper đi giao )
+
+5.  Quản lí đối soát và thanh toán (đối soát là gì ? )
+
+6. Tự động báo quà tặng, tặng kèm nếu có		(báo qua tin nhắn điện thoại hoặc qua mail ?)
+
+7. Tạo thẻ khách hàng thân thiết và quản lí danh sách thẻ và đợt cấp phát thẻ	(chưa hiểu)
+
+8.Tự động phân bố cấp độ khách hàng để khuyến mại, chăm sóc	 ( cần những yếu tố gì để phân cấp khách hàng)
+
+9. Khuyến mại (cần định nghĩ rõ cách kiểu khuyến mại để tính toán tiền khách phải trả , ví dụ : giảm theo phần trăm, theo số lượng mua, theo cấp độ khách hàng) 
