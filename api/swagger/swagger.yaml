@@ -9,8 +9,8 @@ info:
 host: localhost:8080
 basePath: /api/v1
 tags:
-  - name: Location
-    description:  Operations about Location
+  - name: Storage
+    description:  Operations about Storage
   - name: Employee
     description: Operations about Employee
 securityDefinitions:
@@ -22,281 +22,7 @@ securityDefinitions:
 schemes:
   - http
 paths:
-  /location:
-    post:
-      tags:
-        - Location
-      summary: Add a new location belongs store
-      security: 
-        - jwt: []
-      description: ""
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Location object that needs to be added to the store
-          required: false
-          schema:
-            $ref: "#/definitions/LocationModel"
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/SuccessResponse"
-        "400":
-          description: Client Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-        "500":
-          description: Server Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-    put:
-      tags:
-        - Location
-      summary: Update location of store
-      security: 
-        - jwt: []
-      description: ""
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: Location object that needs to be update 
-          required: true
-          schema:
-            $ref: "#/definitions/LocationModel"
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/SuccessResponse"
-        "400":
-          description: Client Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-        "500":
-          description: Server Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-    get:
-      tags:
-        - Location
-      summary: Get location of store
-      security: 
-        - jwt: []
-      description: ""
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: query
-          name: _id
-          description: Id location 
-          required: false
-          type: string
-        - in: query
-          name: status
-          description: status location [ACTIVE, INACTIVE] 
-          required: false
-          type: string
-          enum: 
-            - ACTIVE
-            - INACTIVE
-        - in: query
-          name: name
-          description: name location 
-          required: false
-          type: string
-        - in: query
-          name: owner
-          description: owner location 
-          required: false
-          type: string
-        - in: query
-          name: sortBy
-          description: field need to sort 
-          required: false
-          type: string
-          enum:
-            - status
-            - name
-            - created_at
-          default: created_at
-        - in: query
-          name: orderBy
-          description: type sort 
-          required: false
-          type: string
-          enum:
-            - DESC
-            - ASC
-          default: DESC
-        - in: query
-          name: pageNum
-          description: page number 
-          required: false
-          type: integer
-          default: 0
-        - in: query
-          name: pageSize
-          description: page size 
-          required: false
-          type: integer
-          default: 100
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/SuccessResponse"
-        "400":
-          description: Client Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-        "500":
-          description: Server Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-    delete:
-      tags:
-        - Location
-      summary: delete location of store
-      security: 
-        - jwt: []
-      description: ""
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: query
-          name: _id
-          description: Id of location needs to delete
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/SuccessResponse"
-        "400":
-          description: Client Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-        "500":
-          description: Server Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-  /location/status/{_id}:
-    put:
-      tags:
-        - Location
-      summary: Update location status
-      security: 
-        - jwt: []
-      description: ""
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: _id
-          description: Id of location needs to be update
-          required: true
-          type: string
-        - in: body
-          name: body
-          description: Location object that needs to be update 
-          required: true
-          schema:
-            properties: 
-              status:
-                type: string
-                enum:
-                  - ACTIVE
-                  - INACTIVE
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/SuccessResponse"
-        "400":
-          description: Client Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-        "500":
-          description: Server Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-  /location/{_id}:
-    get:
-      tags:
-        - Location
-      summary: Get location by id
-      description: ""
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: path
-          name: _id
-          description: Id of location needs to be update
-          required: true
-          type: string
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/SuccessResponse"
-        "400":
-          description: Client Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-        "500":
-          description: Server Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
   /employee:
-    post:
-      tags:
-        - Employee
-      summary: Add a new employee
-      security: 
-        - jwt: []
-      description: ""
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          description: employee object that needs to be added
-          required: true
-          schema:
-            $ref:  "#/definitions/EmployeeModel"
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/SuccessResponse"
-        "400":
-          description: Client Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-        "500":
-          description: Server Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
     put:
       tags:
         - Employee
@@ -328,9 +54,128 @@ paths:
           description: Server Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-    delete:
+  /employee/password:
+    put:
       tags:
         - Employee
+      summary: Update password
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: new password need to updated
+          required: true
+          schema:
+            properties:
+              newPassword:
+                type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"  
+  /login:
+    post:
+      tags:
+        - Auth
+      summary: Login into system
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: username and password need to login
+          required: true
+          schema:
+            $ref:  "#/definitions/LoginModel"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"    
+  /logout:
+    get:
+      tags:
+        - Auth
+      summary: logout system
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"      
+  /admin/employee:
+    post:
+      tags:
+        - Admin
+      summary: Create employee into system
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Employee object
+          required: true
+          schema:
+            $ref:  "#/definitions/EmployeeModel"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+    delete:
+      tags:
+        - Admin
       summary: delete array list employee
       security: 
         - jwt: []
@@ -362,7 +207,7 @@ paths:
             $ref: "#/definitions/ErrorResponse"
     get:
       tags:
-        - Employee
+        - Admin
       summary: get employee
       security: 
         - jwt: []
@@ -375,22 +220,27 @@ paths:
         - in: query
           name: _id
           type: string
-          description: id
-          required: false
-        - in: query
-          name: fullname
-          type: string
-          description: fullname
+          description: id (exactly)
           required: false
         - in: query
           name: gen
           type: string
-          description: gen
+          description: gen (exactly)
           required: false
-        - in: username
+        - in: query
+          name: fullname
+          type: string
+          description: fullname (like)
+          required: false
+        - in: query
+          name: email
+          type: string
+          description: email (like)
+          required: false
+        - in: query
           name: username
           type: string
-          description: username
+          description: username (like)
           required: false
       responses:
         "200":
@@ -405,6 +255,343 @@ paths:
           description: Server Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+    put:
+      tags:
+        - Admin
+      summary: Update work place of employee
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: work place object need to created
+          required: true
+          schema:
+            $ref:  "#/definitions/RoleSalaryModel"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+  /admin/role:
+    get:
+      tags:
+        - Admin
+      summary: get all roles
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /file:
+    post:
+      tags:
+        - File
+      summary: Upload file to server
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - in: formData
+          name: type
+          description: file to upload (Put at top of files)
+          required: true
+          type: string
+          enum:
+            - AVATAR
+            - IMAGE_PRODUCT
+            - DOCUMENT
+            - OTHER
+          default: IMAGE_PRODUCT
+        - in: formData
+          name: file
+          description: file to upload
+          required: true
+          type: file
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+    get:
+      tags:
+        - File
+      summary: download file from server
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: path
+          type: string
+          description: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+  /vn-location/province:
+    get:
+      tags:
+        - VN-Location
+      summary: get all province
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"  
+  /vn-location/district:
+    get:
+      tags:
+        - VN-Location
+      summary: get all district by province id
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: provinceId
+          type: string
+          description: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /vn-location/ward:
+    get:
+      tags:
+        - VN-Location
+      summary: get all ward by district id
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: districtId
+          type: string
+          description: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"    
+  /promotion:
+    post:
+      tags:
+        - Promotion
+      summary: Create promotion 
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Promotion object
+          required: true
+          schema:
+            $ref:  "#/definitions/PromotionModel"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+    delete:
+      tags:
+        - Promotion
+      summary: delete array list promotion
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: arrId
+          type: array
+          items:
+            type: string
+          description: array id (maximum 20)
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    get:
+      tags:
+        - Promotion
+      summary: get promotion
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: pageNum
+          type: number
+          description: page number
+          default: 0          
+        - in: query
+          name: pageSize
+          type: number
+          description: page size
+          default: 100          
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      tags:
+        - Promotion
+      summary: Update promotion
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: promotion object need to created
+          required: true
+          schema:
+            $ref:  "#/definitions/RoleSalaryModel"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
 definitions:
   SuccessResponse:
     properties:
@@ -413,9 +600,7 @@ definitions:
       message:
         type: string
       value:
-        type: array
-        items:
-          type: object
+        type: object
   ErrorResponse:
     properties:
       code: 
@@ -439,13 +624,7 @@ definitions:
         type: string
         example: tranducninhnd94@hotmail.com
       address: 
-        properties:
-          ward: 
-            type: string
-          district: 
-            type: string
-          province: 
-            type: string
+        $ref: "#/definitions/VNLocationModel"    
       username:
         type: string
         example: tranducninh
@@ -473,80 +652,79 @@ definitions:
       avatar: 
         type: string
         example: http://localhost:8080/images/avater/default.jpg
-      work_places: 
+      roles:
         type: array
         items:
           properties:
-            location: 
+            name:
               type: string
-            roles:
+            permission:
               type: array
               items:
-                properties:
-                  name:
-                    type: string
-                  permission:
-                    type: array
-                    items:
-                      type: string
-            salary:
-              properties:
-                baseSalary: 
-                  type: number
-                positionSalary:
-                  type: number
-                allowanceSalary:
-                  type: number
-            monthlySalary:
-              type: array
-              items:
-                properties:
-                  status: 
-                    type: string
-                    enum: 
-                      - RECEIVED
-                      - NOT_RECEIVED
-                  dateReceived:
-                    type: string
-                    format: date-time
-                  baseSalary: 
-                    type: number
-                  positionSalary:
-                    type: number
-                  allowanceSalary:
-                    type: number
-                  promotionSalary:
-                    type: number
-            dateWorking: 
-              type: string
-              format: date
+                type: string
         example:
-          - location:
-              _id: 5b2b1b7db7945e2ff4d68116
-              name: Location 1
-            roles:
-              - name: Employee
-                permission:
-                  - permission 1
-                  - permission 2
-            salary:
+          - name: Employee
+            permission:
+              - permission 1
+              - permission 2
+      salary:
+        properties:
+          baseSalary: 
+            type: number
+          positionSalary:
+            type: number
+          allowanceSalary:
+            type: number
+        example:
+          salary:
+            baseSalary: 2000000
+            positionSalary: 0
+            allowanceSalary: 0
+      monthlySalary:
+        type: array
+        items:
+          properties:
+            status: 
+              type: string
+              enum: 
+                - RECEIVED
+                - NOT_RECEIVED
+            dateReceived:
+              type: string
+              format: date-time
+            baseSalary: 
+              type: number
+            positionSalary:
+              type: number
+            allowanceSalary:
+              type: number
+            promotionSalary:
+              type: number
+        example:
+          monthlySalary:
+            - status: NOT_RECEIVED
+              dateReceived: 2018-06-28T06:29:06.984Z
               baseSalary: 2000000
               positionSalary: 0
               allowanceSalary: 0
-            monthlySalary:
-              - status: NOT_RECEIVED
-                dateReceived: 2018-06-28T06:29:06.984Z
-                baseSalary: 2000000
-                positionSalary: 0
-                allowanceSalary: 0
-                promotionSalary: 0
-              - status: RECEIVED
-                dateReceived: 2018-05-28T06:29:06.984Z
-                baseSalary: 2000000
-                positionSalary: 0
-                allowanceSalary: 0
-                promotionSalary: 0
-            dateWorking: 2017-07-21 
+              promotionSalary: 0
+            - status: RECEIVED
+              dateReceived: 2018-05-28T06:29:06.984Z
+              baseSalary: 2000000
+              positionSalary: 0
+              allowanceSalary: 0
+              promotionSalary: 0
+      dateWorking: 
+        type: string
+        format: date
+        example: 2017-07-21 
+      status:
+        type: string
+        enum:
+          - ACTIVE
+          - INACTIVE
+          - DELETED
+        default: ACTIVE
       latestAcess: 
         type: string
         format: date-time
@@ -556,47 +734,184 @@ definitions:
       updatedAt:
         type: string
         format: date-time
-  LocationModel:
+  StorageModel:
     properties: 
       _id:
         type: string
         example: 5b2b1b7db7945e2ff4d68116
       name: 
         type: string
-        example: location 1
+        example: storage 1
       address: 
-        properties:
-          ward: 
-            type: string
-          district: 
-            type: string
-          province: 
-            type: string
-        example:
-          ward: ward
-          district: district
-          province: province
+        $ref: "#/definitions/VNLocationModel"    
       phoneNumber:
         type: array
         items: 
-          type: string
+          properties:
+            number:
+              type: string
         example: 
-          - 163313968
+          - number: 0166-97-09094
       status:
         type: string
         enum:
           - INACTIVE
           - ACTIVE
+          - DELETED
         default: ACTIVE    
-      fax:
-        type: string
       owner:
         type: string
-        example: Trần Đức Ninh
+        example: 5b2b1b7db7945e2ff4d68116
       createdAt:
         type: string
         format: date-time
       updatedAt:
         type: string
         format: date-time
-
+  LoginModel:
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+    example: 
+      username: tranducninh
+      password: abc13579
+  FileUploadModel:
+    properties:
+      path:
+        type: string
+      size:
+        type: string
+      mimetype:
+        type: string
+      originalname:
+        type: string
+      encoding:
+        type: string
+      filename:
+        type: string
+      createdAt:
+        type: date
+        format: date-time
+  VNLocationModel:
+    properties:
+      detail:
+        type: string
+      ward: 
+        properties:
+          _id: 
+            type: string
+          name:
+            type: string
+          type:
+            type: string
+          location: 
+            type: string
+      district: 
+        properties:
+          _id:
+            type: string
+          name:
+            type: string
+          type: 
+            type: string
+          location:
+            type: string
+      province: 
+        properties:
+          _id:
+            type: string
+          name: 
+            type: string
+          type:
+            type: string
+    example:
+      detail: Số 1, Phạm Văn Bạch
+      ward:
+        _id: 00010
+        name: Nguyễn Trung Trực
+        type: Phường
+        location: 21 02 36N, 105 50 43E
+      district:
+        _id: 001
+        name: Ba Đình
+        type: Quận
+        location: 21 02 08N, 105 49 38E
+      province:
+        _id: 01
+        name: Hà Nội
+        type: Thành Phố
+  RoleSalaryModel: 
+    properties:
+      _id:
+        type: string
+      roles:
+        type: array
+        items:
+          type: string
+      salary:
+        type: object
+        properties:
+          baseSalary:
+            type: string
+          positionSalary:
+            type: string
+          allowanceSalary:
+            type: string
+    example:
+      _id: 5b471769664b561368679a02
+      roles:
+        - 5b471769664b561368679a02
+        - 5b471769664b561368679a02
+      salary:
+        baseSalary: 4000000
+        positionSalary: 0
+        allowanceSalary: 0
+  RoleModel:
+    properties:
+      id:
+        type: string
+      permission:
+        type: array
+        items:
+          type: string
+  PromotionModel:
+    properties:
+      _id:
+        type: string
+      type:
+        type: string
+        enum:
+          - PERCENT
+          - GIFT
+      percentFormula: 
+        type: array
+        items:
+          properties:
+            quantityPurchased:
+              type: number
+            reducedPercent:
+              type: number
+              default: 0
+      giftFormula:
+        type: array
+        items:
+          properties:
+            quantityPurchased:
+              type: number
+            donatedQuantity:
+              type: number
+              default: 0
+            donatedProduct:
+              type: string
+      description:
+        type: string
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+    
+        

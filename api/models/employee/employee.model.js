@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt-nodejs");
+const bcrypt = require("bcryptjs");
 
 const Constant = require("../../utils/constants");
 
@@ -17,17 +17,54 @@ const EmployeeSchema = new Schema(
         },
         email: {
             type: String,
+            required: true,
             unique: true
         },
         address: {
-            ward: {
+            detail: {
                 type: String
+            },
+            ward: {
+                _id: {
+                    type: String,
+                    required: true
+                },
+                name: {
+                    type: String
+                },
+                type: {
+                    type: String
+                },
+                location: {
+                    type: String
+                }
             },
             district: {
-                type: String
+                _id: {
+                    type: String,
+                    required: true
+                },
+                name: {
+                    type: String
+                },
+                type: {
+                    type: String
+                },
+                location: {
+                    type: String
+                }
             },
             province: {
-                type: String
+                _id: {
+                    type: String,
+                    required: true
+                },
+                name: {
+                    type: String
+                },
+                type: {
+                    type: String
+                }
             }
         },
         username: {
@@ -42,6 +79,7 @@ const EmployeeSchema = new Schema(
         },
         facebook_page: [
             {
+                _id: false,
                 url: {
                     type: String
                 }
@@ -49,6 +87,7 @@ const EmployeeSchema = new Schema(
         ],
         phone_number: [
             {
+                _id: false,
                 number: {
                     type: String
                 }
@@ -57,64 +96,65 @@ const EmployeeSchema = new Schema(
         avatar: {
             type: String
         },
-        work_places: [
+
+        roles: [
             {
-                location: {
-                    type: Schema.Types.ObjectId,
-                    ref: "Store"
-                },
-                roles: [
-                    {
-                        type: Schema.Types.ObjectId,
-                        ref: "Role"
-                    }
-                ],
-                salary: {
-                    base_salary: {
-                        type: Number,
-                        default: 0
-                    },
-                    position_salary: {
-                        type: Number,
-                        default: 0
-                    },
-                    allowance_salary: {
-                        type: Number,
-                        default: 0
-                    }
-                },
-                monthly_salary: [
-                    {
-                        status: {
-                            type: String,
-                            enum: ["RECEIVED", "NOT_RECEIVED"],
-                        },
-                        date_received: {
-                            type: Date
-                        },
-                        base_salary: {
-                            type: Number,
-                            default: 0
-                        },
-                        position_salary: {
-                            type: Number,
-                            default: 0
-                        },
-                        promotion_salary: {
-                            type: Number,
-                            default: 0
-                        },
-                        allowance_salary: {
-                            type: Number,
-                            default: 0
-                        }
-                    }
-                ],
-                date_working: {
-                    type: Date
-                },
+                type: Schema.Types.ObjectId,
+                ref: "Role"
             }
         ],
+        salary: {
+            base_salary: {
+                type: Number,
+                default: 0
+            },
+            position_salary: {
+                type: Number,
+                default: 0
+            },
+            allowance_salary: {
+                type: Number,
+                default: 0
+            }
+        },
+        monthly_salary: [
+            {
+                status: {
+                    type: String,
+                    enum: ["RECEIVED", "NOT_RECEIVED"],
+                    default: "NOT_RECEIVED"
+                },
+                date_received: {
+                    type: Date
+                },
+                base_salary: {
+                    type: Number,
+                    default: 0
+                },
+                position_salary: {
+                    type: Number,
+                    default: 0
+                },
+                promotion_salary: {
+                    type: Number,
+                    default: 0
+                },
+                allowance_salary: {
+                    type: Number,
+                    default: 0
+                }
+            }
+        ],
+        date_working: {
+            type: Date,
+            default: Date.now()
+        },
+
+        status: {
+            type: String,
+            enum: ["ACTIVE", "INACTIVE", "DELETED"],
+            default: "ACTIVE"
+        },
         latest_access: {
             type: Date
         },
@@ -123,12 +163,25 @@ const EmployeeSchema = new Schema(
         },
         updated_at: {
             type: Date,
+            default: Date.now()
         }
     }
 )
 
-EmployeeSchema.pre("save", () => {
-    console.log("employee : ", this);
+EmployeeSchema.pre("save", async function (next) {
+    try {
+        const emp = this;
+        let password = emp.password;
+        let rounds = Constant.rounds;
+        let salt = await bcrypt.genSalt(rounds);
+        console.log("salt: ", salt);
+        let hash = await bcrypt.hash(password, salt);
+        console.log("hash: ", hash);
+        emp.password = hash;
+        next();
+    } catch (error) {
+        throw error;
+    }
 })
 
-module.exports = mongoose.model("Empoloyee", EmployeeSchema);
+module.exports = mongoose.model("Employee", EmployeeSchema);

@@ -1,7 +1,7 @@
 const appRoot = require('app-root-path');
-const bcrypt = require("bcrypt-nodejs");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
+const mongoose = require("mongoose");
 const Employee = require("../../models/employee/employee.model");
 const CustomizeError = require("../../exception/customize-error");
 
@@ -15,13 +15,16 @@ const TAG = "EMPLOYEE_SERVICE";
 
 class EmployeeService {
 
+    /**
+     * 
+     * @param {*} _body 
+     */
     async create(_body) {
         // check email
         try {
             let newEmp = employeeDTO.infoCreate(_body);
-           
-            let tmp;
 
+            let tmp;
             let email = newEmp.email;
             tmp = await Employee.findOne({ email: { $eq: email } });
             if (tmp) {
@@ -42,15 +45,20 @@ class EmployeeService {
         } catch (error) {
             throw error;
         }
-
     }
 
-    async update(newEmp) {
-        let tmp;
+    /**
+     * 
+     * @param {*} _id 
+     * @param {*} _body 
+     */
+    async update(_id, _body) {
 
-        let _id = newEmp._id;
+        let newEmp = employeeDTO.infoUpdate(_body);
+
+        let tmp;
         tmp = await Employee.findById(_id);
-        if (tmp) {
+        if (!tmp) {
             throw new CustomizeError(TAG, 400, "employee isn't exist");
         }
 
@@ -66,26 +74,60 @@ class EmployeeService {
             throw new CustomizeError(TAG, 400, `${username} is existed`);
         }
 
-        let rs = await Employee.update(newEmp);
+        // let rs = await Employee.update(newEmp);
+        let rs = await Employee.findByIdAndUpdate(_id, newEmp);
+        if (!rs) {
+            throw new CustomizeError(TAG, 400, `Not found employee neeed to updated`);
+        }
         let empResponse = employeeDTO.infoResponse(rs);
         return empResponse;
     }
 
-    updateAvatar() {
+    async updateAvatar() {
 
     }
 
-    updateStatus() {
+    async updateStatus() {
 
     }
 
-    delete() {
-
-    }
-
-    findByUsername(username) {
+    /**
+     * 
+     * @param {*} idEmp 
+     * @param {*} newPassword 
+     */
+    async updatePasword(idEmp, newPassword) {
         try {
-            let rs = Employee.findOne({ username: username });
+            let emp = await Employee.findById(idEmp);
+            if (!emp) {
+                throw new CustomizeError(TAG, 400, "Not found employee !");
+            }
+
+            let rounds = Constant.rounds;
+            let salt = await bcrypt.genSalt(rounds);
+            let hash = await bcrypt.hash(newPassword, salt);
+
+            let rs = await Employee.updateOne({ _id: idEmp }, { password: hash });
+
+            return rs;
+
+            return empResponse;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async delete() {
+
+    }
+
+    /**
+     * 
+     * @param {*} username 
+     */
+    async findByUsername(username) {
+        try {
+            let rs = await Employee.findOne({ username: username });
             if (!rs) {
                 throw new CustomizeError(TAG, 400, `Not found employee with username = "${username}"`);
             }
@@ -96,22 +138,90 @@ class EmployeeService {
         }
     }
 
-    findByEmail(email) {
+    /**
+     * 
+     * req.body    : {idEmp, roles, salary, status, dateWork}
+     * roles       : ObjectId []
+     * salary      : {baseSalary: number, positionSalary: number, allowanceSalary: number}
+    */
+    async updateForAdmin(_body) {
         try {
-            let rs = Employee.findOne({ email: email });
-            if (!rs) {
-                throw new CustomizeError(TAG, 400, `Not found employee with email = "${email}"`);
+
+            let tmp = employeeDTO.infoUpdateForAdmin(_body);
+            let idEmp = tmp._id;
+            let roles = tmp.roles;
+            let salary = tmp.salary;
+            let status = tmp.status;
+            let dateWorking = tmp.dateWorking;
+
+            let emp = await Employee.findById(idEmp);
+            if (!emp) {
+                throw new CustomizeError(TAG, 400, "employee isn't exist");
             }
-            let empResponse = employeeDTO.infoResponse(rs);
+
+            if (roles) {
+                fieldsUpdate.roles = roles;
+            }
+            if (salary) {
+                fieldsUpdate.salary = salary;
+            }
+            if (status) {
+                fieldsUpdate.status = status;
+            }
+
+            if (dateWorking) {
+                fieldsUpdate.date_working = dateWorking;
+            }
+
+            await Employee.update({ "_id": idEmp }, fieldsUpdate);
+
+            let rs = await Employee.findById(idEmp)
+                .populate({ path: "roles", select: "_id name permission", model: "Role" }).exec();
+
+            let empResponse = await employeeDTO.infoResponse(rs);
             return empResponse;
         } catch (error) {
             throw error;
         }
     }
 
-    findByParams(params) {
+    /**
+     * 
+     * @param {*} email 
+     */
+    async findByEmail(email) {
         try {
+            let rs = Employee.findOne({ email: email });
+            if (!rs) {
+                throw new CustomizeError(TAG, 400, `Not found employee with email = "${email}"`);
+            }
+            let empResponse = await employeeDTO.infoResponse(rs);
+            return empResponse;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async findByParams(params) {
+        try {
+
+            console.log("params: ", params);
+
             let condition = {};
+
+            let _id = params._id;
+            if (_id) {
+                if (!mongoose.Types.ObjectId.isValid(_id)) {
+                    let error = new CustomizeError(TAG, 400, `"${_id}" must be format ObjectId type`);
+                    throw error;
+                }
+                condition._id = { $eq: _id };
+            }
+
+            let gen = params.gen;
+            if (gen) {
+                condition.gen = { $eq: gen };
+            }
 
             let email = params.email;
             if (email) {
@@ -128,28 +238,40 @@ class EmployeeService {
                 condition.email = new RegExp(fullname, 'i');
             }
 
-            let rs = Employee.find(condition);
-            return rs;
+            let rs = await Employee.find(condition)
+                .populate({ path: "roles", select: "_id name permission", model: "Role" }).exec() || [];
+
+            let arrResponse = rs.map(tmp => {
+                return employeeDTO.infoResponse(tmp);
+            })
+            return arrResponse;
         } catch (error) {
             throw error;
         }
     }
 
+    /**
+     * 
+     * @param {*} username 
+     * @param {*} password 
+     */
     async findByUsernameAndPassword(username, password) {
         try {
-            let emp = await Employee.findOne({ $or: [{ username: username }, { email: username }] });
+            let emp = await Employee.findOne({ $or: [{ username: username }, { email: username }] })
+                .populate({ path: "roles", select: "_id name permission", model: "Role" }).exec();
             if (!emp) {
-                throw new CustomizeError(TAG, `Not found account with username is "${username}"`);
+                throw new CustomizeError(TAG, 400, `Not found account with username = "${username}"`);
             }
             let hashPwd = emp.password;
-            let check = bcrypt.compareSync(password, hashPwd);
+
+            let check = await bcrypt.compare(password, hashPwd);
             if (!check) {
                 throw new CustomizeError(TAG, 400, "Password is wrong");
             }
 
             let payload = employeeDTO.infoPayload(emp);
 
-            let token = jwt.sign(payload, Constant.secret, { expiresIn: Constant.getTokentokenExpiresIn });
+            let token = jwt.sign(payload, Constant.secret, { expiresIn: Constant.tokentokenExpiresIn, algorithm: Constant.algorithm });
             return token;
         } catch (error) {
             throw error;

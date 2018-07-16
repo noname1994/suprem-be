@@ -1,104 +1,63 @@
-1. Cơ sở bán hàng
-	- Thêm, sửa, xóa thông tin của cơ sở bán hàng
-2. Kho hàng
+1. Kho hàng
+	- CRUD
 	- Tạo phiếu nhập kho
 	- Tạo phiếu xuất kho
-	- Tạo phiếu trả lại hàng
+	- Tạo phiếu trả lại hàng  (Phiếu đổi trả với nhà phân phối ?)
 	- Tạo phiếu đơn hàng 
-	- Quản lí việc nhập kho, trả hàng nhà cung cấp	(X)
-	- Tự động bù trừ, kiểm kho 	(X)
-	- Quản lí hàng lỗi, mất, hỏng 
+	- Quản lí việc nhập kho, trả hàng nhà cung cấp	(disscuss)
+	- Tự động bù trừ, kiểm kho 	(disscuss)
+	- Quản lí hàng lỗi, mất, hỏng (disscuss)
 2. Nhân viên
-	- Tạo tài khoản
-	- Cấp quyền
+	- Tạo tài khoản & cấp quyền theo từng khu vực của cửa hàng
 	- Thay đổi thông tin
-	
+	- Thay đổi mật khẩu
+	- Cập nhật lương hàng tháng (admin)
+	- Xóa thông tin nv	(admin)
 3. Khách hàng
-	- Quản lí khách hàng
-	- Phân cấp khách hàng
-	- Quản lí tích điểm khách hàng
+	- Quản lí khách hàng 
+	- Phân cấp khách hàng (Vip - nomarl)
+	- Quản lí tích điểm khách hàng	(disscuss)
+	- Lưu thông tin khách hàng (khi khách đặt hàng)
 	
 4. Sản phẩm
-	- Thêm, sửa, xóa sản phẩm
-	- Tự động sinh và in mã vạch ngay trên hệ thông 	(X)
-	- Sử dụng đầu đọc mã vạch để bán hàng, xuất nhập 	(X)
-	- Hỗ trợ 4 cấp danh mục sản phẩm (mã Ghosh- Màu - Size - Chất liệu)	(X)
-	- Quản lí số lượng trong từng cửa hàng 
+	- Tạo mã barcode cho sản phẩm theo (Ghosh - Color - Size - metiral)
+	- CRUD
+	- Sử dụng đầu đọc mã vạch để bán hàng, xuất nhập 	
+	- Quản lí số lượng trong cửa hàng
 	
 5. Khuyến mại
-	- Thêm, sửa, xóa khuyến mại theo cửa hàng
-	- Khuyến mại cho từng sản phẩm
-	- Khuyến mại theo cấp độ khách hàng
-	- Khuyến mại theo điểm tích lũy khách hàng
+	- Định nghĩa từng loại khuyến mại 
+		+ Percent 	: mua 3 giảm 5%,  mua 4 giảm 10%
+		+ Quantity	: mua 5 tặng 1
+		+ Customer level : Vip - Nomarl
+	- CRUD
+	- Khuyến mại cho từng sản phẩm (option)
+	- Khuyến mại theo cấp độ khách hàng (option)
+	- Khuyến mại theo điểm tích lũy khách hàng (option)
 	
 6. Quản lí đơn hàng
-	- Tích hợp với các dịch vụ vận chuyển kết nối API		(X)
-	- Tạo biên bản bàn giao vận đơn, giúp gửi nhiều đơn hàng cùng lúc	(X)
-	- Quản lí đối soát và thanh toán tiền thu dộ		(X)
-	- Quản lí đơn đặt hàng online
-	- Quản lí quy trình đặt hàng	(X)
-	- Quản lí tình trạng đơn hàng 
-	- Tính tổng chi phí đơn hang	
+	- Tích hợp với các dịch vụ vận chuyển kết nối API	
+	- Tạo phiếu giao hàng (cần chi tiết tạo theo tiêu chí nào)
+	- Quản lí đối soát và thanh toán tiền  (So sánh với phiếu giao hàng để nhận tiền hàng và thanh toán phí giao hang)
+	- Quản lí đơn đặt hàng online (chi tiết : Người, hàng, vị trí giao hàng, số tiền)
 	- Quản lí đơn hàng đã xóa	
-
 7. Bán hàng
-	- Bán lẻ 	(X)
-	- Đổi/ trả hàng
+	- Tạo phiếu bán hàng (Với khách hàng)
+	- Tạo phiếu Đổi/ trả hàng	(Với khách hàng?)
 	- Tự động tính giá sản phẩm và chiết khấu theo các chương trình khuyến mại
-	- Nhập thông tin sản phẩm  bằng đầu đọc mã 		(X)
-	- Tự động lưu thông tin khách hàng
-	- Ghi nhận thông tin nhân viên trên hóa đơn để tính lương 	(X)
-	- Tự động báo quà tặng, tặng kèm nếu có		(X)
+	- Nhập thông tin sản phẩm  bằng đầu đọc mã 		
+	- Ghi nhận thông tin nhân viên trên hóa đơn để tính lương 
+	- Tạo phiếu bán hàng :  Sản phẩm mua, sản phầm khuyến mại, chiết khấu (nếu có), tổng tiền, khách hàng, vị trí giao hàng,..
 	- Hỗ trợ thanh toán tiền mặt, chuyển khoản, quẹt thẻ, dịch vụ trả góp, tiền khách đưa, tiền thừa khách
 	
 8. Báo cáo
 	- Quản lí danh sách khách hàng
 	- Tra cứu thông tin khách hàng
-	- Tạo thẻ khách hàng thân thiết			(X)
-	- Quản lí danh sách thẻ khách hàng		(X)
-	- Quản lí đợt cấp phát thẻ			(X)
-	- Tự động phân bố cấp độ khách hàng để khuyến mại, chăm sóc		(X)
-	
+	- Tạo thẻ khách hàng thân thiết ( discuss )
+	- Tự động phân bố cấp độ khách hàng để khuyến mại, chăm sóc ( discuss )
 
-phase 1 : 
-	1. database	
-	2. create Project 
-	3. Cửa hàng
-	4. Nhân viên 
-	
-	
-1. database - mongodb
+- so sánh trừu tượng và đóng gói
+- so sánh kế thừa và đa hình
+- so sánh override và overload
+phân biệt đc String buffer và string builder
 
-	Store {
-		id,
-		name,
-		address [],
-		phone_number [],
-		owner,
-		logo
-	},
-	
-	employee {
-		id,
-		fullname,
-		gen,
-		email,
-		username,
-		password,
-		phone_number [],
-		address	[], 
-		fb_address [],
-		zalo_address : [],
-		roles [],
-		last_access,
-		avatar,
-	}
-	
-	role: {
-		id,
-		name,
-		permission []
-	}
-	
-	
-	

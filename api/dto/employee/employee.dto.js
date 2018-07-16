@@ -1,51 +1,20 @@
 class EmployeeDTO {
 
     infoCreate(body) {
+
+        let roles = tmp.roles || [];
+        let salary = tmp.salary;
+        let dateWorking = tmp.dateWorking;
         return {
-            fullname: body.fullname,
-            gen: body.gen,
-            email: body.email,
-            address: body.address,
-            username: body.username,
-            password: body.password,
-            facebook_page: body.facebookPage,
-            phone_number: body.phoneNumber,
-            avatar: body.avatar,
-            created_at: Date.now()
-        }
-    }
-
-    infoCreateForAdmin(body) {
-
-        let workPlaces = {};
-        if (body.workPlaces) {
-            workPlaces = body.workPlaces.map(tmp => {
-                let store = tmp.store;
-                let roles = tmp.roles;
-                let salary = tmp.salary;
-                let monthly_salary = tmp.monthlySalary;
-                let dateWorking = tmp.dateWorking;
-                return {
-                    location: location,
-                    roles: roles,
-                    salary: {
-                        base_salary: salary.baseSalary,
-                        position_salary: salary.positionSalary,
-                        allowance_salary: salary.allowanceSalary
-                    },
-                    monthlySalary: monthlySalary.map(ms => {
-                        return {
-                            status: ms.status,
-                            date_received: ms.dateReceived,
-                            base_salary: ms.baseSalary,
-                            position_salary: ms.positionSalary,
-                            promotion_salary: ms.promotionSalary,
-                            allowance_salary: ms.allowanceSalary
-                        }
-                    }),
-                    date_working: dateWorking
-                }
-            })
+            storage: storage,
+            roles: roles,
+            salary: {
+                base_salary: salary.baseSalary,
+                position_salary: salary.positionSalary,
+                allowance_salary: salary.allowanceSalary
+            },
+            monthly_salary: [],
+            date_working: dateWorking || Date.now()
         }
 
         return {
@@ -55,100 +24,104 @@ class EmployeeDTO {
             address: body.address,
             username: body.username,
             password: body.password,
-            facebook_page: body.facebookPage,
-            phone_number: body.phoneNumber,
+            facebook_page: body.facebookPage || [],
+            phone_number: body.phoneNumber || [],
             avatar: body.avatar,
-            work_places: workPlaces,
+            roles: roles || [],
+            salary: {
+                base_salary: salary.baseSalary,
+                position_salary: salary.positionSalary,
+                allowance_salary: salary.allowanceSalary
+            },
+            date_working: dateWorking,
+            monthly_salary: [],
             created_at: Date.now()
         }
     }
 
     infoUpdate(body) {
-        return {
-            _id: body._id,
+
+        let newEmp = {};
+
+        let obj = {
             fullname: body.fullname,
             gen: body.gen,
             email: body.email,
             address: body.address,
             username: body.username,
-            password: body.password,
             fb_address: body.facebookPage,
             phone_number: body.phoneNumber,
             avatar: body.avatar,
+            updated_at: Date.now()
+        }
+
+        for (let key of Object.keys(obj)) {
+            if (obj[key] != undefined && obj[key] != null) {
+                newEmp[key] = obj[key];
+            }
+        }
+
+        return newEmp;
+    }
+
+    infoChangePassword(body) {
+        return {
+            newPassword: body.newPassword
         }
     }
 
+
     infoUpdateForAdmin(body) {
-        let workPlaces = {};
-        if (body.workPlaces) {
-            workPlaces = body.workPlaces.map(tmp => {
-                let location = tmp.location;
-                let roles = tmp.roles;
-                let salary = tmp.salary;
-                let monthly_salary = tmp.monthlySalary;
-                let dateWorking = tmp.dateWorking;
-                return {
-                    store: store,
-                    roles: roles,
-                    salary: {
-                        base_salary: salary.baseSalary,
-                        position_salary: salary.positionSalary,
-                        allowance_salary: salary.allowanceSalary
-                    },
-                    monthlySalary: monthlySalary.map(ms => {
-                        return {
-                            status: ms.status,
-                            date_received: ms.dateReceived,
-                            base_salary: ms.baseSalary,
-                            position_salary: ms.positionSalary,
-                            promotion_salary: ms.promotionSalary,
-                            allowance_salary: ms.allowanceSalary
-                        }
-                    }),
-                    date_working: dateWorking
-                }
-            })
+
+        let idEmp = body._id;
+        let roles = body.roles;
+        let salary = body.salary;
+        let status = body.status;
+        let dateWorking = body.dateWorking;
+
+        let tmp;
+
+        if (idEmp) {
+            tmp._id = idEmp;
         }
-        return {
-            _id: body._id,
-            work_places: workPlaces
+        if (roles) {
+            tmp.roles = roles;
         }
+        if (salary && Object.keys(salary).length) {
+            let newSalary = {};
+            if (salary.baseSalary || salary.baseSalary == 0) {
+                newSalary.base_salary = salary.baseSalary;
+            }
+            if (salary.positionSalary || salary.positionSalary == 0) {
+                newSalary.position_salary = salary.positionSalary;
+            }
+            if (salary.allowanceSalary || salary.allowanceSalary == 0) {
+                newSalary.allowance_salary = salary.allowanceSalary;
+            }
+            tmp.salary = newSalary;
+        }
+
+        if (status) {
+            tmp.status = status;
+        }
+
+        if (dateWorking) {
+            tmp.dateWorking = dateWorking;
+        }
+
+        console.log("newWorkPlace: ", tmp);
+        return tmp;
+    }
+
+    updateMonthlySalary(body) {
+
     }
 
 
     infoResponse(result) {
-
-        let workPlaces = [];
-        if (result.work_places) {
-            workPlaces = result.work_places.map(tmp => {
-                let location = tmp.location;
-                let roles = tmp.roles;
-                let salary = tmp.salary;
-                let monthlySalary = tmp.monthly_salary;
-                let dateWorking = tmp.date_working;
-                return {
-                    location: location,
-                    roles: roles,
-                    salary: {
-                        baseSalary: salary.base_salary,
-                        positionSalary: salary.position_salary,
-                        allowanceSalary: salary.allowance_salary
-                    },
-                    monthlySalary: monthlySalary.map(ms => {
-                        return {
-                            status: ms.status,
-                            dateReceived: ms.date_received,
-                            baseSalary: ms.base_salary,
-                            positionSalary: ms.position_salary,
-                            promotionSalary: ms.promotion_salary,
-                            allowanceSalary: ms.allowance_salary
-                        }
-                    }),
-                    dateWorking: dateWorking
-                }
-            })
-        }
-
+        let roles = result.roles;
+        let salary = result.salary;
+        let monthlySalary = result.monthly_salary;
         return {
             _id: result._id,
             fullname: result.fullname,
@@ -160,7 +133,24 @@ class EmployeeDTO {
             facebookPage: result.facebook_page,
             phoneNumber: result.phone_number,
             avatar: result.avatar,
-            workPlaces: workPlaces,
+            roles: result.roles,
+            salary: salary ? {
+                baseSalary: salary.base_salary,
+                positionSalary: salary.position_salary,
+                allowanceSalary: salary.allowance_salary
+            } : null,
+            monthlySalary: monthlySalary ? monthlySalary.map(ms => {
+                return {
+                    status: ms.status,
+                    dateReceived: ms.date_received,
+                    baseSalary: ms.base_salary,
+                    positionSalary: ms.position_salary,
+                    promotionSalary: ms.promotion_salary,
+                    allowanceSalary: ms.allowance_salary
+                }
+            }) : [],
+            dateWorking: result.date_working,
+            status: result.status,
             latestAccess: result.latest_access,
             createdAt: result.created_at,
             updatedAt: result.updated_at
@@ -168,27 +158,14 @@ class EmployeeDTO {
     }
 
     infoPayload(emp) {
-        let stories = [];
-        if (emp.stories) {
-            stories = emp.stories.map(tmp => {
-                let store = tmp.store;
-                let roles = tmp.roles;
-                let dateWorking = tmp.date_working;
-                return {
-                    store: store,
-                    roles: roles,
-                    dateWorking: dateWorking
-                }
-            })
-        }
-
         return {
             _id: emp._id,
             fullname: emp.fullname,
+            isSuperAdmin: emp.is_super_admin,
             email: emp.email,
-            stories: stories
+            roles: emp.roles,
+            dateWorking: emp.date_working
         }
-
     }
 }
 

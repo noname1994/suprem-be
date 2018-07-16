@@ -28,6 +28,8 @@ var server = http.createServer(app);
 /**
  * Connect database
  */
+const DataInit = require("../db-init");
+const dataInit = new DataInit();
 mongoose.set("debug", true);
 mongoose.connect(config.database.url, (err) => {
   if (err) {
@@ -35,6 +37,14 @@ mongoose.connect(config.database.url, (err) => {
   } else {
     console.log("Connect to success !");
   }
+})
+
+const arrPromise = Promise.all([dataInit.createSuperAdmin(), dataInit.createRole(), dataInit.createProvince(), dataInit.createDistrict(), dataInit.createWard()]);
+arrPromise.then(result => {
+  // console.log(result[0]);
+  // console.log(result[1]);
+}, error => {
+  console.log("error: ", error);
 })
 
 /**

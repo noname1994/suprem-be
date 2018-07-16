@@ -44,6 +44,6 @@ module.exports = function (err, req, res, next) {
 
     //
     res.status(err.status || 500);
-    return res.json({ error: err });
+    return res.json({ msg: "Internal server" });
   }
 };
