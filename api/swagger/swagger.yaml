@@ -466,7 +466,7 @@ paths:
     post:
       tags:
         - Promotion
-      summary: Create promotion 
+      summary: Create promotion
       security: 
         - jwt: []
       description: ""
@@ -539,15 +539,25 @@ paths:
         - application/json
       parameters:
         - in: query
+          name: type
+          type: string
+          enum:
+            - PERCENT
+            - GIFT
+          description: PERCENT || GIFT 
+          required: false
+        - in: query
           name: pageNum
           type: number
           description: page number
-          default: 0          
+          default: 0
+          required: false
         - in: query
           name: pageSize
           type: number
           description: page size
-          default: 100          
+          default: 100
+          required: false
       responses:
         "200":
           description: Success
@@ -578,7 +588,7 @@ paths:
           description: promotion object need to created
           required: true
           schema:
-            $ref:  "#/definitions/RoleSalaryModel"
+            $ref:  "#/definitions/PromotionModel"
       responses:
         "200":
           description: Success
@@ -592,6 +602,379 @@ paths:
           description: Server Error
           schema:
             $ref: "#/definitions/ErrorResponse" 
+  /promotion/{_id}:
+    get:
+      tags:
+        - Promotion
+      summary: get promotion by id
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: _id
+          type: string
+          description: _id of promotion
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /product:
+    post:
+      tags:
+        - Product
+      summary: Create product
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: product object
+          required: true
+          schema:
+            $ref:  "#/definitions/ProductModel"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+    delete:
+      tags:
+        - Product
+      summary: delete array list product
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: arrId
+          type: array
+          items:
+            type: string
+          description: array id (maximum 20)
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    get:
+      tags:
+        - Product
+      summary: get product
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: type
+          type: string
+          enum:
+            - PERCENT
+            - GIFT
+          description: PERCENT || GIFT 
+          required: false
+        - in: query
+          name: pageNum
+          type: number
+          description: page number
+          default: 0
+          required: false
+        - in: query
+          name: pageSize
+          type: number
+          description: page size
+          default: 100
+          required: false
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      tags:
+        - Product
+      summary: Update product
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: product object need to created
+          required: true
+          schema:
+            $ref:  "#/definitions/ProductModel"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+  /product/{_id}:
+    get:
+      tags:
+        - Product
+      summary: get product by id
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: _id
+          type: string
+          description: id of product
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /category:
+    post:
+      tags:
+        - Category
+      summary: Create category
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: category object
+          required: true
+          schema:
+            $ref:  "#/definitions/CategoryModel"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+    delete:
+      tags:
+        - Category
+      summary: delete array list category
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: arrId
+          type: array
+          items:
+            type: string
+          description: array id (maximum 20)
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    get:
+      tags:
+        - Category
+      summary: get category
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: type
+          type: string
+          enum:
+            - PERCENT
+            - GIFT
+          description: PERCENT || GIFT 
+          required: false
+        - in: query
+          name: pageNum
+          type: number
+          description: page number
+          default: 0
+          required: false
+        - in: query
+          name: pageSize
+          type: number
+          description: page size
+          default: 100
+          required: false
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      tags:
+        - Category
+      summary: Update category
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: category object need to created
+          required: true
+          schema:
+            $ref:  "#/definitions/CategoryModel"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+  /category/{_id}:
+    get:
+      tags:
+        - Category
+      summary: get category by id
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: _id
+          type: string
+          description: id of category
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
 definitions:
   SuccessResponse:
     properties:
@@ -880,31 +1263,28 @@ definitions:
     properties:
       _id:
         type: string
+      name:
+        type: string
       type:
         type: string
-        enum:
-          - PERCENT
-          - GIFT
-      percentFormula: 
-        type: array
-        items:
-          properties:
-            quantityPurchased:
-              type: number
-            reducedPercent:
-              type: number
-              default: 0
+      percentFormula:
+        properties:
+          purchasedQuantity:
+            type: number
+            default: 1
+          reducedPercent:
+            type: number
+            default: 0
       giftFormula:
-        type: array
-        items:
-          properties:
-            quantityPurchased:
-              type: number
-            donatedQuantity:
-              type: number
-              default: 0
-            donatedProduct:
-              type: string
+        properties:
+          purchasedQuantity:
+            type: number
+            default: 0
+          donatedQuantity:
+            type: number
+            default: 0
+          donatedProuct:
+            type: string
       description:
         type: string
       createdAt:
@@ -913,5 +1293,82 @@ definitions:
       updatedAt:
         type: string
         format: date-time
-    
-        
+  ProductModel:
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      category:
+        type: string
+        enum:
+          - Category 1
+          - Category 2
+      tag:
+        type: string
+        enum:
+          - Tag 1
+          - Tag 2
+      originalPrice:
+        type: number
+      salePrice:
+        type: number
+      status:
+        type: string
+        enum:
+          - AVAILABLE
+          - UNAVAIABLE
+          - DISABLE
+          - DELETED
+      colorImage:
+        type: array
+        items:
+          properties:
+            _id:
+              type: string
+            color:
+              type: string
+            image:
+              type: array
+              items:
+                properties:
+                  url:
+                    type: string
+            priority:
+              type: number
+      promotion:
+        type: array
+        items: 
+          properties:
+            information:
+              type: string
+            startedDate:
+              type: string
+              format: date
+              example: 2017-07-21 
+            endedDate:
+              type: string
+              format: date
+              example: 2017-07-21 
+      description: 
+        type: string
+  CategoryModel:
+    properties:
+      _id:
+        type: string
+      name: 
+        type: string
+      status:
+        type: string
+        enum:
+          - ACTIVE
+          - INACTIVE
+          - DELETED
+      description:
+        type: string
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time

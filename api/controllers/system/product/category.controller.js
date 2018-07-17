@@ -1,69 +1,73 @@
 const appRoot = require('app-root-path');
 
-const PromotionService = require("../../../service/product/promotion.service");
-const promotionService = new PromotionService();
+const CategoryService = require("../../../service/product/category.service");
+const categoryService = new CategoryService();
 
 const StandardRespone = require("../../../dto/response/standard.res");
 const stardardResponse = new StandardRespone();
 
-class PromotionController {
-    async createPromotion(req, res, next) {
+class CategoryController {
+
+    async createCategory(req, res, next) {
         try {
             let _body = req.body;
-            let promotionResponse = await promotionService.create(_body);
-            let entityResponse = stardardResponse.success(200, promotionResponse);
+            let categoryResponse = await categoryService.create(_body);
+            let entityResponse = stardardResponse.success(200, categoryResponse);
+
             return res.status(200).json(entityResponse);
         } catch (error) {
             next(error);
         }
     }
 
-    async updatePromotion(req, res, next) {
+    async updateCategory(req, res, next) {
         try {
             let _body = req.body;
-            let promotionResponse = await promotionService.update(_body);
-            let entityResponse = stardardResponse.success(200, promotionResponse);
+            let categoryResponse = await categoryService.update(_body);
+            let entityResponse = stardardResponse.success(200, categoryResponse);
+
             return res.status(200).json(entityResponse);
         } catch (error) {
             next(error);
         }
     }
 
-    async deletePromotion(req, res, next) {
+    async deleteCategory(req, res, next) {
         try {
             let str = req.query.arrId;
             let arrId = str.split(",");
-            let rawRepsonse = await promotionService.delete(arrId);
-            let entityResponse = stardardResponse.success(200, rawRepsonse);
+            let rowResponse = await categoryService.delete(arrId);
+            let entityResponse = stardardResponse.success(200, rowResponse);
+
             return res.status(200).json(entityResponse);
         } catch (error) {
             next(error);
         }
     }
 
-    async getAllPromotion(req, res, next) {
+    async getAllCategory(req, res, next) {
         try {
             let params = req.query;
-            let arrResponse = await promotionService.findAll(params);
+            let arrResponse = await categoryService.findAll(params);
             let entityResponse = stardardResponse.success(200, arrResponse);
+
             return res.status(200).json(entityResponse);
         } catch (error) {
             next(error);
         }
     }
 
-    async getByIdPromotion(req, res, next) {
+    async getByIdCategory(req, res, next) {
         try {
             let _id = req.params._id;
-            let promotionResponse = await promotionService.findById(_id);
-            let entityResponse = stardardResponse.success(200, promotionResponse);
+            let categoryResponse = await categoryService.findById(_id);
+            let entityResponse = stardardResponse.success(200, categoryResponse);
+
             return res.status(200).json(entityResponse);
         } catch (error) {
             next(error);
         }
     }
-
-
-
 }
-module.exports = PromotionController;
+
+module.exports = CategoryController;

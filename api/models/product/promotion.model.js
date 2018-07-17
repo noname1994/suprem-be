@@ -3,40 +3,38 @@ const Schema = mongoose.Schema;
 
 const PromotionSchema = new mongoose.Schema(
     {
+        name: {
+            type: String,
+            required: true
+        },
         type: {
             type: String,
             enum: ["PERCENT", "GIFT"]
         },
 
-        percent_formula: [
-            {
-                quantity_purchased: {
-                    type: Number,
-                    default: 1
-                },
+        percent_formula: {
+            purchased_quantity: {
+                type: Number
+            },
 
-                reduced_percent: {
-                    type: Number,
-                    default: 0
-                }
+            reduced_percent: {
+                type: Number
             }
-        ],
-        gift_formula: [
-            {
-                quantity_purchased: {
-                    type: Number,
-                    default: 1
-                },
-                donated_quantity: {
-                    type: Number,
-                    default: 0
-                },
-                donated_product: {
-                    type: Schema.Types.ObjectId,
-                    ref: "Product"
-                }
+        }
+        ,
+        gift_formula: {
+            purchased_quantity: {
+                type: Number
+            },
+            donated_quantity: {
+                type: Number
+            },
+            donated_product: {
+                type: Schema.Types.ObjectId,
+                ref: "Product"
             }
-        ],
+        }
+        ,
         description: {
             type: String
         },

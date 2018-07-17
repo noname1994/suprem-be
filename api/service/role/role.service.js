@@ -7,16 +7,14 @@ const RoleDTO = require("../../dto/role/role.dto");
 const roleDTO = new RoleDTO();
 
 
-const TAG = "STORAGE_SERVICE";
+const TAG = "ROLE_SERVICE";
 
-const fieldsEmployee = "_id fullname phone_number avatar";
 
 class StorageService {
 
     async findAll() {
         try {
             let rs = await Role.find() || [];
-            console.log("rs: ", rs);
             let arrResponse = rs.map(tmp => {
                 return roleDTO.infoResponse(tmp);
             })

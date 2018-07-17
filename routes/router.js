@@ -27,6 +27,12 @@ const vnLocationController = new VNLocationController();
 const PromotionController = require("../api/controllers/system/product/promotion.controller");
 const promotionController = new PromotionController();
 
+const ProductController = require("../api/controllers/system/product/product.controller");
+const productController = new ProductController();
+
+const CategoryController = require("../api/controllers/system/product/category.controller");
+const categoryController = new CategoryController();
+
 const validation = require("express-validation");
 const entryDataValidate = require("./validation/entry.data.validate");
 
@@ -75,14 +81,32 @@ router
     .get("/vn-location/district", vnLocationController.getDistrictByProvince)
     .get("/vn-location/ward", vnLocationController.getWardByDistrict)
     /**
-    * Promotion
-    */
-    .get("/promotion", promotionController.getAll)
-    .post("/promotion", promotionController.createPromotion)
-    .put("/promotion", promotionController.updatePromotion)
-    /**
-     * VN-location
+     * Promotion
      */
+    .get("/promotion", auth.isSuperAdmin, promotionController.getAllPromotion)
+    .post("/promotion", auth.isSuperAdmin, promotionController.createPromotion)
+    .put("/promotion", auth.isSuperAdmin, promotionController.updatePromotion)
+    .delete("/promotion", auth.isSuperAdmin, promotionController.deletePromotion)
+    .get("/promotion/:_id", auth.isSuperAdmin, promotionController.getByIdPromotion)
+    /**
+     * Product
+     */
+    .get("/product", auth.isSuperAdmin, productController.getAllProduct)
+    .post("/product", auth.isSuperAdmin, productController.createProduct)
+    .put("/product", auth.isSuperAdmin, productController.updateProduct)
+    .delete("/product", auth.isSuperAdmin, productController.deleteProduct)
+    .get("/product/:_id", auth.isSuperAdmin, productController.getByIdProduct)
+    /**
+     * Category
+     */
+    .get("/category", auth.isSuperAdmin, categoryController.getAllCategory)
+    .post("/category", auth.isSuperAdmin, categoryController.createCategory)
+    .put("/category", auth.isSuperAdmin, categoryController.updateCategory)
+    .delete("/category", auth.isSuperAdmin, categoryController.deleteCategory)
+    .get("/category/:_id", auth.isSuperAdmin, categoryController.getByIdCategory)
+    /**
+    * VN-location
+    */
     .get("/report",
         (req, res, next) => {
             next();

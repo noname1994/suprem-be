@@ -12,10 +12,12 @@ const ProductSchema = new mongoose.Schema(
             type: String,
             enum: []
         },
-        tag: {
-            type: String,
-            enum: []
-        },
+        tag: [
+            {
+                type: String,
+                enum: []
+            }
+        ],
         original_price: {
             type: Number,
             required: true,
@@ -30,12 +32,19 @@ const ProductSchema = new mongoose.Schema(
             enum: ["AVAILABLE", "UNAVAIABLE", "DISABLE", "DELETED"],
             default: "AVAILABLE"
         },
-        image_url: [
+        color_image: [
             {
-                _id: false,
-                url: {
+                color: {
                     type: String
                 },
+                image: [
+                    {
+                        _id: false,
+                        url: {
+                            type: String
+                        }
+                    }
+                ],
                 priority: {
                     type: String,
                     default: 0
