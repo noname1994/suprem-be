@@ -7,23 +7,20 @@ class PromotionDTO {
         tmp.name = name;
         tmp.type = type;
         if (type == "PERCENT") {
-            let formula = body.percentFormula;
-            tmp.percent_formula = {
-                purchased_quantity: formula.purchasedQuantity,
-                reduced_percent: formula.reducedPercent
-            };
+            tmp.percent_formula = body.percentFormula;
         } else if (type == "GIFT") {
-            let formula = body.giftFormula;
-            tmp.gift_formula = {
-                purchased_quantity: formula.purchasedQuantity,
-                donated_quantity: formula.donatedQuantity,
-                donated_product: formula.donatedProduct
-            };
+            tmp.gift_formula = body.giftFormula;
         }
         tmp.description = body.description;
-        tmp.created_at = Date.now();
+        tmp.createdAt = Date.now();
 
-        return tmp;
+        let newPromotion = {};
+        for (let key of Object.keys(tmp)) {
+            if (tmp[key] != null && tmp[key] != undefined) {
+                newPromotion[key] = tmp[key];
+            }
+        }
+        return newPromotion;
     }
 
     infoUpdate(body) {
@@ -35,23 +32,21 @@ class PromotionDTO {
         tmp.name = name;
         tmp.type = type;
         if (type == "PERCENT") {
-            let formula = body.percentFormula;
-            tmp.percent_formula = {
-                purchased_quantity: formula.purchasedQuantity,
-                reduced_percent: formula.reducedPercent
-            };
+            tmp.percent_formula = body.percentFormula;
         } else if (type == "GIFT") {
-            let formula = body.giftFormula;
-            tmp.gift_formula = {
-                purchased_quantity: formula.purchasedQuantity,
-                donated_quantity: formula.donatedQuantity,
-                donated_product: formula.donatedProduct
-            };
+            tmp.gift_formula = body.giftFormula;
         }
         tmp.description = body.description;
-        tmp.updated_at = Date.now();
+        tmp.updatedAt = Date.now();
 
-        return tmp;
+        let newPromotion = {};
+        for (let key of Object.keys(tmp)) {
+            if (tmp[key] != null && tmp[key] != undefined) {
+                newPromotion[key] = tmp[key];
+            }
+        }
+
+        return newPromotion;
     }
 
     infoResponse(promotion) {
@@ -61,23 +56,14 @@ class PromotionDTO {
         tmp.type = promotion.type;
 
         if (tmp.type == "PERCENT") {
-            let formula = promotion.percent_formula;
-            tmp.percentFormula = {
-                purchasedQuantity: formula.purchased_quantity,
-                reducedPercent: formula.reduced_percent
-            };
+            tmp.percentFormula = promotion.percentFormula;
         } else if (tmp.type == "GIFT") {
-            let formula = promotion.gift_formula;
-            tmp.giftFormula = {
-                purchasedQuantity: formula.purchased_quantity,
-                donatedQuantity: formula.donated_quantity,
-                donatedProduct: formula.donated_product
-            };
+            tmp.giftFormula = promotion.giftFormula;
         }
 
         tmp.description = promotion.description;
-        tmp.createdAt = promotion.created_at;
-        tmp.updatedAt = promotion.updated_at;
+        tmp.createdAt = promotion.createdAt;
+        tmp.updatedAt = promotion.updatedAt;
 
         return tmp;
     }

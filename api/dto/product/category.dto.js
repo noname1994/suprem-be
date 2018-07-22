@@ -4,26 +4,36 @@ class CategoryDTO {
         return {
             name: body.name,
             description: body.name,
-            created_at: Date.now()
+            createdAt: Date.now()
         }
     }
 
     infoUpdate(body) {
-        return {
+        let tmp = {
             _id: body._id,
             name: body.name,
+            status: body.status,
             description: body.description,
-            updated_at: Date.now()
+            updatedAt: Date.now()
         }
+
+        let newCategory = {};
+        for (let key of Object.keys(tmp)) {
+            if (tmp[key] != null && tmp[key] != undefined) {
+                newCategory[key] = tmp[key];
+            }
+        }
+        return newCategory;
     }
 
     infoResponse(category) {
         return {
             _id: category._id,
             name: category.name,
+            status: category.status,
             description: category.description,
-            createdAt: category.created_at,
-            updatedAt: category.updated_at
+            createdAt: category.createdAt,
+            updatedAt: category.updatedAt
         }
     }
 }

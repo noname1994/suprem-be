@@ -22,7 +22,7 @@ class FileUploadDTO {
             encoding: result.encoding,
             filename: result.filename,
             type: result.type,
-            createAt: result.created_at
+            createAt: result.createAt
         }
     }
 }

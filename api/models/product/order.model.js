@@ -7,16 +7,11 @@ const Schema = mongoose.Schema;
 
 const CustomerSchema = new Schema(
     {
-        fullname: {
-            type: String,
-            required: true
+        customer: {
+            type: Schema.Types.ObjectId,
+            ref: "Customer"
         },
-        email: {
-            type: String,
-            required: true,
-            unique: true
-        },
-        address_shipping: {
+        addressShipping: {
             detail: {
                 type: String
             },
@@ -63,61 +58,34 @@ const CustomerSchema = new Schema(
                 }
             }
         },
-        username: {
-            type: String,
-            required: true,
-            unique: true
-        },
-        password: {
-            type: String,
-            required: true,
-            default: "abc13579"
-        },
-        phone_number: [
+        arrProduct: [
             {
-                _id: false,
-                number: {
-                    type: String
+                product: {
+                    type: Schema.Types.ObjectId,
+                    ref: "Product"
+                },
+                purchasedQuantity: {
+                    type: Number,
+                    required: true
+                },
+                appliedPrice: {
+                    type: Number,
+                    required: true
                 }
             }
         ],
-        avatar: {
-            type: String
-        },
         status: {
             type: String,
             enum: ["ACTIVE", "INACTIVE", "DELETED"],
             default: "ACTIVE"
         },
-        account_type: {
-            type: String,
-            enum: ["FACEBOOK", "GOOGLE", "SYSTEM"]
-        },
-        latest_access: {
+        createdAt: {
             type: Date
         },
-        created_at: {
+        updatedAt: {
             type: Date
-        },
-        updated_at: {
-            type: Date,
-            default: Date.now()
         }
     }
 )
-
-CustomerSchema.pre("save", async function (next) {
-    try {
-        const emp = this;
-        let password = emp.password;
-        let rounds = Constant.rounds;
-        let salt = await bcrypt.genSalt(rounds);
-        let hash = await bcrypt.hash(password, salt);
-        emp.password = hash;
-        next();
-    } catch (error) {
-        throw error;
-    }
-})
 
 module.exports = mongoose.model("Customer", CustomerSchema);

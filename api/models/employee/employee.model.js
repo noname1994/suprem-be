@@ -77,93 +77,91 @@ const EmployeeSchema = new Schema(
             required: true,
             default: "abc13579"
         },
-        facebook_page: [
+        facebookPage: [
             {
                 _id: false,
                 url: {
                     type: String
-                }
-            }
+                },
+
+            },
         ],
-        phone_number: [
+        phoneNumber: [
             {
                 _id: false,
                 number: {
                     type: String
-                }
+                },
+                
             }
         ],
         avatar: {
             type: String
         },
 
-        roles: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: "Role"
-            }
-        ],
+        role: {
+            type: Schema.Types.ObjectId,
+            ref: "Role"
+        },
         salary: {
-            base_salary: {
+            baseSalary: {
                 type: Number,
                 default: 0
             },
-            position_salary: {
+            positionSalary: {
                 type: Number,
                 default: 0
             },
-            allowance_salary: {
+            allowanceSalary: {
                 type: Number,
                 default: 0
             }
         },
-        monthly_salary: [
+        monthlySalary: [
             {
                 status: {
                     type: String,
                     enum: ["RECEIVED", "NOT_RECEIVED"],
                     default: "NOT_RECEIVED"
                 },
-                date_received: {
+                dateReceived: {
                     type: Date
                 },
-                base_salary: {
+                baseSalary: {
                     type: Number,
                     default: 0
                 },
-                position_salary: {
+                positionSalary: {
                     type: Number,
                     default: 0
                 },
-                promotion_salary: {
+                promotionSalary: {
                     type: Number,
                     default: 0
                 },
-                allowance_salary: {
+                allowanceSalary: {
                     type: Number,
                     default: 0
                 }
             }
         ],
-        date_working: {
+        dateWorking: {
             type: Date,
             default: Date.now()
         },
-
         status: {
             type: String,
             enum: ["ACTIVE", "INACTIVE", "DELETED"],
             default: "ACTIVE"
         },
-        latest_access: {
+        latestAccess: {
             type: Date
         },
-        created_at: {
+        createdAt: {
             type: Date
         },
-        updated_at: {
-            type: Date,
-            default: Date.now()
+        updatedAt: {
+            type: Date
         }
     }
 )
@@ -174,9 +172,7 @@ EmployeeSchema.pre("save", async function (next) {
         let password = emp.password;
         let rounds = Constant.rounds;
         let salt = await bcrypt.genSalt(rounds);
-        console.log("salt: ", salt);
         let hash = await bcrypt.hash(password, salt);
-        console.log("hash: ", hash);
         emp.password = hash;
         next();
     } catch (error) {

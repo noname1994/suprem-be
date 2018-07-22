@@ -5,10 +5,10 @@ class ProductDTO {
             name: body.name,
             category: body.category,
             tag: body.tag,
-            original_price: body.originalPrice,
-            sale_price: body.salePrice,
+            originalPrice: body.originalPrice,
+            salePrice: body.salePrice,
             status: body.status,
-            color_image: body.colorImage ? body.colorImage.map(ele => {
+            colorImage: body.colorImage ? body.colorImage.map(ele => {
                 return {
                     color: ele.color,
                     image: ele.image ? ele.image : [],
@@ -18,12 +18,12 @@ class ProductDTO {
             promotion: body.promotion ? body.promotion.map(ele => {
                 return {
                     information: ele.information,
-                    started_date: ele.startedDate,
-                    ended_date: ele.endedDate
+                    startedDate: ele.startedDate,
+                    endedDate: ele.endedDate
                 }
             }) : [],
             description: body.description,
-            create_at: Date.now()
+            createdAt: Date.now()
         }
 
         let newProduct = {};
@@ -43,10 +43,10 @@ class ProductDTO {
             name: body.name,
             category: body.category,
             tag: body.tag,
-            original_price: body.originalPrice,
-            sale_price: body.salePrice,
+            originalPrice: body.originalPrice,
+            salePrice: body.salePrice,
             status: body.status,
-            color_image: body.colorImage ? body.colorImage.map(ele => {
+            colorImage: body.colorImage ? body.colorImage.map(ele => {
                 return {
                     color: ele.color,
                     image: ele.image ? ele.image : [],
@@ -56,12 +56,12 @@ class ProductDTO {
             promotion: body.promotion ? body.promotion.map(ele => {
                 return {
                     information: ele.information,
-                    started_date: ele.startedDate,
-                    ended_date: ele.endedDate
+                    startedDate: ele.startedDate,
+                    endedDate: ele.endedDate
                 }
             }) : null,
             description: body.description,
-            create_at: Date.now()
+            createdAt: Date.now()
         }
 
         let newProduct = {};
@@ -80,26 +80,27 @@ class ProductDTO {
             name: product.name,
             category: product.category,
             tag: product.tag,
-            originalPrice: product.original_price,
-            salePrice: product.sale_price,
+            originalPrice: product.originalPrice,
+            salePrice: product.salePrice,
             status: product.status,
-            colorImage: product.color_image ? product.color_image.map(ele => {
+            colorImage: product.colorImage ? product.colorImage.map(ele => {
                 return {
                     color: ele.color,
                     image: ele.image ? ele.image : [],
                     priority: ele.priority
                 }
             }) : [],
-            promotion: product.promotion ? product.promotion.map(ele => {
-                return {
-                    information: ele.information,
-                    startedDate: ele.started_date,
-                    endedDate: ele.ended_date
-                }
-            }) : [],
+            promotion: product.promotion ? product.promotion
+                .filter(ele => {
+                    if (ele.information) return true;
+                    return false;
+                })
+                .map(ele => {
+                    return ele
+                }) : [],
             description: product.description,
-            createdAt: product.create_at,
-            updatedAt: product.updated_at
+            createdAt: product.createdAt,
+            updatedAt: product.updatedAt
         }
     }
 

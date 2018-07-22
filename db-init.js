@@ -1,6 +1,6 @@
 /**
- * When Server init db-init.js will create fake database
- * disable : edit "start": "nodemon db.init.js ./bin/www"  in pakage.json
+ * 
+ * 
  */
 
 const fs = require("fs");
@@ -13,7 +13,25 @@ const District = require("./api/models/vietnam-location/district.model");
 
 const roles = [
     {
+        name: "SUPER_ADMIN",
+        permission: [
+            "ALL"
+        ]
+    },
+    {
         name: "ADMIN",
+        permission: [
+
+        ]
+    },
+    {
+        name: "ACCOUNTANT",
+        permission: [
+
+        ]
+    },
+    {
+        name: "STOCKER",
         permission: [
 
         ]
@@ -32,13 +50,27 @@ const superAdmin = {
     "email": "superadmin@hotmail.com",
     "address": {
         "detail": "Số 1, Phạm Văn Bạch",
-        "ward": "Phường Yên Hòa",
-        "district": "Quận Cầu Giấy",
-        "province": "Hà Nội"
+        "ward": {
+            "_id": 8,
+            "name": "Nguyễn Trung Trực",
+            "type": "Phường",
+            "location": "21 02 36N, 105 50 43E"
+        },
+        "district": {
+            "_id": 1,
+            "name": "Ba Đình",
+            "type": "Quận",
+            "location": "21 02 08N, 105 49 38E"
+        },
+        "province": {
+            "_id": 1,
+            "name": "Hà Nội",
+            "type": "Thành Phố"
+        }
     },
     "username": "superadmin",
     "password": "abc13579",
-    "facebook_page": [
+    "facebookPage": [
         {
             "url": "https://facebook.com.vn/tranducninhnd94"
         },
@@ -46,7 +78,7 @@ const superAdmin = {
             "url": "https://facebook.com.vn/tranducninhnd95"
         }
     ],
-    "phone_number": [
+    "phoneNumber": [
         {
             "number": "0166-97-09094"
         },
@@ -55,7 +87,8 @@ const superAdmin = {
         }
     ],
     "avatar": "http://localhost:8080/images/avater/default.jpg",
-    "is_super_admin": true
+    "role": "5b4c3a2783a8641f1c083ecc"
+
 }
 
 class DataInit {

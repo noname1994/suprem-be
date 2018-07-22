@@ -9,8 +9,8 @@ const ProductSchema = new mongoose.Schema(
             unique: true
         },
         category: {
-            type: String,
-            enum: []
+            type: Schema.Types.ObjectId,
+            ref: "Category"
         },
         tag: [
             {
@@ -18,21 +18,20 @@ const ProductSchema = new mongoose.Schema(
                 enum: []
             }
         ],
-        original_price: {
+        originalPrice: {
             type: Number,
             required: true,
             default: 0
         },
-        sale_price: {
-            type: Number,
-            required: true
+        salePrice: {
+            type: Number
         },
         status: {
             type: String,
             enum: ["AVAILABLE", "UNAVAIABLE", "DISABLE", "DELETED"],
             default: "AVAILABLE"
         },
-        color_image: [
+        colorImage: [
             {
                 color: {
                     type: String
@@ -53,14 +52,14 @@ const ProductSchema = new mongoose.Schema(
         ],
         promotion: [
             {
-                infomation: {
+                information: {
                     type: Schema.Types.ObjectId,
                     ref: "Promotion"
                 },
-                started_date: {
+                startedDate: {
                     type: Date
                 },
-                ended_date: {
+                endedDate: {
                     type: Date
                 }
             }
@@ -68,10 +67,10 @@ const ProductSchema = new mongoose.Schema(
         description: {
             type: String
         },
-        created_at: {
+        createdAt: {
             type: Date
         },
-        updated_at: {
+        updatedAt: {
             type: Date
         }
     }

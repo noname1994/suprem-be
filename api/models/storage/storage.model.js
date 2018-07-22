@@ -55,7 +55,7 @@ const StorageSchema = new mongoose.Schema(
                 }
             }
         },
-        phone_number: [
+        phoneNumber: [
             {
                 _id: false,
                 number: {
@@ -72,10 +72,10 @@ const StorageSchema = new mongoose.Schema(
             type: Schema.Types.ObjectId,
             ref: "Employee"
         },
-        created_at: {
+        createdAt: {
             type: Date
         },
-        updated_at: {
+        updatedAt: {
             type: Date
         }
     }

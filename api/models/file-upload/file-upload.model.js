@@ -36,7 +36,7 @@ const FileUploadSchema = new Schema(
             enum: ["AVATAR", "IMAGE_PRODUCT", "DOCUMENT", "OTHER"],
             default: "OTHER"
         },
-        created_at: {
+        createdAt: {
             type: Date
         }
     }

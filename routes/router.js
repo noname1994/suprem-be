@@ -53,7 +53,7 @@ router
      * Admin router
      */
     .post("/admin/employee", auth.isSuperAdmin, adminController.createEmployee)
-    .get("/admin/employee", auth.isSuperAdmin, adminController.findEmployeeByParams)
+    .get("/admin/employee", auth.isAuthorization, adminController.findEmployeeByParams)
     .delete("/admin/employee", auth.isSuperAdmin, adminController.deleteEmployee)
     .put("/admin/employee", auth.isSuperAdmin, adminController.updateEmployee)
     .get("/admin/role", auth.isSuperAdmin, adminController.getAllRoles)

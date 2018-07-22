@@ -881,12 +881,13 @@ paths:
         - application/json
       parameters:
         - in: query
-          name: type
+          name: status
           type: string
           enum:
-            - PERCENT
-            - GIFT
-          description: PERCENT || GIFT 
+            - ACTIVE
+            - INACTIVE
+            - DELETED
+          description: ACTIVE || INACTIVE || DELETED
           required: false
         - in: query
           name: pageNum
@@ -1283,7 +1284,7 @@ definitions:
           donatedQuantity:
             type: number
             default: 0
-          donatedProuct:
+          donatedProduct:
             type: string
       description:
         type: string

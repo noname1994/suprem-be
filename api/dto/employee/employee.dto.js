@@ -1,22 +1,6 @@
 class EmployeeDTO {
 
     infoCreate(body) {
-
-        let roles = tmp.roles || [];
-        let salary = tmp.salary;
-        let dateWorking = tmp.dateWorking;
-        return {
-            storage: storage,
-            roles: roles,
-            salary: {
-                base_salary: salary.baseSalary,
-                position_salary: salary.positionSalary,
-                allowance_salary: salary.allowanceSalary
-            },
-            monthly_salary: [],
-            date_working: dateWorking || Date.now()
-        }
-
         return {
             fullname: body.fullname,
             gen: body.gen,
@@ -24,35 +8,30 @@ class EmployeeDTO {
             address: body.address,
             username: body.username,
             password: body.password,
-            facebook_page: body.facebookPage || [],
-            phone_number: body.phoneNumber || [],
+            facebookPage: body.facebookPage || [],
+            phoneNumber: body.phoneNumber || [],
             avatar: body.avatar,
-            roles: roles || [],
-            salary: {
-                base_salary: salary.baseSalary,
-                position_salary: salary.positionSalary,
-                allowance_salary: salary.allowanceSalary
-            },
-            date_working: dateWorking,
-            monthly_salary: [],
-            created_at: Date.now()
+            role: body.role || {},
+            salary: body.salary,
+            dateWorking: body.dateWorking || Date.now(),
+            monthlySalary: [],
+            createdAt: Date.now()
         }
     }
 
     infoUpdate(body) {
 
         let newEmp = {};
-
         let obj = {
             fullname: body.fullname,
             gen: body.gen,
             email: body.email,
             address: body.address,
             username: body.username,
-            fb_address: body.facebookPage,
-            phone_number: body.phoneNumber,
+            facebookPage: body.facebookPage,
+            phoneNumber: body.phoneNumber,
             avatar: body.avatar,
-            updated_at: Date.now()
+            updatedAt: Date.now()
         }
 
         for (let key of Object.keys(obj)) {
@@ -74,7 +53,7 @@ class EmployeeDTO {
     infoUpdateForAdmin(body) {
 
         let idEmp = body._id;
-        let roles = body.roles;
+        let role = body.role;
         let salary = body.salary;
         let status = body.status;
         let dateWorking = body.dateWorking;
@@ -84,21 +63,11 @@ class EmployeeDTO {
         if (idEmp) {
             tmp._id = idEmp;
         }
-        if (roles) {
-            tmp.roles = roles;
+        if (role) {
+            tmp.role = role;
         }
         if (salary && Object.keys(salary).length) {
-            let newSalary = {};
-            if (salary.baseSalary || salary.baseSalary == 0) {
-                newSalary.base_salary = salary.baseSalary;
-            }
-            if (salary.positionSalary || salary.positionSalary == 0) {
-                newSalary.position_salary = salary.positionSalary;
-            }
-            if (salary.allowanceSalary || salary.allowanceSalary == 0) {
-                newSalary.allowance_salary = salary.allowanceSalary;
-            }
-            tmp.salary = newSalary;
+            tmp.salary = salary;
         }
 
         if (status) {
@@ -119,9 +88,6 @@ class EmployeeDTO {
 
 
     infoResponse(result) {
-        let roles = result.roles;
-        let salary = result.salary;
-        let monthlySalary = result.monthly_salary;
         return {
             _id: result._id,
             fullname: result.fullname,
@@ -130,30 +96,17 @@ class EmployeeDTO {
             address: result.address,
             username: result.username,
             password: result.password,
-            facebookPage: result.facebook_page,
-            phoneNumber: result.phone_number,
+            facebookPage: result.facebookPage,
+            phoneNumber: result.phoneNumber,
             avatar: result.avatar,
-            roles: result.roles,
-            salary: salary ? {
-                baseSalary: salary.base_salary,
-                positionSalary: salary.position_salary,
-                allowanceSalary: salary.allowance_salary
-            } : null,
-            monthlySalary: monthlySalary ? monthlySalary.map(ms => {
-                return {
-                    status: ms.status,
-                    dateReceived: ms.date_received,
-                    baseSalary: ms.base_salary,
-                    positionSalary: ms.position_salary,
-                    promotionSalary: ms.promotion_salary,
-                    allowanceSalary: ms.allowance_salary
-                }
-            }) : [],
-            dateWorking: result.date_working,
+            role: result.role,
+            salary: result.salary ? result.salary : null,
+            monthlySalary: result.monthlySalary ? result.monthlySalary : [],
+            dateWorking: result.dateWorking,
             status: result.status,
-            latestAccess: result.latest_access,
-            createdAt: result.created_at,
-            updatedAt: result.updated_at
+            latestAccess: result.latestAccess,
+            createdAt: result.createdAt,
+            updatedAt: result.updatedAt
         }
     }
 
@@ -161,10 +114,9 @@ class EmployeeDTO {
         return {
             _id: emp._id,
             fullname: emp.fullname,
-            isSuperAdmin: emp.is_super_admin,
             email: emp.email,
-            roles: emp.roles,
-            dateWorking: emp.date_working
+            role: emp.role,
+            dateWorking: emp.dateWorking
         }
     }
 }

@@ -10,15 +10,16 @@ const CategorySchema = new mongoose.Schema(
         },
         status: {
             type: String,
-            enum: ["ACTIVE", "INACTIVE", "DELETED"]
+            enum: ["ACTIVE", "INACTIVE", "DELETED"],
+            default: "ACTIVE"
         },
         description: {
             type: String
         },
-        created_at: {
+        createdAt: {
             type: Date
         },
-        updated_at: {
+        updatedAt: {
             type: Date
         }
     }

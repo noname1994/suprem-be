@@ -140,8 +140,8 @@ class EmployeeService {
 
     /**
      * 
-     * req.body    : {idEmp, roles, salary, status, dateWork}
-     * roles       : ObjectId []
+     * req.body    : {idEmp, role, salary, status, dateWork}
+     * role       : ObjectId 
      * salary      : {baseSalary: number, positionSalary: number, allowanceSalary: number}
     */
     async updateForAdmin(_body) {
@@ -149,7 +149,7 @@ class EmployeeService {
 
             let tmp = employeeDTO.infoUpdateForAdmin(_body);
             let idEmp = tmp._id;
-            let roles = tmp.roles;
+            let role = tmp.role;
             let salary = tmp.salary;
             let status = tmp.status;
             let dateWorking = tmp.dateWorking;
@@ -159,8 +159,8 @@ class EmployeeService {
                 throw new CustomizeError(TAG, 400, "employee isn't exist");
             }
 
-            if (roles) {
-                fieldsUpdate.roles = roles;
+            if (role) {
+                fieldsUpdate.role = role;
             }
             if (salary) {
                 fieldsUpdate.salary = salary;
@@ -176,7 +176,7 @@ class EmployeeService {
             await Employee.update({ "_id": idEmp }, fieldsUpdate);
 
             let rs = await Employee.findById(idEmp)
-                .populate({ path: "roles", select: "_id name permission", model: "Role" }).exec();
+                .populate({ path: "role", select: "_id name permission", model: "Role" }).exec();
 
             let empResponse = await employeeDTO.infoResponse(rs);
             return empResponse;
@@ -239,7 +239,8 @@ class EmployeeService {
             }
 
             let rs = await Employee.find(condition)
-                .populate({ path: "roles", select: "_id name permission", model: "Role" }).exec() || [];
+                .populate({ path: "role", select: "_id name permission", model: "Role" }).exec() || [];
+
 
             let arrResponse = rs.map(tmp => {
                 return employeeDTO.infoResponse(tmp);
@@ -258,7 +259,7 @@ class EmployeeService {
     async findByUsernameAndPassword(username, password) {
         try {
             let emp = await Employee.findOne({ $or: [{ username: username }, { email: username }] })
-                .populate({ path: "roles", select: "_id name permission", model: "Role" }).exec();
+                .populate({ path: "role", select: "_id name permission", model: "Role" }).exec();
             if (!emp) {
                 throw new CustomizeError(TAG, 400, `Not found account with username = "${username}"`);
             }

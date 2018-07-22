@@ -1,8 +1,8 @@
 const ProductService = require("../../../service/product/product.service");
 const productService = new ProductService();
 
-const StandardRespone = require("../../../dto/response/standard.res");
-const standardRespone = new StandardRespone();
+const StandardResponse = require("../../../dto/response/standard.res");
+const standardResponse = new StandardResponse();
 
 class ProductController {
 
@@ -11,7 +11,7 @@ class ProductController {
         try {
             let _body = req.body;
             let productResponse = await productService.create(_body);
-            let entityResponse = standardRespone.success(200, productResponse);
+            let entityResponse = standardResponse.success(200, productResponse);
 
             return res.status(200).json(entityResponse);
         } catch (error) {
@@ -23,7 +23,7 @@ class ProductController {
         try {
             let _body = req.body;
             let productResponse = await productService.update(_body);
-            let entityResponse = standardRespone.success(200, productResponse);
+            let entityResponse = standardResponse.success(200, productResponse);
 
             return res.status(200).json(entityResponse);
         } catch (error) {
@@ -36,7 +36,7 @@ class ProductController {
             let str = req.arrId;
             let arrId = str.split(",");
             let rawResponse = await productService.delete(arrId);
-            let entityResponse = standardRespone.success(200, productResponse);
+            let entityResponse = standardResponse.success(200, productResponse);
 
             return res.status(200).json(entityResponse);
         } catch (error) {
@@ -48,7 +48,7 @@ class ProductController {
         try {
             let params = req.query;
             let arrResponse = await productService.findAll(params);
-            let entityResponse = standardRespone.success(200, arrResponse);
+            let entityResponse = standardResponse.success(200, arrResponse);
 
             return res.status(200).json(entityResponse);
         } catch (error) {
@@ -60,8 +60,8 @@ class ProductController {
     async getByIdProduct(req, res, next) {
         try {
             let _id = req.params._id;
-            let productResponse = productService.findById(_id);
-            let entityResponse = stardardResponse.success(200, productResponse);
+            let productResponse = await productService.findById(_id);
+            let entityResponse = standardResponse.success(200, productResponse);
             return res.status(200).json(entityResponse);
         } catch (error) {
             next(error);

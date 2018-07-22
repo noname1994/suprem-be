@@ -33,7 +33,7 @@ class CategoryService {
     async update(_body) {
 
         try {
-            let newCategory = categoryDTO.infoCreate(_body);
+            let newCategory = categoryDTO.infoUpdate(_body);
             let tmp;
 
             let _id = newCategory._id;
@@ -47,12 +47,14 @@ class CategoryService {
             }
 
             let name = newCategory.name;
-            tmp = await Category.findOne({ name: name, _id: { $ne: _id } });
-            if (tmp) {
-                throw new CustomizeError(TAG, 400, `category namme = "${name}" is existed !`);
+            if (name) {
+                tmp = await Category.findOne({ name: name, _id: { $ne: _id } });
+                if (tmp) {
+                    throw new CustomizeError(TAG, 400, `category namme = "${name}" is existed !`);
+                }
             }
 
-            await Category.updateOne({ _id: _id }, { newCategory });
+            await Category.updateOne({ _id: _id }, newCategory);
 
             let rs = await Category.findById(_id);
 
