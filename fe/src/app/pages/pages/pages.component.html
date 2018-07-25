@@ -1,0 +1,113 @@
+<mat-drawer-container class="page-container" autosize>
+  <mat-drawer #drawer mode="side" class="page-sidenav" opened>
+    <div class="logo-div">
+      Logo & name
+    </div>
+    <div class="menu-left">
+      <button>
+        <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">dashboard</mat-icon>
+        Dashboard
+      </button>
+
+      <button>
+        <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">collections</mat-icon>
+        Banner Image
+      </button>
+
+      <button>
+        <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">people</mat-icon>
+        Quản lí nhân Viên
+        <mat-icon class="arrow-down mat-icon material-icons" role="img" aria-hidden="true">keyboard_arrow_down</mat-icon>
+      </button>
+      <div class="employee-menu">
+        <button>
+          Danh sách
+        </button>
+        <button>
+          Quản lí Lương
+        </button>
+      </div>
+
+      <button>
+        <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">store_mall_directory</mat-icon>
+        Sản phẩm & Khuyến mại
+        <mat-icon class="arrow-down mat-icon material-icons" role="img" aria-hidden="true">keyboard_arrow_down</mat-icon>
+      </button>
+      <div class="product-promotion-menu">
+        <button>
+          Sản Phẩm
+        </button>
+        <button>
+          Khuyến mại
+        </button>
+      </div>
+
+
+      <button>
+        <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">add_shopping_cart</mat-icon>
+        Quản Lí Đơn Hàng
+        <mat-icon class="arrow-down mat-icon material-icons" role="img" aria-hidden="true">keyboard_arrow_down</mat-icon>
+      </button>
+
+      <button>
+        <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">people_outline</mat-icon>
+        Quản lí khách hàng
+        <mat-icon class="arrow-down mat-icon material-icons" role="img" aria-hidden="true">keyboard_arrow_down</mat-icon>
+      </button>
+      <div class="customer-menu">
+        <button>
+          Danh sách
+        </button>
+        <button>
+          Cấp độ khách hàng
+        </button>
+      </div>
+
+
+      <button>
+        <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">folder</mat-icon>
+        Quản Lí File Upload
+        <mat-icon class="arrow-down mat-icon material-icons" role="img" aria-hidden="true">keyboard_arrow_down</mat-icon>
+      </button>
+      <div class="file-upload-menu">
+        <button>
+          Ảnh sản phẩm
+        </button>
+        <button>
+          Tài liệu
+        </button>
+        <button>
+          Other
+        </button>
+      </div>
+
+
+    </div>
+  </mat-drawer>
+  <mat-drawer-content class="page-content">
+    <mat-toolbar color="primary" class="toolbar">
+      <mat-toolbar-row>
+        <i class="material-icons" (click)="drawer.toggle()">menu</i>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="btn-user-menu">
+          <mat-icon>mood</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>Information</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="main">
+      main
+    </div>
+    <div class="footer">
+      footer
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

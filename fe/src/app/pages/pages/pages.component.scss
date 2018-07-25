@@ -1,0 +1,74 @@
+.page-container{
+    
+    .page-sidenav{
+        width: 14%;
+        background-color: #fff;
+
+        .logo-div{
+            height: 64px;
+            text-align: center;
+        }
+        .menu-left{
+            button{
+                background-color: Transparent;
+                background-repeat:no-repeat;
+                border: none;
+                cursor:pointer;
+                overflow: hidden;
+                outline:none;
+                height: 35px;
+                position: relative;
+                width: 100%;
+                text-align: left;
+                padding-left: 20%;
+                padding-bottom: 0px;
+                margin-bottom: 10px;
+                .people_outline{
+                    position: absolute;
+                    left: 5px;
+                }
+                .arrow-down{
+                    position: absolute;
+                    right: 5px;
+                    padding-right: 5%;
+                }
+            }
+
+            .employee-menu{
+                margin-left: 1%;
+            }
+
+            .customer-menu{
+                margin-left: 1%;
+            }
+            .product-promotion-menu{
+                margin-left: 1%;
+            }
+            .file-upload-menu{
+                margin-left: 1%;
+            }
+        }
+    }
+
+    .page-content{
+        
+        .toolbar{
+            background-color: #fff;
+
+            i{
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            .btn-user-menu{
+                margin-left: 95%;
+            }
+        }
+
+        .main{
+            background-color: #f0f4f5;
+            min-height: 840px;
+        }
+    }
+}
