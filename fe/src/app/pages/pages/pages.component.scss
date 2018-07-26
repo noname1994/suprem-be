@@ -4,7 +4,10 @@
         width: 14%;
         background-color: #fff;
 
+        border: 1px solid rgba(33, 33, 33, 0.1);
+
         .logo-div{
+            border-bottom: 1px solid rgba(33, 33, 33, 0.1);
             height: 64px;
             text-align: center;
         }
@@ -54,7 +57,7 @@
         
         .toolbar{
             background-color: #fff;
-
+            border: 1px solid rgba(33, 33, 33, 0.1);
             i{
                 &:hover {
                     cursor: pointer;

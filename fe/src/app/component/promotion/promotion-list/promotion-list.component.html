@@ -1,0 +1,90 @@
+<div class="emp-component">
+  <div class="top">
+    <div class="title">
+      <h4>Danh sách Khuyến Mại</h4>
+    </div>
+    <div class="btn-action">
+      <div class="total-element">
+        <span>Total :</span> 100
+      </div>
+      <div class="page-size">
+        <span>View :</span>
+        <select>
+          <option label="10" value="string:10" selected="selected">10</option>
+          <option label="20" value="string:10">20</option>
+          <option label="30" value="string:10">30</option>
+          <option label="50" value="string:10">50</option>
+        </select>
+      </div>
+
+      <button (click)="openFormCreationPromotion()">create</button>
+      <button>Delete</button>
+      <button>Clear Filter</button>
+    </div>
+  </div>
+  <div class="main">
+    <div class="main-table">
+      <table>
+        <tr>
+          <th>STT</th>
+          <th>Tên</th>
+          <th>Phạm Vi Áp Dụng</th>
+          <th>Loại</th>
+          <th>Tổng Tiền Tối Thiểu</th>
+          <th>Số Lượng SP Tối Thiểu</th>
+          <th>Sản Phẩm Tặng Kèm</th>
+          <th>Phần Trăm Giảm</th>
+          <th>Sản Phẩm Áp Dụng</th>
+          <th>Ảnh Mô Tả</th>
+          <th>Ngày Bắt Đầu</th>
+          <th>Ngày Kết Thúc</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Mua 5 Tặng 1</td>
+          <td>Toàn Cửa Hàng</td>
+          <td>PURCHASED_QUANTITY</td>
+          <td>-----</td>
+          <td>Tối thiểu 5 sản phảm</td>
+          <td>1 Đôi tất</td>
+          <td>-------</td>
+          <td>---------</td>
+          <td>Ảnh Mô Tả</td>
+          <td>20/7/2018</td>
+          <td>20/8/2018</td>
+          <td>
+            <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
+              <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
+            </button>
+            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
+              <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Mua 5 Tặng 1</td>
+          <td>Toàn Cửa Hàng</td>
+          <td>PURCHASED_QUANTITY</td>
+          <td>-----</td>
+          <td>Tối thiểu 5 sản phảm</td>
+          <td>1 Đôi tất</td>
+          <td>-------</td>
+          <td>---------</td>
+          <td>Ảnh Mô Tả</td>
+          <td>20/7/2018</td>
+          <td>20/8/2018</td>
+          <td>
+            <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
+              <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
+            </button>
+            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
+              <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

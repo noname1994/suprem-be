@@ -4,42 +4,39 @@
       Logo & name
     </div>
     <div class="menu-left">
-      <button>
+      <button (click)="openDashboardPage()">
         <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">dashboard</mat-icon>
         Dashboard
       </button>
 
-      <button>
+      <button (click)="openBannerImagePage()">
         <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">collections</mat-icon>
         Banner Image
       </button>
 
-      <button>
+      <button (click)="openMenuEmp()">
         <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">people</mat-icon>
-        Quản lí nhân Viên
+        Nhân viên & Role
         <mat-icon class="arrow-down mat-icon material-icons" role="img" aria-hidden="true">keyboard_arrow_down</mat-icon>
       </button>
-      <div class="employee-menu">
-        <button>
-          Danh sách
+      <div *ngIf="isMenuEmp" class="employee-menu">
+        <button (click)="openEmployeePage()">
+          Nhân viên
         </button>
-        <button>
-          Quản lí Lương
+        <button (click)="openRolePage()">
+          Role
         </button>
       </div>
 
-      <button>
+      <button (click)="openMenuProduct()">
         <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">store_mall_directory</mat-icon>
         Sản phẩm & Khuyến mại
         <mat-icon class="arrow-down mat-icon material-icons" role="img" aria-hidden="true">keyboard_arrow_down</mat-icon>
       </button>
-      <div class="product-promotion-menu">
-        <button>
-          Sản Phẩm
-        </button>
-        <button>
-          Khuyến mại
-        </button>
+      <div *ngIf="isMenuProduct" class="product-promotion-menu">
+        <button (click)="openCategoryPage()">Category</button>
+        <button (click)="openProductPage()">Sản Phẩm</button>
+        <button (click)="openPromotionPage()">Khuyến mại</button>
       </div>
 
 
@@ -49,12 +46,12 @@
         <mat-icon class="arrow-down mat-icon material-icons" role="img" aria-hidden="true">keyboard_arrow_down</mat-icon>
       </button>
 
-      <button>
+      <button (click)="openMenuCustomer()">
         <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">people_outline</mat-icon>
         Quản lí khách hàng
         <mat-icon class="arrow-down mat-icon material-icons" role="img" aria-hidden="true">keyboard_arrow_down</mat-icon>
       </button>
-      <div class="customer-menu">
+      <div *ngIf="isMenuCustomer" class="customer-menu">
         <button>
           Danh sách
         </button>
@@ -64,12 +61,12 @@
       </div>
 
 
-      <button>
+      <button (click)="openMenuFile()">
         <mat-icon class="people_outline mat-icon material-icons" role="img" aria-hidden="true">folder</mat-icon>
         Quản Lí File Upload
         <mat-icon class="arrow-down mat-icon material-icons" role="img" aria-hidden="true">keyboard_arrow_down</mat-icon>
       </button>
-      <div class="file-upload-menu">
+      <div *ngIf="isMenuFile" class="file-upload-menu">
         <button>
           Ảnh sản phẩm
         </button>
@@ -85,7 +82,7 @@
     </div>
   </mat-drawer>
   <mat-drawer-content class="page-content">
-    <mat-toolbar color="primary" class="toolbar">
+    <mat-toolbar class="toolbar">
       <mat-toolbar-row>
         <i class="material-icons" (click)="drawer.toggle()">menu</i>
         <button mat-icon-button [matMenuTriggerFor]="menu" class="btn-user-menu">
@@ -104,7 +101,7 @@
       </mat-toolbar-row>
     </mat-toolbar>
     <div class="main">
-      main
+      <router-outlet></router-outlet>
     </div>
     <div class="footer">
       footer
