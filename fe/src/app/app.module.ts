@@ -40,6 +40,9 @@ import { ProductListComponent } from './component/product/product-list/product-l
 import { FormCreationProductComponent } from './component/product/form-creation-product/form-creation-product.component';
 import { PromotionListComponent } from './component/promotion/promotion-list/promotion-list.component';
 import { FormCreationPromotionComponent } from './component/promotion/form-creation-promotion/form-creation-promotion.component';
+import { BannerImageListComponent } from './component/banner-image/banner-image-list/banner-image-list.component';
+import { FormCreationBannerImgComponent } from './component/banner-image/form-creation-banner-img/form-creation-banner-img.component';
+import { FormEditCategoryComponent } from './component/category/form-edit-category/form-edit-category.component';
 
 
 
@@ -67,6 +70,9 @@ import { FormCreationPromotionComponent } from './component/promotion/form-creat
     FormCreationProductComponent,
     PromotionListComponent,
     FormCreationPromotionComponent,
+    BannerImageListComponent,
+    FormCreationBannerImgComponent,
+    FormEditCategoryComponent,
   ],
   imports: [
     BrowserModule,

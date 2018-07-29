@@ -48,7 +48,7 @@ export class PagesComponent implements OnInit {
   }
 
   openBannerImagePage() {
-    this.router.navigateByUrl('/banner-image');
+    this.router.navigateByUrl('/banner-image/list');
   }
 
   openEmployeePage() {

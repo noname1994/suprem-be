@@ -33,32 +33,16 @@
           <th>Mô tả</th>
           <th>Action</th>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>Women</td>
-          <td>ACTIVE</td>
-          <td>Image</td>
-          <td>ACTIVE</td>
+        <tr *ngFor="let category of arrCategory; let i = index">
+          <td>{{i}}</td>
+          <td>{{category.name}}</td>
+          <td>{{category.status}}</td>
           <td>
-            <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
-              <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
-            </button>
-            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
-              <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
-            </button>
+            <img [src]="category.imageCover" />
           </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Women</td>
-          <td>ACTIVE</td>
-          <td>Image</td>
-          <td>ACTIVE</td>
+          <td>{{category.description}}</td>
           <td>
-            <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
-              <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
-            </button>
-            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
+            <button matTooltip="View & Edit" matTooltipPosition="below" class="btn-edit" (click)="openEditForm(category._id)">
               <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
             </button>
           </td>

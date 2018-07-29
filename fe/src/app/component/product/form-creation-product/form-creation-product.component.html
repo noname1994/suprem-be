@@ -1,3 +1,75 @@
-<p>
-  form-creation-product works!
-</p>
+<div class="emp-component">
+  <div class="top">
+    <div class="title">
+      <h4>Tạo Mới Sản Phẩm</h4>
+    </div>
+  </div>
+  <div class="main">
+    <div class="content-input">
+      <form class="product-form">
+        <div class="name">
+          <form>
+            <table>
+              <tr>
+                <td>
+                  <label>Tên Sản Phẩm</label>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <input matInput placeholder="">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <label>Loại Sản Phẩm</label>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <mat-select [(value)]="arrCategory && arrCategory[0] ? arrCategory[0].name : selectedCategory">
+                      <mat-option *ngFor="let category of arrCategory; let i = index" [value]="category.name" selected>
+                        {{category.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Giá Gốc</label>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <input matInput placeholder="">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <label>Giá Khuyến Mại</label>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <input matInput placeholder="">
+                  </mat-form-field>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button mat-menu-item matTooltip="Upload Ảnh đại diện" matTooltipPosition="below" (click)="imgFileInput.click()">
+                    <mat-icon style="color: green">image</mat-icon>
+                  </button>
+                  <input hidden accept="image/*" type="file" #imgFileInput (change)="fileChangeEvent($event)" name="file">
+                </td>
+                <td>
+                  <img *ngIf="imgCoverSource" [src]="imgCoverSource" style="max-width: 400px" />
+                </td>
+              </tr>
+            </table>
+          </form>
+
+        </div>
+      </form>
+    </div>
+    <div class="user-action">
+      <button (click)="insertNewCategory()">ADD</button>
+      <button>RESET</button>
+    </div>
+  </div>
+</div>

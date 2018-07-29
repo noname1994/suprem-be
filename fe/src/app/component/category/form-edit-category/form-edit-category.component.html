@@ -10,6 +10,16 @@
         <table>
           <tr>
             <td>
+              <label>ID</label>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput type="text" disabled [value]="category._id">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
               <label>Tên Danh Mục</label>
             </td>
             <td>
@@ -48,11 +58,29 @@
               </div>
             </td>
           </tr>
+          <tr>
+            <td>
+              <label>Created At</label>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput type="text" disabled [value]="category.createdAt">
+              </mat-form-field>
+            </td>
+            <td>
+              <label>Updated At</label>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput type="text" disabled [value]="category.updatedAt">
+              </mat-form-field>
+            </td>
+          </tr>
         </table>
       </form>
     </div>
     <div class="user-action">
-      <button (click)="insertNewCategory()">ADD</button>
+      <button (click)="updateCategory()">Save</button>
       <button>RESET</button>
       <p *ngIf="fgCategory.invalid "> Form chưa hợp lệ ! </p>
     </div>
