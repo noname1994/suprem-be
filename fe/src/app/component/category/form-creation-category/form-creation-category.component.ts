@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { CategoryService } from '../../../service/product/category.service';
+import { NotificationComponent } from '../../popups/notification/notification.component';
+import { NotificationService } from '../../../service/popups/notification.service';
+import { Subscription } from 'rxjs';
+import { SuccessResponse } from '../../../models/response/obj.success.res';
 
 @Component({
   selector: 'app-form-creation-category',
   templateUrl: './form-creation-category.component.html',
   styleUrls: ['./form-creation-category.component.scss']
 })
-export class FormCreationCategoryComponent implements OnInit {
+export class FormCreationCategoryComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+
+  constructor(private categoryService: CategoryService, private notificationService: NotificationService) { }
 
   private imgSource;
 
@@ -17,6 +23,8 @@ export class FormCreationCategoryComponent implements OnInit {
   private name: FormControl;
 
   private description: FormControl;
+
+  private subscriptionCreateCategory: Subscription;
 
 
   ngOnInit() {
@@ -70,8 +78,19 @@ export class FormCreationCategoryComponent implements OnInit {
   insertNewCategory() {
     if (this.fgCategory.valid) {
       let newCategoryObject = this.fgCategory.value;
-      
+      this.subscriptionCreateCategory = this.categoryService.createCategory(newCategoryObject).subscribe((entityRes: SuccessResponse<any>) => {
+        this.notificationService.createNotification(NotificationComponent, { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');
+      }, error => {
+        this.notificationService.createNotification(NotificationComponent, { code: error.code, message: error.message }, 2000, 'top', 'end');
+      })
+    } else {
+      this.notificationService.createNotification(NotificationComponent, { code: 400, message: 'Dữ liệu không hợp lệ ' }, 2000, 'top', 'end');
     }
   }
 
+  ngOnDestroy(): void {
+    if (this.subscriptionCreateCategory) {
+      this.subscriptionCreateCategory.unsubscribe();
+    }
+  }
 }

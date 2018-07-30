@@ -1,7 +1,3 @@
-export class PhoneNumber {
+export interface PhoneNumber {
     number: string;
-
-    constructor(number) {
-        this.number = number;
-    }
 }

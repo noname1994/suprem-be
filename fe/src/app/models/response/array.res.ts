@@ -1,5 +1,5 @@
 export class ArrayObject<T> {
-    total: Number;
+    total: number;
 
     list: T;
 

@@ -12,13 +12,4 @@ export class Category {
     createdAt: Date;
 
     updatedAt: Date;
-
-    constructor(body) {
-        this._id = body._id;
-        this.name = body.name;
-        this.status = body.status;
-        this.description = body.description;
-        this.createdAt = body.createdAt;
-        this.updatedAt = body.updatedAt;
-    }
 }

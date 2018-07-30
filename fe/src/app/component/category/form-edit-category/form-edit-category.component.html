@@ -14,7 +14,7 @@
             </td>
             <td>
               <mat-form-field>
-                <input matInput type="text" disabled [value]="category._id">
+                <input matInput type="text" formControlName="_id">
               </mat-form-field>
             </td>
           </tr>
@@ -58,13 +58,13 @@
               </div>
             </td>
           </tr>
-          <tr>
+          <!-- <tr>
             <td>
               <label>Created At</label>
             </td>
             <td>
               <mat-form-field>
-                <input matInput type="text" disabled [value]="category.createdAt">
+                <input matInput type="text" disabled [value]="category.createdAt | date:'yyyy-MM-dd HH:mm a'">
               </mat-form-field>
             </td>
             <td>
@@ -72,10 +72,10 @@
             </td>
             <td>
               <mat-form-field>
-                <input matInput type="text" disabled [value]="category.updatedAt">
+                <input matInput type="text" disabled [value]="category.updatedAt | date:'yyyy-MM-dd HH:mm a'">
               </mat-form-field>
             </td>
-          </tr>
+          </tr> -->
         </table>
       </form>
     </div>

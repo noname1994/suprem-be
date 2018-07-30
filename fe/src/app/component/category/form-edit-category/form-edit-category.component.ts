@@ -1,19 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Category } from '../../../models/product/category.model';
+import { DatePipe } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CategoryService } from '../../../service/product/category.service';
+import { NotificationService } from '../../../service/popups/notification.service';
+import { NotificationComponent } from '../../popups/notification/notification.component';
+import { SuccessResponse } from '../../../models/response/obj.success.res';
 
 @Component({
   selector: 'app-form-edit-category',
   templateUrl: './form-edit-category.component.html',
   styleUrls: ['./form-edit-category.component.scss']
 })
-export class FormEditCategoryComponent implements OnInit {
+export class FormEditCategoryComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute, private categoryService: CategoryService, private notificationService: NotificationService) { }
 
   private imgSource;
 
-  private category: Category;
+  private category: Category = new Category();
 
   private defaultDate = new Date();
 
@@ -21,9 +28,13 @@ export class FormEditCategoryComponent implements OnInit {
 
   private fgCategory: FormGroup;
 
+  private _id: FormGroup;
+
   private name: FormControl;
 
   private description: FormControl;
+
+  private subscriptionEditCategory: Subscription;
 
 
   ngOnInit() {
@@ -32,8 +43,14 @@ export class FormEditCategoryComponent implements OnInit {
 
     this.imgSource = this.category.imageCover;
 
+    this.initFormGroup();
+
+  }
+
+  initFormGroup() {
     this.fgCategory = new FormGroup(
       {
+        _id: new FormControl({ value: this.category._id, disabled: true }),
         name: new FormControl(this.category.name, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
         description: new FormControl(this.category.description, [Validators.maxLength(500)])
       }
@@ -45,8 +62,8 @@ export class FormEditCategoryComponent implements OnInit {
    */
 
   getCategoryById() {
-    this.category = { _id: "00001", name: "Category 1", imageCover: this.defaultImageCover, status: "ACTIVE", description: "Nothing to write...", createdAt: this.defaultDate, updatedAt: this.defaultDate };
-
+    const _id = this.activatedRoute.snapshot.paramMap.get('_id');
+    this.category._id = _id;
   }
 
   removeImage() {
@@ -93,7 +110,19 @@ export class FormEditCategoryComponent implements OnInit {
   updateCategory() {
     if (this.fgCategory.valid) {
       let newCategoryObject = this.fgCategory.value;
+      this.subscriptionEditCategory = this.categoryService.createCategory(newCategoryObject).subscribe((entityRes: SuccessResponse<any>) => {
+        this.notificationService.createNotification(NotificationComponent, { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');
+      }, error => {
+        this.notificationService.createNotification(NotificationComponent, { code: error.code, message: error.message }, 2000, 'top', 'end');
+      })
+    } else {
+      this.notificationService.createNotification(NotificationComponent, { code: 400, message: 'Dữ liệu không hợp lệ ' }, 2000, 'top', 'end');
+    }
+  }
 
+  ngOnDestroy(): void {
+    if (this.subscriptionEditCategory){
+      this.subscriptionEditCategory.unsubscribe();
     }
   }
 

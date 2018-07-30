@@ -1,0 +1,170 @@
+<div class="emp-component">
+  <div class="top">
+    <div class="title">
+      <h4>Tạo Mới Khuyến Mại</h4>
+    </div>
+  </div>
+  <div class="main">
+    <div class="content-input">
+
+      <form class="promotion-form" [formGroup]="fgPromotion">
+        <table>
+          <tr>
+            <td>
+              <label>Mã Khuyến Mại</label>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput placeholder="" formControlName="_id">
+              </mat-form-field>
+            </td>
+            <td>
+              <label>Tên Khuyến Mại (*)</label>
+            </td>
+            <td>
+              <mat-form-field hintLabel="[4 - 50] characters">
+                <input matInput placeholder="" formControlName="name">
+                <mat-error *ngIf="fgPromotion.controls.name.invalid">{{getErrorFieldName()}}</mat-error>
+              </mat-form-field>
+            </td>
+
+          </tr>
+          <tr>
+            <td>
+              <label>Phạm Vi Áp Dụng (*)</label>
+            </td>
+            <td>
+              <mat-form-field>
+                <mat-select [(value)]="arrScope && arrScope[0] ? arrScope[0] : defaultSelectd" formControlName="scope" (selectionChange)="actionSelectedScope($event.value)">
+                  <mat-option *ngFor="let scope of arrScope; let i = index" [value]="scope">
+                    {{scope == 'ALL_PRODUCT' ? 'Tất Cả Sản Phẩm' : 'Sản Phẩm Tùy Chọn'}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="fgPromotion.controls.name.invalid">{{getErrorFieldScope()}}</mat-error>
+              </mat-form-field>
+            </td>
+            <td>
+              <label>Loại Khuyến Mại (*)</label>
+            </td>
+            <td>
+              <mat-form-field>
+                <mat-select [(value)]="arrType && arrType[0] ? arrType[0] : defaultSelectd" formControlName="type" (selectionChange)="actionSelectedType($event.value)">
+                  <mat-option *ngFor="let type of arrType; let i = index" [value]="type">
+                    {{type == 'TOTAL_MONEY' ? 'Tổng Tiền' : 'Số Lượng Mua'}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="fgPromotion.controls.name.invalid">{{getErrorFieldType()}}</mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td *ngIf="isAppliedTotalMoney">
+              <label>Tổng Tiền Áp Dụng (>=)</label>
+            </td>
+            <td *ngIf="isAppliedTotalMoney">
+              <mat-form-field>
+                <input type="number" matInput placeholder="" formControlName="minimumMoney">
+                <mat-error *ngIf="fgPromotion.controls.name.invalid">{{getErrorMinimumMoney()}}</mat-error>
+              </mat-form-field>
+            </td>
+            <td *ngIf="!isAppliedTotalMoney">
+              <label>Tổng Sản Phẩm Áp dụng (>=)</label>
+            </td>
+            <td *ngIf="!isAppliedTotalMoney">
+              <mat-form-field>
+                <input type="number" matInput placeholder="" formControlName="minimumQuantity">
+                <mat-error *ngIf="fgPromotion.controls.name.invalid">{{getErrorMinimumQuantity()}}</mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Phần Trăm Giảm (%)</label>
+            </td>
+            <td>
+              <mat-form-field>
+                <input type="number" matInput placeholder="" formControlName="reducedPercent">
+                <mat-error *ngIf="fgPromotion.controls.name.invalid">{{getErrorReducedPercent()}}</mat-error>
+              </mat-form-field>
+            </td>
+            <td>
+              <label>Sản phẩm tặng kèm</label>
+            </td>
+            <td>
+              <mat-form-field>
+                <mat-select [(value)]="arrProduct && arrProduct[0] ? arrProduct[0] : defaultSelectd" formControlName="donatedProduct">
+                  <mat-option *ngFor="let product of arrProduct; let i = index" [value]="product">
+                    {{product}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Ngày Bắt Đầu (*)</label>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput [matDatepicker]="startedDate" formControlName="startedDate">
+                <mat-datepicker-toggle matSuffix [for]="startedDate"></mat-datepicker-toggle>
+                <mat-datepicker #startedDate></mat-datepicker>
+                <mat-error *ngIf="fgPromotion.controls.name.invalid">{{getErrorFieldStartedDate()}}</mat-error>
+              </mat-form-field>
+            </td>
+            <td>
+              <label>Ngày Kết Thúc (*)</label>
+            </td>
+            <td>
+              <mat-form-field>
+                <input matInput [matDatepicker]="endedDate" formControlName="endedDate">
+                <mat-datepicker-toggle matSuffix [for]="endedDate"></mat-datepicker-toggle>
+                <mat-datepicker #endedDate></mat-datepicker>
+                <mat-error *ngIf="fgPromotion.controls.name.invalid">{{getErrorFieldEndedDate()}}</mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr *ngIf="isAppliedProduct">
+            <td>Sản phẩm Áp Dụng (*)</td>
+            <td colspan="4">
+              <label *ngFor="let appliedProduct of arrAppliedProduct" class="product-tag">
+                {{appliedProduct}}
+                <mat-icon matTooltip="Xóa" matTooltipPosition="below" class="arrow-down mat-icon material-icons" role="img" aria-hidden="true">clear</mat-icon>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Mô Tả Ngắn</label>
+            </td>
+            <td>
+              <mat-form-field hintLabel="Max 500 characters">
+                <textarea matInput type="text" formControlName="description"></textarea>
+                <mat-error *ngIf="fgPromotion.controls.description.invalid">{{getErrorFieldDescription()}}</mat-error>
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button mat-menu-item matTooltip="Upload Ảnh đại diện" matTooltipPosition="below" (click)="imgFileInput.click()">
+                <mat-icon style="color: green">image</mat-icon>
+              </button>
+              <input hidden accept="image/*" type="file" #imgFileInput (change)="fileChangeEvent($event)" name="file">
+            </td>
+            <td>
+              <img *ngIf="imgPromotionCover" [src]="imgPromotionCover" style="max-width: 400px" />
+            </td>
+
+          </tr>
+        </table>
+
+      </form>
+
+    </div>
+    <div class="user-action">
+      <button (click)="insertNewPromotion()">ADD</button>
+      <button>RESET</button>
+      <p *ngIf="fgPromotion.invalid "> Form chưa hợp lệ ! </p>
+    </div>
+  </div>
+</div>

@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RoleService } from '../../service/employee/role.service';
 import { SuccessResponse } from '../../models/response/obj.success.res';
 import { Role } from '../../models/employee/role.model';
-import { throwError } from 'rxjs';
+import { throwError, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-role',
   templateUrl: './role.component.html',
   styleUrls: ['./role.component.scss']
 })
-export class RoleComponent implements OnInit {
+export class RoleComponent implements OnInit, OnDestroy {
 
+
+  private subscriptionGetAllRole: Subscription;
 
   private roles: Array<Role> = [];
 
@@ -22,15 +24,22 @@ export class RoleComponent implements OnInit {
   }
 
   getAllRole() {
-    this.roleService.getAllRole().subscribe((entityRes: SuccessResponse<Array<Role>>) => {
+    this.subscriptionGetAllRole = this.roleService.getAllRole().subscribe((entityRes: SuccessResponse<Array<Role>>) => {
       console.log("data: ", entityRes);
-      if (entityRes.value){
+      if (entityRes.value) {
         this.roles = entityRes.value;
       }
     }, error => {
       console.error("Error get role!");
       return throwError(error);
     })
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscriptionGetAllRole) {
+      this.subscriptionGetAllRole.unsubscribe();
+    }
+
   }
 
 }

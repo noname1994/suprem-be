@@ -9,11 +9,11 @@
       </div>
       <div class="page-size">
         <span>View :</span>
-        <select>
-          <option label="10" value="string:10" selected="selected">10</option>
-          <option label="20" value="string:10">20</option>
-          <option label="30" value="string:10">30</option>
-          <option label="50" value="string:10">50</option>
+        <select (change)="onChangePageSize($event.target.value)">
+          <option label="10" value="10" selected="selected">10</option>
+          <option label="20" value="20">20</option>
+          <option label="30" value="30">30</option>
+          <option label="50" value="50">50</option>
         </select>
       </div>
 

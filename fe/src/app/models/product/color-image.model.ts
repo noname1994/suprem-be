@@ -1,12 +1,5 @@
-export class ColorImage {
+export interface ColorImage {
     color: string;
     images: Array<String>;
     priority: number;
-
-    constructor(body) {
-        this.color = body.color;
-        this.images = body.images;
-        this.priority = body.priority;
-    }
- 
 }

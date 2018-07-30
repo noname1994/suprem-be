@@ -2,13 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { DatePipe } from '@angular/common';
 /**
  * Metarial
  */
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule,
    MatExpansionModule, MatMenuModule, MatTooltipModule, MatInputModule, MatSelectModule, 
-   MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+   MatDatepickerModule, MatNativeDateModule, MatSnackBarModule } from '@angular/material';
 /**
  * Routes
  */
@@ -43,6 +44,10 @@ import { FormCreationPromotionComponent } from './component/promotion/form-creat
 import { BannerImageListComponent } from './component/banner-image/banner-image-list/banner-image-list.component';
 import { FormCreationBannerImgComponent } from './component/banner-image/form-creation-banner-img/form-creation-banner-img.component';
 import { FormEditCategoryComponent } from './component/category/form-edit-category/form-edit-category.component';
+import { FormEditPromotionComponent } from './component/promotion/form-edit-promotion/form-edit-promotion.component';
+import { CategoryService } from './service/product/category.service';
+import { NotificationComponent } from './component/popups/notification/notification.component';
+import { NotificationService } from './service/popups/notification.service';
 
 
 
@@ -73,6 +78,8 @@ import { FormEditCategoryComponent } from './component/category/form-edit-catego
     BannerImageListComponent,
     FormCreationBannerImgComponent,
     FormEditCategoryComponent,
+    FormEditPromotionComponent,
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,10 +99,11 @@ import { FormEditCategoryComponent } from './component/category/form-edit-catego
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSnackBarModule
   ],
-  entryComponents: [UserMenuComponent],
-  providers: [RoleService, EmployeeService],
+  entryComponents: [UserMenuComponent, NotificationComponent],
+  providers: [DatePipe, RoleService, EmployeeService, CategoryService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

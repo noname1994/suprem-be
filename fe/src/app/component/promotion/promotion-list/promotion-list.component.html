@@ -9,11 +9,11 @@
       </div>
       <div class="page-size">
         <span>View :</span>
-        <select>
-          <option label="10" value="string:10" selected="selected">10</option>
-          <option label="20" value="string:10">20</option>
-          <option label="30" value="string:10">30</option>
-          <option label="50" value="string:10">50</option>
+        <select (change)="onChangePageSize($event.target.value)">
+          <option label="10" value="10" selected="selected">10</option>
+          <option label="20" value="20">20</option>
+          <option label="30" value="30">30</option>
+          <option label="50" value="50">50</option>
         </select>
       </div>
 
@@ -40,46 +40,21 @@
           <th>Ngày Kết Thúc</th>
           <th>Action</th>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>Mua 5 Tặng 1</td>
-          <td>Toàn Cửa Hàng</td>
-          <td>PURCHASED_QUANTITY</td>
+        <tr *ngFor="let promotion of arrPromotion; let i = index">
+          <td>{{i}}</td>
+          <td>{{promotion.name}}</td>
+          <td>{{promotion.scope}}</td>
+          <td>{{promotion.type}}</td>
           <td>-----</td>
           <td>Tối thiểu 5 sản phảm</td>
-          <td>1 Đôi tất</td>
+          <td></td>
           <td>-------</td>
           <td>---------</td>
           <td>Ảnh Mô Tả</td>
           <td>20/7/2018</td>
           <td>20/8/2018</td>
           <td>
-            <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
-              <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
-            </button>
-            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
-              <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Mua 5 Tặng 1</td>
-          <td>Toàn Cửa Hàng</td>
-          <td>PURCHASED_QUANTITY</td>
-          <td>-----</td>
-          <td>Tối thiểu 5 sản phảm</td>
-          <td>1 Đôi tất</td>
-          <td>-------</td>
-          <td>---------</td>
-          <td>Ảnh Mô Tả</td>
-          <td>20/7/2018</td>
-          <td>20/8/2018</td>
-          <td>
-            <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
-              <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
-            </button>
-            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
+            <button matTooltip="View & Edit" matTooltipPosition="below" class="btn-edit" (click)="actionOpenFormEditPromotion(promotion._id)">
               <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
             </button>
           </td>

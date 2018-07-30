@@ -1,12 +1,12 @@
 export class SuccessResponse<T> {
-    result: Number;
+    code: Number;
 
     message: string;
 
     value: T;
 
     constructor(obj) {
-        this.result = obj.result;
+        this.code = obj.code;
         this.message = obj.message;
         this.value = obj.value;
     }
