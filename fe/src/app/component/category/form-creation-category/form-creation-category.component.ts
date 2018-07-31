@@ -5,6 +5,10 @@ import { NotificationComponent } from '../../popups/notification/notification.co
 import { NotificationService } from '../../../service/popups/notification.service';
 import { Subscription } from 'rxjs';
 import { SuccessResponse } from '../../../models/response/obj.success.res';
+import { FileUplaod } from '../../../models/common/file-upload/file-upload.model';
+import { FileService } from '../../../service/file/file.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Constant } from '../../../utils/constant';
 
 @Component({
   selector: 'app-form-creation-category',
@@ -14,9 +18,7 @@ import { SuccessResponse } from '../../../models/response/obj.success.res';
 export class FormCreationCategoryComponent implements OnInit, OnDestroy {
 
 
-  constructor(private categoryService: CategoryService, private notificationService: NotificationService) { }
-
-  private imgSource;
+  constructor(private categoryService: CategoryService, private notificationService: NotificationService, private fileService: FileService) { }
 
   private fgCategory: FormGroup;
 
@@ -24,7 +26,18 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
 
   private description: FormControl;
 
+  private imgCover;
+
+  private arrFileUpload = [];
+
+  /**
+   * Subscription
+   */
   private subscriptionCreateCategory: Subscription;
+
+  private subscriptionUploadFile: Subscription;
+
+
 
 
   ngOnInit() {
@@ -39,16 +52,17 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
 
   removeImage() {
     console.log("remove image");
-    this.imgSource = null;
+    this.imgCover = null;
+    this.arrFileUpload = [];
   }
 
 
   fileChangeEvent(fileInput): void {
     if (fileInput.target.files && fileInput.target.files[0]) {
-      console.log(' ', fileInput.target.files, ' ', fileInput.target.files[0]);
+      this.arrFileUpload = Array.prototype.slice.call(fileInput.target.files);
       var reader = new FileReader();
       reader.onload = (e: any) => {
-        this.imgSource = e.target.result;
+        this.imgCover = e.target.result;
       }
       reader.readAsDataURL(fileInput.target.files[0]);
     }
@@ -75,22 +89,56 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
   }
 
 
+  subFucntionNewCategory(newCategory) {
+    this.subscriptionCreateCategory = this.categoryService.createCategory(newCategory).subscribe((entityRes: SuccessResponse<any>) => {
+      this.notificationService.createNotification(
+        NotificationComponent,
+        { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end'
+      );
+    }, error => {
+      this.notificationService.createNotification(
+        NotificationComponent,
+        { code: error.code, message: error.message }, 2000, 'top', 'end'
+      );
+    })
+  }
+
   insertNewCategory() {
     if (this.fgCategory.valid) {
       let newCategoryObject = this.fgCategory.value;
-      this.subscriptionCreateCategory = this.categoryService.createCategory(newCategoryObject).subscribe((entityRes: SuccessResponse<any>) => {
-        this.notificationService.createNotification(NotificationComponent, { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');
-      }, error => {
-        this.notificationService.createNotification(NotificationComponent, { code: error.code, message: error.message }, 2000, 'top', 'end');
-      })
+      if (this.arrFileUpload && this.arrFileUpload.length > 0) {
+        this.subscriptionUploadFile = this.fileService.uploadFile(this.arrFileUpload)
+          .subscribe((entityRes: SuccessResponse<FileUplaod[]>) => {
+            this.imgCover = `${Constant.SERVER_HOST}/${entityRes.value[0].path}`;
+            this.subFucntionNewCategory(newCategoryObject);
+          }, (httpError: HttpErrorResponse) => {
+            this.handleError(httpError.error);
+          })
+      } else {
+        this.subFucntionNewCategory(newCategoryObject);
+      }
     } else {
-      this.notificationService.createNotification(NotificationComponent, { code: 400, message: 'Dữ liệu không hợp lệ ' }, 2000, 'top', 'end');
+      this.notificationService.createNotification(
+        NotificationComponent,
+        { code: 400, message: 'Dữ liệu không hợp lệ' }, 2000, 'top', 'end'
+      );
     }
   }
+
+  private handleError(error) {
+    this.notificationService.createNotification(
+      NotificationComponent,
+      { code: error.code, message: error.message }, 2000, 'top', 'end'
+    );
+  }
+
 
   ngOnDestroy(): void {
     if (this.subscriptionCreateCategory) {
       this.subscriptionCreateCategory.unsubscribe();
+    }
+    if (this.subscriptionUploadFile) {
+      this.subscriptionUploadFile.unsubscribe();
     }
   }
 }

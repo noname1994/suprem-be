@@ -6,6 +6,9 @@ import { CategoryService } from '../../../service/product/category.service';
 import { Subscription, throwError } from 'rxjs';
 import { SuccessResponse } from '../../../models/response/obj.success.res';
 import { ArrayObject } from '../../../models/response/array.res';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationService } from '../../../service/popups/notification.service';
+import { NotificationComponent } from '../../popups/notification/notification.component';
 
 @Component({
   selector: 'app-category-list',
@@ -29,31 +32,47 @@ export class CategoryListComponent implements OnInit, OnDestroy {
 
   private params = { pageNum: this.pageNum, pageSize: this.pageSize }
 
+  private arrIndexPage: Array<Number> = [];
+
+  private arrSelectedIndexPage: Array<Boolean> = [];
+
+  private positionIndexPageCliced = 0;
+
+
   /**
    * subscribe
    */
   private subscriptionGetAll: Subscription;
 
-  constructor(private router: Router, private categoryService: CategoryService) { }
+  constructor(private router: Router, private categoryService: CategoryService, private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.getAllCategory();
+  }
+
+  // pagination
+  setupPagination() {
+    let numberPage = this.totalRecord / this.pageSize;
+
+    if (this.totalRecord % this.pageSize != 0) {
+      ++numberPage;
+    }
+    for (let i = 1; i <= numberPage; i++) {
+      this.arrIndexPage.push(i);
+    }
+    console.log(this.arrIndexPage)
   }
 
   /**
    * Call Api
    */
   getAllCategory() {
-
-    let params = { pageNum: this.pageNum, pageSize: this.pageSize };
-    this.subscriptionGetAll = this.categoryService.getALlCategory(params).subscribe((resEntity: SuccessResponse<ArrayObject<Category[]>>) => {
-      if (resEntity.code == Constant.CODE_SUCCESS) {
-        this.totalRecord = resEntity.value.total;
-        this.arrCategory = resEntity.value.list;
-      }
-    }, error => {
-      console.error("Error get role!");
-      return throwError(error);
+    this.subscriptionGetAll = this.categoryService.getALlCategory(this.params).subscribe((resEntity: SuccessResponse<ArrayObject<Category[]>>) => {
+      this.totalRecord = resEntity.value.total;
+      this.arrCategory = resEntity.value.list;
+      this.setupPagination();
+    }, (httpError: HttpErrorResponse) => {
+      this.handleError(httpError.error);
     })
   }
 
@@ -78,6 +97,50 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     this.getAllCategory();
   }
 
+  changePageNum(index) {
+    this.pageNum = index;
+    this.params.pageNum = this.pageNum;
+  }
+
+  preIndexPageClicked(index) {
+    if (this.positionIndexPageCliced > 0) {
+      this.arrSelectedIndexPage[this.positionIndexPageCliced] = false;
+      this.arrSelectedIndexPage[this.positionIndexPageCliced - 1] = true;
+      this.positionIndexPageCliced = this.positionIndexPageCliced - 1;
+      this.changePageNum(this.positionIndexPageCliced - 1);
+      this.getAllCategory();
+    }
+  }
+
+
+  IndexPageClicked(index) {
+    if (index != this.positionIndexPageCliced) {
+      this.arrSelectedIndexPage[this.positionIndexPageCliced] = false;
+      this.arrSelectedIndexPage[index] = true;
+      this.positionIndexPageCliced = index;
+      this.changePageNum(index);
+      this.getAllCategory();
+    }
+  }
+
+  lastIndexPageClicked() {
+    if (this.positionIndexPageCliced < this.arrIndexPage.length - 1) {
+      this.arrSelectedIndexPage[this.positionIndexPageCliced] = false;
+      this.arrSelectedIndexPage[this.positionIndexPageCliced + 1] = true;
+      this.positionIndexPageCliced = this.positionIndexPageCliced + 1;
+      this.changePageNum(this.positionIndexPageCliced + 1);
+      this.getAllCategory();
+    }
+  }
+
+  /**
+   * handle error
+   */
+  private handleError(error) {
+    this.notificationService.createNotification(
+      NotificationComponent,
+      { code: error.code, message: error.message }, 2000, 'top', 'end');
+  }
 
   /**
    * destroy

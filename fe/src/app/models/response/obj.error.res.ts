@@ -1,12 +1,12 @@
 export class ErrorResponse<T> {
-    result: Number;
+    code: Number;
 
     message: string;
 
     error: T;
 
     constructor(obj) {
-        this.result = obj.result;
+        this.code = obj.code;
         this.message = obj.message;
         this.error = obj.error;
     }

@@ -26,33 +26,37 @@
     <div class="main-table">
       <table>
         <tr>
-          <th>STT</th>
-          <th>Tên</th>
-          <th>Phạm Vi Áp Dụng</th>
-          <th>Loại</th>
-          <th>Tổng Tiền Tối Thiểu</th>
-          <th>Số Lượng SP Tối Thiểu</th>
-          <th>Sản Phẩm Tặng Kèm</th>
-          <th>Phần Trăm Giảm</th>
-          <th>Sản Phẩm Áp Dụng</th>
-          <th>Ảnh Mô Tả</th>
-          <th>Ngày Bắt Đầu</th>
-          <th>Ngày Kết Thúc</th>
-          <th>Action</th>
+          <th class="stt">STT</th>
+          <th class="name">Tên</th>
+          <th class="scope">Phạm Vi Áp Dụng</th>
+          <th class="type">Loại</th>
+          <th class="minimum-money">Tổng Tiền Áp dụng (>=)</th>
+          <th class="minimum-quantity">Số Lượng Mua Áp Dụng (>=)</th>
+          <th class="donated-product">Sản Phẩm Tặng Kèm</th>
+          <th class="reduced-percent">Phần Trăm Giảm</th>
+          <th class="applied-product">Sản Phẩm Áp Dụng</th>
+          <th class="image-cover">Ảnh Mô Tả</th>
+          <th class="started-date">Ngày Bắt Đầu</th>
+          <th class="ended-date">Ngày Kết Thúc</th>
+          <th class="status">Trạng Thái</th>
+          <th class="description">Mô tả</th>
+          <th class="action">Action</th>
         </tr>
         <tr *ngFor="let promotion of arrPromotion; let i = index">
-          <td>{{i}}</td>
+          <td>{{i + 1}}</td>
           <td>{{promotion.name}}</td>
-          <td>{{promotion.scope}}</td>
-          <td>{{promotion.type}}</td>
-          <td>-----</td>
-          <td>Tối thiểu 5 sản phảm</td>
-          <td></td>
-          <td>-------</td>
-          <td>---------</td>
-          <td>Ảnh Mô Tả</td>
-          <td>20/7/2018</td>
-          <td>20/8/2018</td>
+          <td>{{promotion.scope == 'ALL_PRODUCT' ? 'Tất Cả' : 'Theo Sản Phẩm'}}</td>
+          <td>{{promotion.type == 'TOTAL_MONEY' ? 'Tổng Tiền' : 'Số Lượng'}}</td>
+          <td>{{promotion.minimumMoney}}</td>
+          <td>{{promotion.minimumQuantity}}</td>
+          <td>{{promotion.donatedProduct}}</td>
+          <td>{{promotion.reducedPercent}}</td>
+          <td>{{promotion.appliedProduct}}</td>
+          <td>{{promotion.imageCover}}</td>
+          <td>{{promotion.startedDate | date:'yyyy-MM-dd HH:mm a'}}</td>
+          <td>{{promotion.endedDate | date:'yyyy-MM-dd HH:mm a'}}</td>
+          <td>{{promotion.status}}</td>
+          <td>{{promotion.description}}</td>
           <td>
             <button matTooltip="View & Edit" matTooltipPosition="below" class="btn-edit" (click)="actionOpenFormEditPromotion(promotion._id)">
               <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
@@ -60,6 +64,11 @@
           </td>
         </tr>
       </table>
+    </div>
+    <div class="pagination-div">
+      <a href="javascript:void(0);" (click) = "preIndexPageClicked()">&laquo;</a>
+      <a href="javascript:void(0);" (click) = "IndexPageClicked(index)" [ngClass]="{'active': arrSelectedIndexPage[index]}" *ngFor="let index of arrIndexPage">{{index + 1}}</a>
+      <a href="javascript:void(0);" (click) = "lastIndexPageClicked()">&raquo;</a>
     </div>
   </div>
 </div>

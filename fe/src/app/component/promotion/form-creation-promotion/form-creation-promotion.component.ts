@@ -41,11 +41,13 @@ export class FormCreationPromotionComponent implements OnInit {
 
   private arrAppliedProduct = ["Sản Phẩm 1", "Sản Phẩm 2", "Sản Phẩm 1", "Sản Phẩm 2", "Sản Phẩm 1", "Sản Phẩm 2"];
 
-  private imgPromotionCover;
-
   private isAppliedProduct: Boolean = false;
 
   private isAppliedTotalMoney: Boolean = true;
+
+  private imgCover;
+
+  private arrFileUpload = [];
 
   constructor() { }
 
@@ -69,14 +71,22 @@ export class FormCreationPromotionComponent implements OnInit {
 
   fileChangeEvent(fileInput): void {
     if (fileInput.target.files && fileInput.target.files[0]) {
-      console.log(' ', fileInput.target.files, ' ', fileInput.target.files[0]);
+      this.arrFileUpload = Array.prototype.slice.call(fileInput.target.files);
       var reader = new FileReader();
       reader.onload = (e: any) => {
-        this.imgPromotionCover = e.target.result;
+        this.imgCover = e.target.result;
       }
       reader.readAsDataURL(fileInput.target.files[0]);
     }
   }
+
+
+  removeImage() {
+    console.log("remove image");
+    this.imgCover = null;
+    this.arrFileUpload = [];
+  }
+
 
 
   /**
@@ -154,9 +164,15 @@ export class FormCreationPromotionComponent implements OnInit {
   /**
    * Insert 
    */
+
+  subFunctionInsertPromotion() {
+
+  }
+
   insertNewPromotion() {
     if (this.fgPromotion.valid) {
-      console.log(this.fgPromotion.value);
+      let newPromotionObject = this.fgPromotion.value;
+
     } else {
 
     }

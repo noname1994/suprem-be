@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Promotion } from '../../../models/product/promotion.model';
 import { Constant } from '../../../utils/constant';
+import { PromotionService } from '../../../service/product/promotion.service';
+import { SuccessResponse } from '../../../models/response/obj.success.res';
+import { ArrayObject } from '../../../models/response/array.res';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationService } from '../../../service/popups/notification.service';
+import { NotificationComponent } from '../../popups/notification/notification.component';
 
 @Component({
   selector: 'app-promotion-list',
@@ -14,9 +20,19 @@ export class PromotionListComponent implements OnInit {
 
   private pageSize: number = Constant.DEFAULT_PAGE_SIZE;
 
+  private params: any = { pageNum: this.pageNum, pageSize: this.pageSize };
+
+  private totalRecord: number = 25;
+
   private arrPromotion: Array<Promotion>;
 
-  constructor(private router: Router) { }
+  private arrIndexPage: Array<Number> = [];
+
+  private arrSelectedIndexPage: Array<Boolean> = [];
+
+  private positionIndexPageCliced = 0;
+
+  constructor(private router: Router, private promotionService: PromotionService, private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.arrPromotion = [
@@ -26,15 +42,40 @@ export class PromotionListComponent implements OnInit {
         appliedProduct: null, description: null, startedDate: null, endedDate: null, createdAt: null, updatedAt: null
       }
     ]
+
+
   }
 
+  /**
+   * setup
+   */
+
+  setupPagination() {
+    let numberPage = this.totalRecord / this.pageSize;
+
+    if (this.totalRecord % this.pageSize != 0) {
+      ++numberPage;
+    }
+    for (let i = 0; i < numberPage; i++) {
+      this.arrIndexPage.push(i);
+      this.arrSelectedIndexPage.push(false);
+    }
+    console.log(this.arrIndexPage)
+  }
 
   /**
-   * call apo
+   * call api
    */
 
   getAllPromotion() {
-
+    this.promotionService.getALlPromotion(this.params).subscribe((entityRes: SuccessResponse<ArrayObject<Promotion[]>>) => {
+      this.arrPromotion = entityRes.value.list;
+      this.totalRecord = entityRes.value.total;
+      this.setupPagination();
+      this.arrSelectedIndexPage[0] = true;
+    }, (httpError: HttpErrorResponse) => {
+      this.handleError(httpError.error);
+    })
   }
 
   /**
@@ -49,9 +90,60 @@ export class PromotionListComponent implements OnInit {
     this.router.navigateByUrl(`/promotion/edit/${_id}`);
   }
 
+
+  /**
+   * 
+   * pagination 
+   */
+
   onChangePageSize(value) {
-    console.log("value : ", value);
     this.pageSize = value;
-    console.log("pageSize : ", this.pageSize);
+    this.params.pageSize = this.pageSize;
+    this.getAllPromotion();
+  }
+
+  changePageNum(index) {
+    this.pageNum = index;
+    this.params.pageNum = this.pageNum;
+  }
+
+  preIndexPageClicked() {
+    if (this.positionIndexPageCliced > 0) {
+      this.arrSelectedIndexPage[this.positionIndexPageCliced] = false;
+      this.arrSelectedIndexPage[this.positionIndexPageCliced - 1] = true;
+      this.positionIndexPageCliced = this.positionIndexPageCliced - 1;
+      this.changePageNum(this.positionIndexPageCliced - 1);
+      this.getAllPromotion();
+    }
+  }
+
+
+  IndexPageClicked(index) {
+    if (index != this.positionIndexPageCliced) {
+      this.arrSelectedIndexPage[this.positionIndexPageCliced] = false;
+      this.arrSelectedIndexPage[index] = true;
+      this.positionIndexPageCliced = index;
+      this.changePageNum(index);
+      this.getAllPromotion();
+    }
+  }
+
+  lastIndexPageClicked() {
+    if (this.positionIndexPageCliced < this.arrIndexPage.length - 1) {
+      this.arrSelectedIndexPage[this.positionIndexPageCliced] = false;
+      this.arrSelectedIndexPage[this.positionIndexPageCliced + 1] = true;
+      this.positionIndexPageCliced = this.positionIndexPageCliced + 1;
+      this.changePageNum(this.positionIndexPageCliced + 1);
+      this.getAllPromotion();
+    }
+  }
+
+  /**
+  * handle error
+  */
+  private handleError(error) {
+    this.notificationService.createNotification(
+      NotificationComponent,
+      { code: error.code, message: error.message }, 2000, 'top', 'end');
   }
 }

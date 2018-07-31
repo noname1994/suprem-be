@@ -1,7 +1,7 @@
 <div class="emp-component">
   <div class="top">
     <div class="title">
-      <h4>Danh sách Loại Sản phẩm</h4>
+      <h4>Danh Mục</h4>
     </div>
     <div class="btn-action">
       <div class="total-element">
@@ -25,16 +25,16 @@
   <div class="main">
     <div class="main-table">
       <table>
-        <tr>
-          <th>STT</th>
-          <th>Tên</th>
-          <th>Trạng thái</th>
-          <th>Ảnh Đại Diện</th>
-          <th>Mô tả</th>
-          <th>Action</th>
+        <tr class="table-header">
+          <th class="stt">STT</th>
+          <th class="name">Tên</th>
+          <th class="status">Trạng thái</th>
+          <th class="image-cover">Ảnh Đại Diện</th>
+          <th class="description">Mô tả</th>
+          <th class="action">Action</th>
         </tr>
         <tr *ngFor="let category of arrCategory; let i = index">
-          <td>{{i}}</td>
+          <td >{{i + 1}}</td>
           <td>{{category.name}}</td>
           <td>{{category.status}}</td>
           <td>
@@ -48,6 +48,11 @@
           </td>
         </tr>
       </table>
+    </div>
+    <div class="pagination-div">
+      <a href="javascript:void(0);" (click) = "preIndexPageClicked()">&laquo;</a>
+      <a href="javascript:void(0);" (click) = "IndexPageClicked(index)" [ngClass]="{'active': arrSelectedIndexPage[index]}" *ngFor="let index of arrIndexPage">{{index + 1}}</a>
+      <a href="javascript:void(0);" (click) = "lastIndexPageClicked()">&raquo;</a>
     </div>
   </div>
 </div>

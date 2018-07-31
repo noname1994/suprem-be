@@ -3,7 +3,7 @@ export class Constant {
     /**
      * Server config
      */
-    public static SERVER_HOST = "http://107.113.192.102:3000";
+    public static SERVER_HOST = "http://107.113.193.208:3000";
 
     public static API_PREFIX = "/api/v1";
 
@@ -20,6 +20,12 @@ export class Constant {
 
     public static MSG_SUCCESS = "SUCCESS";
 
+    public static KEY_FILE_NAME_UPLOAD = "file";
+    /**
+     * URL File
+     */
+    public static URL_UPLOAD_FILE = Constant.URL_PREFIX + "/file/upload";
+
     /**
      * URL role
      */
@@ -34,6 +40,11 @@ export class Constant {
      * Category
      */
     public static URL_CATEGORY_MANAGER = Constant.URL_PREFIX + "/category";
+
+    /**
+     * Promotion
+     */
+    public static URL_PROMOTION_MANAGER = Constant.URL_PREFIX + "/promotion";
 
 
 

@@ -6,21 +6,21 @@ import { Constant } from '../../utils/constant';
 
 
 @Injectable()
-export class CategoryService {
+export class PromotionService {
 
     constructor(private httpClient: HttpClient) {
 
     }
-    getALlCategory(params) {
+    getALlPromotion(params) {
         let httpHeaders = new HttpHeaders({ "authorization": `JWT ${Constant.EXAMPLE_JWT}` });
         let options = {
             headers: httpHeaders,
             params: params
         }
-        return this.httpClient.get(Constant.URL_CATEGORY_MANAGER, options);
+        return this.httpClient.get(Constant.URL_PROMOTION_MANAGER, options);
     }
 
-    createCategory(newCategory) {
+    createPromotion(newPromotion) {
         let httpHeaders = new HttpHeaders({
             "authorization": `JWT ${Constant.EXAMPLE_JWT}`,
             'Content-Type': 'application/json; charset=utf-8'
@@ -29,10 +29,10 @@ export class CategoryService {
         let options = {
             headers: httpHeaders
         }
-        return this.httpClient.post(Constant.URL_CATEGORY_MANAGER, newCategory, options);
+        return this.httpClient.post(Constant.URL_PROMOTION_MANAGER, newPromotion, options);
     }
 
-    updateCategory(newCategory) {
+    updatePromotion(newPromotion) {
         let httpHeaders = new HttpHeaders({
             "authorization": `JWT ${Constant.EXAMPLE_JWT}`,
             'Content-Type': 'application/json; charset=utf-8'
@@ -41,7 +41,7 @@ export class CategoryService {
         let options = {
             headers: httpHeaders
         }
-        return this.httpClient.put(Constant.URL_CATEGORY_MANAGER, newCategory, options);
+        return this.httpClient.put(Constant.URL_PROMOTION_MANAGER, newPromotion, options);
     }
 
     checkNameCategory(name) {

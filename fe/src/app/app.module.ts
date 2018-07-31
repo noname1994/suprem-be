@@ -48,6 +48,8 @@ import { FormEditPromotionComponent } from './component/promotion/form-edit-prom
 import { CategoryService } from './service/product/category.service';
 import { NotificationComponent } from './component/popups/notification/notification.component';
 import { NotificationService } from './service/popups/notification.service';
+import { FileService } from './service/file/file.service';
+import { PromotionService } from './service/product/promotion.service';
 
 
 
@@ -103,7 +105,7 @@ import { NotificationService } from './service/popups/notification.service';
     MatSnackBarModule
   ],
   entryComponents: [UserMenuComponent, NotificationComponent],
-  providers: [DatePipe, RoleService, EmployeeService, CategoryService, NotificationService],
+  providers: [DatePipe, RoleService, EmployeeService, CategoryService, NotificationService, FileService, PromotionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

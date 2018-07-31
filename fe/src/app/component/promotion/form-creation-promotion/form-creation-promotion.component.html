@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="main">
-    <div class="content-input">
+    <div class="main-table">
 
       <form class="promotion-form" [formGroup]="fgPromotion">
         <table>
@@ -20,8 +20,6 @@
               </mat-form-field>
             </td>
 
-          </tr>
-          <tr>
             <td>
               <label>Phạm Vi Áp Dụng (*)</label>
             </td>
@@ -68,8 +66,6 @@
                 <mat-error *ngIf="fgPromotion.controls.name.invalid">{{getErrorMinimumQuantity()}}</mat-error>
               </mat-form-field>
             </td>
-          </tr>
-          <tr>
             <td>
               <label>Phần Trăm Giảm (%)</label>
             </td>
@@ -129,8 +125,8 @@
             <td>
               <label>Mô Tả Ngắn</label>
             </td>
-            <td>
-              <mat-form-field hintLabel="Max 500 characters">
+            <td colspan="2">
+              <mat-form-field hintLabel="Max 500 characters" style="width: 600px">
                 <textarea matInput type="text" formControlName="description"></textarea>
                 <mat-error *ngIf="fgPromotion.controls.description.invalid">{{getErrorFieldDescription()}}</mat-error>
               </mat-form-field>
@@ -144,9 +140,15 @@
               <input hidden accept="image/*" type="file" #imgFileInput (change)="fileChangeEvent($event)" name="file">
             </td>
             <td>
-              <img *ngIf="imgPromotionCover" [src]="imgPromotionCover" style="max-width: 400px" />
+              <div class="upload-img" style="position: relative">
+                <img *ngIf="imgCover" [src]="imgCover" />
+                <div class="remove" *ngIf="imgCover">
+                  <button matTooltip="Xóa ảnh" matTooltipPosition="below" (click)="removeImage()">
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                </div>
+              </div>
             </td>
-
           </tr>
         </table>
 

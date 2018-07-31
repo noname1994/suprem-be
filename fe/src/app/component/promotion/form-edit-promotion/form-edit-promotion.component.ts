@@ -46,7 +46,9 @@ export class FormEditPromotionComponent implements OnInit {
 
   private arrAppliedProduct = ["Sản Phẩm 1", "Sản Phẩm 2", "Sản Phẩm 1", "Sản Phẩm 2", "Sản Phẩm 1", "Sản Phẩm 2"];
 
-  private imgPromotionCover;
+  private imgCover;
+
+  private arrFileUpload = [];
 
   private isAppliedProduct: Boolean = false;
 
@@ -77,13 +79,19 @@ export class FormEditPromotionComponent implements OnInit {
 
   fileChangeEvent(fileInput): void {
     if (fileInput.target.files && fileInput.target.files[0]) {
-      console.log(' ', fileInput.target.files, ' ', fileInput.target.files[0]);
+      this.arrFileUpload = Array.prototype.slice.call(fileInput.target.files);
       var reader = new FileReader();
       reader.onload = (e: any) => {
-        this.imgPromotionCover = e.target.result;
+        this.imgCover = e.target.result;
       }
       reader.readAsDataURL(fileInput.target.files[0]);
     }
+  }
+
+  removeImage() {
+    console.log("remove image");
+    this.imgCover = null;
+    this.arrFileUpload = [];
   }
 
   /**
