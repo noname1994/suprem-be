@@ -1,0 +1,29 @@
+<div class="main">
+  <h4>Lựa chọn sản phẩm</h4>
+  <table>
+    <tr>
+      <th class="choose"> {{arrTest.length}}</th>
+      <th class="image-cover">Image</th>
+      <th class="name">Tên Sản Phẩm</th>
+      <th class="price">Giá Sản Phẩm</th>
+    </tr>
+    <tr *ngFor="let product of arrTest; let i = index">
+      <td>
+        <mat-checkbox></mat-checkbox>
+      </td>
+      <td>
+        <img [src]="product.image" />
+      </td>
+      <td>
+        {{product.name}}
+      </td>
+      <td>
+        {{product.price}}
+      </td>
+    </tr>
+  </table>
+  <div mat-dialog-actions>
+    <button (click)="onNoClick()">No Thanks</button>
+    <button [mat-dialog-close]="arrTest" cdkFocusInitial>Ok</button>
+  </div>
+</div>

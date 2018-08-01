@@ -38,9 +38,7 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
 
   private description: FormControl;
 
-  private imgCover;
-
-  private imgSoucre;
+  private imageCover;
 
   private arrFileUpload = [];
 
@@ -57,7 +55,6 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
 
     this.getCategoryById();
 
-    this.imgCover = this.category.imageCover;
   }
 
   initFormGroup() {
@@ -74,7 +71,7 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
     this.fgCategory.controls._id.setValue(category._id);
     this.fgCategory.controls.name.setValue(category.name);
     this.fgCategory.controls.description.setValue(category.description);
-    this.imgCover = category.imageCover;
+    this.imageCover = category.imageCover;
   }
 
 
@@ -93,7 +90,7 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
   }
   removeImage() {
     console.log("remove image");
-    this.imgCover = null;
+    this.imageCover = null;
     this.arrFileUpload = [];
   }
 
@@ -104,7 +101,7 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
       this.arrFileUpload = Array.prototype.slice.call(fileInput.target.files);
       var reader = new FileReader();
       reader.onload = (e: any) => {
-        this.imgCover = e.target.result;
+        this.imageCover = e.target.result;
       }
       reader.readAsDataURL(fileInput.target.files[0]);
     }
@@ -154,8 +151,8 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
       if (this.arrFileUpload && this.arrFileUpload.length > 0) {
         this.subscriptionUploadFile = this.fileSerive.uploadFile(this.arrFileUpload)
           .subscribe((entityRes: SuccessResponse<FileUplaod[]>) => {
-            this.imgCover = `${Constant.SERVER_HOST}/${entityRes.value[0].path}`;
-            newCategoryObject.imageCover = this.imgCover;
+            this.imageCover = `${Constant.SERVER_HOST}/${entityRes.value[0].path}`;
+            newCategoryObject.imageCover = this.imageCover;
             this.subUpdateCategory(newCategoryObject);
           }, (httpError: HttpErrorResponse) => {
             this.handleError(httpError.error);

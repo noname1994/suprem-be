@@ -1,15 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 /**
  * Metarial
  */
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule,
-   MatExpansionModule, MatMenuModule, MatTooltipModule, MatInputModule, MatSelectModule, 
-   MatDatepickerModule, MatNativeDateModule, MatSnackBarModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule,
+  MatExpansionModule, MatMenuModule, MatTooltipModule, MatInputModule, MatSelectModule,
+  MatDatepickerModule, MatNativeDateModule, MatSnackBarModule, MatDialogModule, MatCheckboxModule
+} from '@angular/material';
 /**
  * Routes
  */
@@ -50,6 +52,7 @@ import { NotificationComponent } from './component/popups/notification/notificat
 import { NotificationService } from './service/popups/notification.service';
 import { FileService } from './service/file/file.service';
 import { PromotionService } from './service/product/promotion.service';
+import { DialogProductComponent } from './component/popups/dialog-product/dialog-product.component';
 
 
 
@@ -82,6 +85,7 @@ import { PromotionService } from './service/product/promotion.service';
     FormEditCategoryComponent,
     FormEditPromotionComponent,
     NotificationComponent,
+    DialogProductComponent
   ],
   imports: [
     BrowserModule,
@@ -102,9 +106,11 @@ import { PromotionService } from './service/product/promotion.service';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
+    MatCheckboxModule
   ],
-  entryComponents: [UserMenuComponent, NotificationComponent],
+  entryComponents: [UserMenuComponent, NotificationComponent, DialogProductComponent],
   providers: [DatePipe, RoleService, EmployeeService, CategoryService, NotificationService, FileService, PromotionService],
   bootstrap: [AppComponent]
 })

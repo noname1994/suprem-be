@@ -22,7 +22,7 @@ export class PromotionListComponent implements OnInit {
 
   private params: any = { pageNum: this.pageNum, pageSize: this.pageSize };
 
-  private totalRecord: number = 25;
+  private totalRecord: number = 0;
 
   private arrPromotion: Array<Promotion>;
 
@@ -35,13 +35,8 @@ export class PromotionListComponent implements OnInit {
   constructor(private router: Router, private promotionService: PromotionService, private notificationService: NotificationService) { }
 
   ngOnInit() {
-    this.arrPromotion = [
-      {
-        _id: "0001", name: "Mua 5 tặng 1", scope: "ALL_PRODUCT", type: "TOTAL_MONEY",
-        minimumMoney: 500000, minimumQuantity: null, donatedProduct: null, reducedPercent: 5,
-        appliedProduct: null, description: null, startedDate: null, endedDate: null, createdAt: null, updatedAt: null
-      }
-    ]
+
+    this.getAllPromotion();
 
 
   }
@@ -51,7 +46,9 @@ export class PromotionListComponent implements OnInit {
    */
 
   setupPagination() {
-    let numberPage = this.totalRecord / this.pageSize;
+    let numberPage = Math.round(this.totalRecord / this.pageSize);
+
+    console.log(this.totalRecord, ' - -', numberPage);
 
     if (this.totalRecord % this.pageSize != 0) {
       ++numberPage;

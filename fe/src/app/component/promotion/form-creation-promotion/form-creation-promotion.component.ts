@@ -1,5 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { PromotionService } from '../../../service/product/promotion.service';
+import { NotificationService } from '../../../service/popups/notification.service';
+import { FileService } from '../../../service/file/file.service';
+import { SuccessResponse } from '../../../models/response/obj.success.res';
+import { Promotion } from '../../../models/product/promotion.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationComponent } from '../../popups/notification/notification.component';
+import { Subscription, Observable } from 'rxjs';
+import { FileUplaod } from '../../../models/common/file-upload/file-upload.model';
+import { Constant } from '../../../utils/constant';
+import { MatDialog } from '@angular/material';
+import { DialogProductComponent } from '../../popups/dialog-product/dialog-product.component';
 
 @Component({
   selector: 'app-form-creation-promotion',
@@ -35,21 +47,24 @@ export class FormCreationPromotionComponent implements OnInit {
 
   private arrType = ["TOTAL_MONEY", "PURCHASED_QUANTITY"];
 
-  private arrProduct = ["product 1", "product 2"];
+  private arrProduct = [];
 
   private defaultSelectd = "Không có dữ liệu";
 
-  private arrAppliedProduct = ["Sản Phẩm 1", "Sản Phẩm 2", "Sản Phẩm 1", "Sản Phẩm 2", "Sản Phẩm 1", "Sản Phẩm 2"];
+  private arrAppliedProduct = [];
 
   private isAppliedProduct: Boolean = false;
 
   private isAppliedTotalMoney: Boolean = true;
 
-  private imgCover;
+  private imageCover;
 
   private arrFileUpload = [];
 
-  constructor() { }
+  private subscriptionUploadFile: Subscription;
+
+  constructor(private promotionService: PromotionService, private notificationService: NotificationService,
+    private fileService: FileService, public dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -74,7 +89,7 @@ export class FormCreationPromotionComponent implements OnInit {
       this.arrFileUpload = Array.prototype.slice.call(fileInput.target.files);
       var reader = new FileReader();
       reader.onload = (e: any) => {
-        this.imgCover = e.target.result;
+        this.imageCover = e.target.result;
       }
       reader.readAsDataURL(fileInput.target.files[0]);
     }
@@ -83,7 +98,7 @@ export class FormCreationPromotionComponent implements OnInit {
 
   removeImage() {
     console.log("remove image");
-    this.imgCover = null;
+    this.imageCover = null;
     this.arrFileUpload = [];
   }
 
@@ -165,14 +180,34 @@ export class FormCreationPromotionComponent implements OnInit {
    * Insert 
    */
 
-  subFunctionInsertPromotion() {
-
+  subFunctionInsertPromotion(newPromotion) {
+    this.promotionService.createPromotion(newPromotion).subscribe((entityRes: SuccessResponse<Promotion>) => {
+      this.notificationService.createNotification(
+        NotificationComponent,
+        { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');
+    }, (httpError: HttpErrorResponse) => {
+      this.handleError(httpError.error);
+    })
   }
 
   insertNewPromotion() {
     if (this.fgPromotion.valid) {
       let newPromotionObject = this.fgPromotion.value;
-
+      // not handle
+      newPromotionObject.donatedProduct = [];
+      newPromotionObject.appliedProduct = [];
+      if (this.arrFileUpload && this.arrFileUpload.length > 0) {
+        this.subscriptionUploadFile = this.fileService.uploadFile(this.arrFileUpload)
+          .subscribe((entityRes: SuccessResponse<FileUplaod[]>) => {
+            this.imageCover = `${Constant.SERVER_HOST}/${entityRes.value[0].path}`;
+            newPromotionObject.imageCover = this.imageCover;
+            this.subFunctionInsertPromotion(newPromotionObject);
+          }, (httpError: HttpErrorResponse) => {
+            this.handleError(httpError.error);
+          })
+      } else {
+        this.subFunctionInsertPromotion(newPromotionObject);
+      }
     } else {
 
     }
@@ -199,4 +234,37 @@ export class FormCreationPromotionComponent implements OnInit {
     }
   }
 
+  /**
+  * handle error
+  */
+  private handleError(error) {
+    this.notificationService.createNotification(
+      NotificationComponent,
+      { code: error.code, message: error.message }, 2000, 'top', 'end');
+  }
+
+  // test
+
+
+  private arrTest = [
+    { image: "../../../../assets/Koala.jpg", name: "product 1", "price": 11000 },
+    { image: "../../../../assets/Koala.jpg", name: "product 2", "price": 12000 },
+    { image: "../../../../assets/Koala.jpg", name: "product 3", "price": 13000 }
+  ]
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogProductComponent, {
+      width: '800px',
+      maxHeight: '600px',
+      data: this.arrTest
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log("result: ", result);
+    });
+  }
+
 }
+
+

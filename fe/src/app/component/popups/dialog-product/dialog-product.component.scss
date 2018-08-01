@@ -1,0 +1,35 @@
+.main{
+    table{
+        border-collapse: collapse;
+        .choose{
+            width: 10%;
+        }
+    
+        .image-cover{
+            width: 30%;
+        }
+    
+        .name{
+            width: 30%;
+        }
+    
+        .price{
+            width: 30%;
+        }
+        td{
+            img{
+                max-width: 30%;
+            }
+            text-align: center;
+        }
+    
+        td, th{
+            border: 1px solid rgb(121, 113, 113);
+        }
+    
+        th{
+            background-color: rgb(156, 146, 146);
+        }
+    }
+    
+}

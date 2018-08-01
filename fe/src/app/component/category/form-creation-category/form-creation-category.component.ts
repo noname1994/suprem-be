@@ -109,7 +109,7 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
       if (this.arrFileUpload && this.arrFileUpload.length > 0) {
         this.subscriptionUploadFile = this.fileService.uploadFile(this.arrFileUpload)
           .subscribe((entityRes: SuccessResponse<FileUplaod[]>) => {
-            this.imgCover = `${Constant.SERVER_HOST}/${entityRes.value[0].path}`;
+            newCategoryObject.imgCover = `${Constant.SERVER_HOST}/${entityRes.value[0].path}`;
             this.subFucntionNewCategory(newCategoryObject);
           }, (httpError: HttpErrorResponse) => {
             this.handleError(httpError.error);
