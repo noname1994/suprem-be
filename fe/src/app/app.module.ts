@@ -53,6 +53,8 @@ import { NotificationService } from './service/popups/notification.service';
 import { FileService } from './service/file/file.service';
 import { PromotionService } from './service/product/promotion.service';
 import { DialogProductComponent } from './component/popups/dialog-product/dialog-product.component';
+import { DialogService } from './service/popups/dialog..service';
+import { ProductService } from './service/product/product.service';
 
 
 
@@ -111,7 +113,7 @@ import { DialogProductComponent } from './component/popups/dialog-product/dialog
     MatCheckboxModule
   ],
   entryComponents: [UserMenuComponent, NotificationComponent, DialogProductComponent],
-  providers: [DatePipe, RoleService, EmployeeService, CategoryService, NotificationService, FileService, PromotionService],
+  providers: [DatePipe, RoleService, EmployeeService, CategoryService, NotificationService, FileService, PromotionService, DialogService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -86,20 +86,21 @@
             padding-left: 100px;
             clear: left;
             button{
-                 width: 100px;
-                 height: 33px;
-                 font-size: 14px;
-                 font-weight: 500;
-                 border-radius: 20px;
-                 background-color: #26a69a;
-                 color: #fff;
-                 opacity: 1%;
-                 margin: 0 4px;
-                 border-color: #26a69a;
-                 border: none;
-                 cursor: pointer;
-                 &:hover{
-                     background-color: #0f5a52;
+                outline: none;
+                width: 100px;
+                height: 33px;
+                font-size: 14px;
+                font-weight: 500;
+                border-radius: 20px;
+                background-color: #26a69a;
+                color: #fff;
+                opacity: 1%;
+                margin: 0 4px;
+                border-color: #26a69a;
+                border: none;
+                cursor: pointer;
+                &:hover{
+                    background-color: #0f5a52;
                 }
             }
             p{

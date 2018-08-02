@@ -1,35 +1,76 @@
 .main{
-    table{
-        border-collapse: collapse;
-        .choose{
-            width: 10%;
-        }
-    
-        .image-cover{
-            width: 30%;
-        }
-    
-        .name{
-            width: 30%;
-        }
-    
-        .price{
-            width: 30%;
-        }
-        td{
-            img{
-                max-width: 30%;
+    .main-table{
+        width: 100%;
+        max-height: 450px;
+        overflow-y: scroll;
+        border-bottom: 1px solid rgb(121, 113, 113);
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            .choose{
+                width: 10%;
             }
-            text-align: center;
-        }
-    
-        td, th{
-            border: 1px solid rgb(121, 113, 113);
-        }
-    
-        th{
-            background-color: rgb(156, 146, 146);
+        
+            .image-cover{
+                width: 30%;
+            }
+        
+            .name{
+                width: 30%;
+            }
+        
+            .price{
+                width: 30%;
+            }
+            td{
+                img{
+                    max-width: 30%;
+                }
+                text-align: center;
+            }
+        
+            td, th{
+                border: 1px solid rgb(121, 113, 113);
+            }
+        
+            th{
+                background-color: rgb(156, 146, 146);
+            }
         }
     }
+
+    .user-action{
+        float: right;
+        button{
+            outline: none;
+            width: 100px;
+            height: 25px;
+            font-size: 10px;
+            font-weight: 300;
+            border-radius: 15px;
+            //  background-color: #26a69a;
+            color: #fff;
+            opacity: 1%;
+            margin: 0 4px;
+            border-color: #26a69a;
+            border: none;
+            cursor: pointer;
+            //  &:hover{
+            //      background-color: #0f5a52;
+            // }
+        }
+        .btn-add{
+            background-color: #26a69a;
+            &:hover{
+                background-color: #0f5a52;
+           }
+        }
+        .btn-cancel{
+            &:hover{
+                background-color: #1b1d1d;
+            }
+        }
+    }
+    
     
 }

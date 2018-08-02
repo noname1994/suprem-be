@@ -26,7 +26,7 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
 
   private description: FormControl;
 
-  private imgCover;
+  private imageCover;
 
   private arrFileUpload = [];
 
@@ -52,7 +52,7 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
 
   removeImage() {
     console.log("remove image");
-    this.imgCover = null;
+    this.imageCover = null;
     this.arrFileUpload = [];
   }
 
@@ -62,7 +62,7 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
       this.arrFileUpload = Array.prototype.slice.call(fileInput.target.files);
       var reader = new FileReader();
       reader.onload = (e: any) => {
-        this.imgCover = e.target.result;
+        this.imageCover = e.target.result;
       }
       reader.readAsDataURL(fileInput.target.files[0]);
     }
@@ -109,7 +109,7 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
       if (this.arrFileUpload && this.arrFileUpload.length > 0) {
         this.subscriptionUploadFile = this.fileService.uploadFile(this.arrFileUpload)
           .subscribe((entityRes: SuccessResponse<FileUplaod[]>) => {
-            newCategoryObject.imgCover = `${Constant.SERVER_HOST}/${entityRes.value[0].path}`;
+            newCategoryObject.imageCover = `${Constant.SERVER_HOST}${entityRes.value[0].path}`;
             this.subFucntionNewCategory(newCategoryObject);
           }, (httpError: HttpErrorResponse) => {
             this.handleError(httpError.error);

@@ -151,7 +151,7 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
       if (this.arrFileUpload && this.arrFileUpload.length > 0) {
         this.subscriptionUploadFile = this.fileSerive.uploadFile(this.arrFileUpload)
           .subscribe((entityRes: SuccessResponse<FileUplaod[]>) => {
-            this.imageCover = `${Constant.SERVER_HOST}/${entityRes.value[0].path}`;
+            this.imageCover = `${Constant.SERVER_HOST}${entityRes.value[0].path}`;
             newCategoryObject.imageCover = this.imageCover;
             this.subUpdateCategory(newCategoryObject);
           }, (httpError: HttpErrorResponse) => {

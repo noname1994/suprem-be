@@ -33,7 +33,7 @@ class CategoryDTO {
             _id: category._id,
             name: category.name,
             status: category.status,
-			imageCover: category.imageCover ? category.imageCover.subString(5,category.imageCover.length()) : "",
+			imageCover: category.imageCover ,
             description: category.description,
             createdAt: category.createdAt,
             updatedAt: category.updatedAt

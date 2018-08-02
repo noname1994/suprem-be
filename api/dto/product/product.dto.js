@@ -8,6 +8,7 @@ class ProductDTO {
             originalPrice: body.originalPrice,
             salePrice: body.salePrice,
             status: body.status,
+            imageCover: body.imageCover,
             colorImage: body.colorImage ? body.colorImage.map(ele => {
                 return {
                     color: ele.color,
@@ -39,6 +40,7 @@ class ProductDTO {
             originalPrice: body.originalPrice,
             salePrice: body.salePrice,
             status: body.status,
+            imageCover: body.imageCover,
             colorImage: body.colorImage ? body.colorImage.map(ele => {
                 return {
                     color: ele.color,
@@ -69,6 +71,7 @@ class ProductDTO {
             originalPrice: product.originalPrice,
             salePrice: product.salePrice,
             status: product.status,
+            imageCover: product.imageCover,
             colorImage: product.colorImage ? product.colorImage.map(ele => {
                 return {
                     color: ele.color,

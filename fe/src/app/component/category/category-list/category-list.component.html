@@ -28,18 +28,18 @@
         <tr class="table-header">
           <th class="stt">STT</th>
           <th class="name">Tên</th>
-          <th class="status">Trạng thái</th>
           <th class="image-cover">Ảnh Đại Diện</th>
+          <th class="status">Trạng thái</th>
           <th class="description">Mô tả</th>
           <th class="action">Action</th>
         </tr>
         <tr *ngFor="let category of arrCategory; let i = index">
-          <td >{{i + 1}}</td>
+          <td>{{i + 1}}</td>
           <td>{{category.name}}</td>
-          <td>{{category.status}}</td>
           <td>
             <img [src]="category.imageCover" />
           </td>
+          <td>{{category.status}}</td>
           <td>{{category.description}}</td>
           <td>
             <button matTooltip="View & Edit" matTooltipPosition="below" class="btn-edit" (click)="openEditForm(category._id)">
@@ -50,9 +50,9 @@
       </table>
     </div>
     <div class="pagination-div">
-      <a href="javascript:void(0);" (click) = "preIndexPageClicked()">&laquo;</a>
-      <a href="javascript:void(0);" (click) = "IndexPageClicked(index)" [ngClass]="{'active': arrSelectedIndexPage[index]}" *ngFor="let index of arrIndexPage">{{index + 1}}</a>
-      <a href="javascript:void(0);" (click) = "lastIndexPageClicked()">&raquo;</a>
+      <a href="javascript:void(0);" (click)="preIndexPageClicked()">&laquo;</a>
+      <a href="javascript:void(0);" (click)="IndexPageClicked(index)" [ngClass]="{'active': arrSelectedIndexPage[index]}" *ngFor="let index of arrIndexPage">{{index + 1}}</a>
+      <a href="javascript:void(0);" (click)="lastIndexPageClicked()">&raquo;</a>
     </div>
   </div>
 </div>

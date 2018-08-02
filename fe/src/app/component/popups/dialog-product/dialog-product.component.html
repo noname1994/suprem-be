@@ -1,29 +1,33 @@
 <div class="main">
-  <h4>Lựa chọn sản phẩm</h4>
-  <table>
-    <tr>
-      <th class="choose"> {{arrTest.length}}</th>
-      <th class="image-cover">Image</th>
-      <th class="name">Tên Sản Phẩm</th>
-      <th class="price">Giá Sản Phẩm</th>
-    </tr>
-    <tr *ngFor="let product of arrTest; let i = index">
-      <td>
-        <mat-checkbox></mat-checkbox>
-      </td>
-      <td>
-        <img [src]="product.image" />
-      </td>
-      <td>
-        {{product.name}}
-      </td>
-      <td>
-        {{product.price}}
-      </td>
-    </tr>
-  </table>
-  <div mat-dialog-actions>
-    <button (click)="onNoClick()">No Thanks</button>
-    <button [mat-dialog-close]="arrTest" cdkFocusInitial>Ok</button>
+  <h4>{{data.title}}</h4>
+  <div class="main-table">
+    <table>
+      <tr>
+        <th class="choose"> {{arrProduct.length}}</th>
+        <th class="image-cover">Image</th>
+        <th class="name">Tên Sản Phẩm</th>
+        <th class="price">Giá Sản Phẩm</th>
+      </tr>
+      <tr *ngFor="let product of arrProduct; let i = index">
+        <td>
+          <input type="checkbox" (change)="isChecked(i)">
+        </td>
+        <td>
+          <img [src]="product.imageCover ? product.imageCover : defaultImage" />
+        </td>
+        <td>
+          {{product.name}}
+        </td>
+        <td>
+          {{product.originalPrice}}
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="user-action">
+    <div mat-dialog-actions>
+      <button class="btn-add" (click)="actionDialogClose()" cdkFocusInitial>Add</button>
+      <button class="btn-cancel" (click)="onNoClick()">Cancel</button>
+    </div>
   </div>
 </div>

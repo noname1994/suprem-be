@@ -6,18 +6,18 @@ import { Constant } from '../../utils/constant';
 
 
 @Injectable()
-export class PromotionService {
+export class ProductService {
 
     constructor(private httpClient: HttpClient) {
 
     }
-    getALlPromotion(params) {
-        let httpHeaders = new HttpHeaders({ "authorization": `JWT ${Constant.EXAMPLE_JWT}` });
+    getALlProduct(params) {
+        // let httpHeaders = new HttpHeaders({ "authorization": `JWT ${Constant.EXAMPLE_JWT}` });
         let options = {
-            headers: httpHeaders,
+            // headers: httpHeaders,
             params: params
         }
-        return this.httpClient.get(Constant.URL_PROMOTION_MANAGER, options);
+        return this.httpClient.get(Constant.URL_PRODUCT_MANAGER, options);
     }
 
     createPromotion(newPromotion) {
@@ -48,7 +48,7 @@ export class PromotionService {
 
     }
 
-    getPromotionById(_id) {
-        return this.httpClient.get(`${Constant.URL_PROMOTION_MANAGER}/${_id}`);
+    getCategoryById(_id) {
+        return this.httpClient.get(`${Constant.URL_CATEGORY_MANAGER}/${_id}`);
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PromotionService } from '../../../service/product/promotion.service';
 import { NotificationService } from '../../../service/popups/notification.service';
@@ -10,16 +10,16 @@ import { NotificationComponent } from '../../popups/notification/notification.co
 import { Subscription, Observable } from 'rxjs';
 import { FileUplaod } from '../../../models/common/file-upload/file-upload.model';
 import { Constant } from '../../../utils/constant';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { DialogProductComponent } from '../../popups/dialog-product/dialog-product.component';
+import { DialogService } from '../../../service/popups/dialog..service';
 
 @Component({
   selector: 'app-form-creation-promotion',
   templateUrl: './form-creation-promotion.component.html',
   styleUrls: ['./form-creation-promotion.component.scss']
 })
-export class FormCreationPromotionComponent implements OnInit {
-
+export class FormCreationPromotionComponent implements OnInit, OnDestroy {
 
   private fgPromotion: FormGroup;
 
@@ -63,8 +63,12 @@ export class FormCreationPromotionComponent implements OnInit {
 
   private subscriptionUploadFile: Subscription;
 
+  private subscriptionInsertPromotion: Subscription;
+
+  private arrDonatedProduct = [];
+
   constructor(private promotionService: PromotionService, private notificationService: NotificationService,
-    private fileService: FileService, public dialog: MatDialog) { }
+    private fileService: FileService, private dialogService: DialogService) { }
 
   ngOnInit() {
 
@@ -181,7 +185,7 @@ export class FormCreationPromotionComponent implements OnInit {
    */
 
   subFunctionInsertPromotion(newPromotion) {
-    this.promotionService.createPromotion(newPromotion).subscribe((entityRes: SuccessResponse<Promotion>) => {
+    this.subscriptionInsertPromotion = this.promotionService.createPromotion(newPromotion).subscribe((entityRes: SuccessResponse<Promotion>) => {
       this.notificationService.createNotification(
         NotificationComponent,
         { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');
@@ -193,13 +197,16 @@ export class FormCreationPromotionComponent implements OnInit {
   insertNewPromotion() {
     if (this.fgPromotion.valid) {
       let newPromotionObject = this.fgPromotion.value;
-      // not handle
-      newPromotionObject.donatedProduct = [];
-      newPromotionObject.appliedProduct = [];
+      newPromotionObject.donatedProduct = this.arrDonatedProduct ? this.arrDonatedProduct.map(ele => {
+        return ele._id;
+      }) : [];
+      newPromotionObject.appliedProduct = this.arrAppliedProduct ? this.arrAppliedProduct.map(ele => {
+        return ele._id;
+      }) : [];
       if (this.arrFileUpload && this.arrFileUpload.length > 0) {
         this.subscriptionUploadFile = this.fileService.uploadFile(this.arrFileUpload)
           .subscribe((entityRes: SuccessResponse<FileUplaod[]>) => {
-            this.imageCover = `${Constant.SERVER_HOST}/${entityRes.value[0].path}`;
+            this.imageCover = `${Constant.SERVER_HOST}${entityRes.value[0].path}`;
             newPromotionObject.imageCover = this.imageCover;
             this.subFunctionInsertPromotion(newPromotionObject);
           }, (httpError: HttpErrorResponse) => {
@@ -209,7 +216,9 @@ export class FormCreationPromotionComponent implements OnInit {
         this.subFunctionInsertPromotion(newPromotionObject);
       }
     } else {
-
+      this.notificationService.createNotification(
+        NotificationComponent,
+        { code: 400, message: "Form nhập chưa hợp lệ " }, 2000, 'top', 'end');
     }
   }
 
@@ -234,6 +243,22 @@ export class FormCreationPromotionComponent implements OnInit {
     }
   }
 
+  iconAddDonatedProductClicked() {
+    const dialogRef = this.dialogService.createDialog(DialogProductComponent, { title: "Vui Lòng Lựa Chọn Sản Phẩm Tặng Kèm" }, '800px', '600px');
+    dialogRef.afterClosed().subscribe(result => {
+      this.arrDonatedProduct = result;
+      console.log("arrDonatedProduct : ", this.arrDonatedProduct);
+    });
+  }
+
+  iconAddAppliedProductClicked() {
+    const dialogRef = this.dialogService.createDialog(DialogProductComponent, { title: "Vui Lòng Lựa Chọn Sản Phẩm Áp Dụng Khuyến Mại" }, '800px', '600px');
+    dialogRef.afterClosed().subscribe(result => {
+      this.arrAppliedProduct = result;
+      console.log("arrAppliedProduct : ", this.arrAppliedProduct);
+    });
+  }
+
   /**
   * handle error
   */
@@ -243,26 +268,14 @@ export class FormCreationPromotionComponent implements OnInit {
       { code: error.code, message: error.message }, 2000, 'top', 'end');
   }
 
-  // test
+  ngOnDestroy(): void {
+    if (this.subscriptionInsertPromotion) {
+      this.subscriptionInsertPromotion.unsubscribe();
+    }
 
-
-  private arrTest = [
-    { image: "../../../../assets/Koala.jpg", name: "product 1", "price": 11000 },
-    { image: "../../../../assets/Koala.jpg", name: "product 2", "price": 12000 },
-    { image: "../../../../assets/Koala.jpg", name: "product 3", "price": 13000 }
-  ]
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogProductComponent, {
-      width: '800px',
-      maxHeight: '600px',
-      data: this.arrTest
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log("result: ", result);
-    });
+    if (this.subscriptionUploadFile) {
+      this.subscriptionUploadFile.unsubscribe();
+    }
   }
 
 }

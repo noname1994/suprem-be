@@ -15,10 +15,7 @@ const roles = [
     {
         name: "SUPER_ADMIN",
         permission: [
-            {
-                path: "ALL",
-                method: "ALL"
-            }
+            "ALL"
         ]
     },
     {

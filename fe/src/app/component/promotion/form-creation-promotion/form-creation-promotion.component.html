@@ -75,17 +75,25 @@
                 <mat-error *ngIf="fgPromotion.controls.name.invalid">{{getErrorReducedPercent()}}</mat-error>
               </mat-form-field>
             </td>
+          </tr>
+          <tr>
             <td>
-              <label>Sản phẩm tặng kèm</label>
+              <label>Sản phẩm tặng kèm
+                <mat-icon style="color: green; cursor: pointer;" matTooltip="Chọn Sản phẩm" (click)="iconAddDonatedProductClicked()">add_box</mat-icon>
+              </label>
             </td>
+            <td colspan="4">
+              <a *ngFor="let donatedProduct of arrDonatedProduct">{{donatedProduct.name}}</a>
+            </td>
+          </tr>
+          <tr *ngIf="isAppliedProduct">
             <td>
-              <mat-form-field>
-                <mat-select [(value)]="arrProduct && arrProduct[0] ? arrProduct[0] : defaultSelectd" formControlName="donatedProduct">
-                  <mat-option *ngFor="let product of arrProduct; let i = index" [value]="product">
-                    {{product}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <label>Sản phẩm Áp Dụng (*)
+                <mat-icon style="color: green; cursor: pointer;" matTooltip="Chọn Sản phẩm" (click)="iconAddAppliedProductClicked()">add_box</mat-icon>
+              </label>
+            </td>
+            <td colspan="4">
+              <a *ngFor="let appliedProduct of arrAppliedProduct">{{appliedProduct.name}}</a>
             </td>
           </tr>
           <tr>
@@ -112,15 +120,7 @@
               </mat-form-field>
             </td>
           </tr>
-          <tr *ngIf="isAppliedProduct">
-            <td>Sản phẩm Áp Dụng (*)</td>
-            <td colspan="4">
-              <label *ngFor="let appliedProduct of arrAppliedProduct" class="product-tag">
-                {{appliedProduct}}
-                <mat-icon matTooltip="Xóa" matTooltipPosition="below" class="arrow-down mat-icon material-icons" role="img" aria-hidden="true">clear</mat-icon>
-              </label>
-            </td>
-          </tr>
+
           <tr>
             <td>
               <label>Mô Tả Ngắn</label>

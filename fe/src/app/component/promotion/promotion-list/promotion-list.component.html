@@ -28,6 +28,7 @@
         <tr>
           <th class="stt">STT</th>
           <th class="name">Tên</th>
+          <th class="image-cover">Ảnh Mô Tả</th>
           <th class="scope">Phạm Vi Áp Dụng</th>
           <th class="type">Loại</th>
           <th class="minimum-money">Tổng Tiền Áp dụng (>=)</th>
@@ -35,7 +36,6 @@
           <th class="donated-product">Sản Phẩm Tặng Kèm</th>
           <th class="reduced-percent">Phần Trăm Giảm</th>
           <th class="applied-product">Sản Phẩm Áp Dụng</th>
-          <th class="image-cover">Ảnh Mô Tả</th>
           <th class="started-date">Ngày Bắt Đầu</th>
           <th class="ended-date">Ngày Kết Thúc</th>
           <th class="status">Trạng Thái</th>
@@ -45,6 +45,9 @@
         <tr *ngFor="let promotion of arrPromotion; let i = index">
           <td>{{i + 1}}</td>
           <td>{{promotion.name}}</td>
+          <td>
+            <img [src]="promotion.imageCover" />
+          </td>
           <td>{{promotion.scope == 'ALL_PRODUCT' ? 'Tất Cả' : 'Theo Sản Phẩm'}}</td>
           <td>{{promotion.type == 'TOTAL_MONEY' ? 'Tổng Tiền' : 'Số Lượng'}}</td>
           <td>{{promotion.minimumMoney}}</td>
@@ -52,9 +55,8 @@
           <td>{{promotion.donatedProduct}}</td>
           <td>{{promotion.reducedPercent}}</td>
           <td>{{promotion.appliedProduct}}</td>
-          <td>{{promotion.imageCover}}</td>
-          <td>{{promotion.startedDate | date:'yyyy-MM-dd HH:mm a'}}</td>
-          <td>{{promotion.endedDate | date:'yyyy-MM-dd HH:mm a'}}</td>
+          <td>{{promotion.startedDate | date:'dd/MM/yyyy'}}</td>
+          <td>{{promotion.endedDate | date:'dd/MM/yyyy'}}</td>
           <td>{{promotion.status}}</td>
           <td>{{promotion.description}}</td>
           <td>
@@ -66,9 +68,9 @@
       </table>
     </div>
     <div class="pagination-div">
-      <a href="javascript:void(0);" (click) = "preIndexPageClicked()">&laquo;</a>
-      <a href="javascript:void(0);" (click) = "IndexPageClicked(index)" [ngClass]="{'active': arrSelectedIndexPage[index]}" *ngFor="let index of arrIndexPage">{{index + 1}}</a>
-      <a href="javascript:void(0);" (click) = "lastIndexPageClicked()">&raquo;</a>
+      <a href="javascript:void(0);" (click)="preIndexPageClicked()">&laquo;</a>
+      <a href="javascript:void(0);" (click)="IndexPageClicked(index)" [ngClass]="{'active': arrSelectedIndexPage[index]}" *ngFor="let index of arrIndexPage">{{index + 1}}</a>
+      <a href="javascript:void(0);" (click)="lastIndexPageClicked()">&raquo;</a>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <div class="emp-component">
   <div class="top">
     <div class="title">
-      <h4>Tạo Mới Khuyến Mại</h4>
+      <h4>View & Edit Khuyến Mại</h4>
     </div>
   </div>
   <div class="main">
@@ -9,16 +9,6 @@
 
       <form class="promotion-form" [formGroup]="fgPromotion">
         <table>
-          <tr style="display: none">
-            <td>
-              <label>Mã Khuyến Mại</label>
-            </td>
-            <td>
-              <mat-form-field>
-                <input matInput placeholder="" formControlName="_id">
-              </mat-form-field>
-            </td>
-          </tr>
           <tr>
             <td>
               <label>Tên Khuyến Mại (*)</label>
@@ -85,17 +75,25 @@
                 <mat-error *ngIf="fgPromotion.controls.name.invalid">{{getErrorReducedPercent()}}</mat-error>
               </mat-form-field>
             </td>
+          </tr>
+          <tr>
             <td>
-              <label>Sản phẩm tặng kèm</label>
+              <label>Sản phẩm tặng kèm
+                <mat-icon style="color: green; cursor: pointer;" matTooltip="Chọn Sản phẩm" (click)="iconAddDonatedProductClicked()">add_box</mat-icon>
+              </label>
             </td>
+            <td colspan="4">
+              <a *ngFor="let donatedProduct of arrDonatedProduct">{{donatedProduct.name}}</a>
+            </td>
+          </tr>
+          <tr *ngIf="isAppliedProduct">
             <td>
-              <mat-form-field>
-                <mat-select [(value)]="arrProduct && arrProduct[0] ? arrProduct[0] : defaultSelectd" formControlName="donatedProduct">
-                  <mat-option *ngFor="let product of arrProduct; let i = index" [value]="product">
-                    {{product}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <label>Sản phẩm Áp Dụng (*)
+                <mat-icon style="color: green; cursor: pointer;" matTooltip="Chọn Sản phẩm" (click)="iconAddAppliedProductClicked()">add_box</mat-icon>
+              </label>
+            </td>
+            <td colspan="4">
+              <a *ngFor="let appliedProduct of arrAppliedProduct">{{appliedProduct.name}}</a>
             </td>
           </tr>
           <tr>
@@ -151,8 +149,8 @@
             </td>
             <td>
               <div class="upload-img" style="position: relative">
-                <img *ngIf="imgCover" [src]="imgCover" />
-                <div class="remove" *ngIf="imgCover">
+                <img *ngIf="imageCover" [src]="imageCover" />
+                <div class="remove" *ngIf="imageCover">
                   <button matTooltip="Xóa ảnh" matTooltipPosition="below" (click)="removeImage()">
                     <mat-icon>clear</mat-icon>
                   </button>
@@ -166,7 +164,7 @@
 
     </div>
     <div class="user-action">
-      <button (click)="insertNewPromotion()">ADD</button>
+      <button (click)="editPromotion()">ADD</button>
       <button>RESET</button>
       <p *ngIf="fgPromotion.invalid "> Form chưa hợp lệ ! </p>
     </div>

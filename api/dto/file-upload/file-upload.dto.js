@@ -15,7 +15,7 @@ class FileUploadDTO {
     infoResponse(result) {
         return {
             _id: result._id,
-            path: result.path,
+            path: result.path ? result.path.substring(6,result.path.length) : "\\image_default.jpg",
             size: result.size,
             mimetype: result.mimetype,
             originalname: result.originalname,

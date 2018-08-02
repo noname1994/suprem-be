@@ -15,7 +15,10 @@ const PromotionSchema = new mongoose.Schema(
             type: String,
             enum: ["TOTAL_MONEY", "PURCHASED_QUANTITY"]
         },
-
+        status:{
+            type: String,
+            enum: ["ACTIVE", "INACTIVE"]
+        },
         minimumMoney: {
             type: String
         },

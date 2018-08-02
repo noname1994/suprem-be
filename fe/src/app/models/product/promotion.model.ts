@@ -3,6 +3,8 @@ export class Promotion {
     name: string;
     scope: string;
     type: string;
+    status: string;
+    imageCover: string;
     minimumMoney: number;
     minimumQuantity: number;
     donatedProduct: Array<any>;

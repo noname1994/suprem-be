@@ -31,6 +31,9 @@ const ProductSchema = new mongoose.Schema(
             enum: ["AVAILABLE", "UNAVAIABLE", "DISABLE", "DELETED"],
             default: "AVAILABLE"
         },
+        imageCover: {
+            type: String
+        },
         colorImage: [
             {
                 color: {
