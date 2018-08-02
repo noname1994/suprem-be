@@ -1,0 +1,72 @@
+Storage 
+
+{
+  "_id": ObjectId,
+  "name": String,
+  "address": {
+    "detail": String,
+    "ward": {
+      "_id": String,
+      "name": String,
+      "type": String,
+      "location": String
+    },
+    "district": {
+      "_id": String,
+      "name": String,
+      "type": String,
+      "location": String
+    },
+    "province": {
+      "_id": String,
+      "name": String,
+      "type": String
+    }
+  },
+  "phoneNumber": [
+    {
+      "number": String
+    }
+  ],
+  "status": "ACTIVE || INACTIVE || DELETED",
+  "owner": ObjectId (ref Employee),
+  "createdAt": Date-time  "2018-07-13T01:28:40.807Z",
+  "updatedAt": Date-time  "2018-07-13T01:28:40.807Z"
+}
+
+1. Create 
+	{
+		name,
+		address,
+		phoneNumber
+		owner
+	}
+
+2. Update
+	{
+		_id,
+		name,
+		address,
+		phoneNumber,
+		status
+	}
+3. Delete
+	{
+		arrId: ObjectId, ObjectId, ...
+	}
+3. Response
+	{
+		_id,
+		name,
+		address,
+		phoneNumber,
+		status,
+		owner: {
+			_id,
+			fullname,
+			phoneNumber
+			avatar
+		},
+		createdAt,
+		updatedAt
+	}

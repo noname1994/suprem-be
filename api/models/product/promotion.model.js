@@ -7,35 +7,48 @@ const PromotionSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        scope: {
+            type: String,
+            enum: ["ALL_PRODUCT", "SPECIAL_PRODUCT"]
+        },
         type: {
             type: String,
-            enum: ["PERCENT", "GIFT"]
+            enum: ["TOTAL_MONEY", "PURCHASED_QUANTITY"]
         },
 
-        percentFormula: {
-            purchasedQuantity: {
-                type: Number
-            },
-
-            reducedPercent: {
-                type: Number
-            }
-        }
-        ,
-        giftFormula: {
-            purchasedQuantity: {
-                type: Number
-            },
-            donatedQuantity: {
-                type: Number
-            },
-            donatedProduct: {
+        minimumMoney: {
+            type: String
+        },
+        minimumQuantity: {
+            type: Number
+        },
+        donatedProduct: [
+            {
                 type: Schema.Types.ObjectId,
                 ref: "Product"
             }
+        ],
+        reducedPercent: {
+            type: Number
         },
+
+        appliedProduct: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Product"
+            }
+        ],
+		imageCover:{
+			type: String
+		},
         description: {
             type: String
+        },
+        startedDate: {
+            type: Date
+        },
+        endedDate: {
+            type: Date
         },
         createdAt: {
             type: Date

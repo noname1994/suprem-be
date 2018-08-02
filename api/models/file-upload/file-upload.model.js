@@ -33,8 +33,13 @@ const FileUploadSchema = new Schema(
         },
         type: {
             type: String,
-            enum: ["AVATAR", "IMAGE_PRODUCT", "DOCUMENT", "OTHER"],
+            enum: ["AVATAR", "IMAGE_PRODUCT", "DOCUMENT", "OTHER", "IMAGE_BANNER"],
             default: "OTHER"
+        },
+
+        statusImageBanner: {
+            type: String,
+            enum: ["SHOW", "HIDDEN"]
         },
         createdAt: {
             type: Date

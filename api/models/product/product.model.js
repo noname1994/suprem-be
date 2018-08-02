@@ -50,20 +50,6 @@ const ProductSchema = new mongoose.Schema(
                 }
             }
         ],
-        promotion: [
-            {
-                information: {
-                    type: Schema.Types.ObjectId,
-                    ref: "Promotion"
-                },
-                startedDate: {
-                    type: Date
-                },
-                endedDate: {
-                    type: Date
-                }
-            }
-        ],
         description: {
             type: String
         },

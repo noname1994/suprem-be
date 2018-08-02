@@ -6,10 +6,12 @@ const Constant = require("../api/utils/constants");
 
 class FilterMiddleware {
   filter(req, res, next) {
-    console.log("token21321 : ", req.headers["authorization"]);
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With,Content-Type, authorization");
+    res.setHeader("Access-Control-Allow-Credentials", true);
     if (req.headers && req.headers["authorization"] && req.headers["authorization"].split(" ")[0] == "JWT") {
       let token = req.headers.authorization.split(" ")[1];
-      console.log("token : ", token);
       jwt.verify(token, Constant.secret, (error, decoded) => {
         if (error) {
           // new ErrorResponse(403, error.name, error.message);

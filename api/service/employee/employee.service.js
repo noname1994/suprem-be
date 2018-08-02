@@ -100,7 +100,7 @@ class EmployeeService {
         try {
             let emp = await Employee.findById(idEmp);
             if (!emp) {
-                throw new CustomizeError(TAG, 400, "Not found employee !");
+                throw new CustomizeError(TAG, 400, "Nhân viên không tồn tại !");
             }
 
             let rounds = Constant.rounds;
@@ -129,7 +129,7 @@ class EmployeeService {
         try {
             let rs = await Employee.findOne({ username: username });
             if (!rs) {
-                throw new CustomizeError(TAG, 400, `Not found employee with username = "${username}"`);
+                throw new CustomizeError(TAG, 400, `Không tìm thấy nhân viên với username là  "${username}"`);
             }
             let empResponse = employeeDTO.infoResponse(rs);
             return empResponse;
@@ -156,7 +156,7 @@ class EmployeeService {
 
             let emp = await Employee.findById(idEmp);
             if (!emp) {
-                throw new CustomizeError(TAG, 400, "employee isn't exist");
+                throw new CustomizeError(TAG, 400, "Nhân viên không tồn tại !");
             }
 
             if (role) {
@@ -193,7 +193,7 @@ class EmployeeService {
         try {
             let rs = Employee.findOne({ email: email });
             if (!rs) {
-                throw new CustomizeError(TAG, 400, `Not found employee with email = "${email}"`);
+                throw new CustomizeError(TAG, 400, `Không tìm thấy nhân viên với email là "${email}"`);
             }
             let empResponse = await employeeDTO.infoResponse(rs);
             return empResponse;
@@ -212,7 +212,7 @@ class EmployeeService {
             let _id = params._id;
             if (_id) {
                 if (!mongoose.Types.ObjectId.isValid(_id)) {
-                    let error = new CustomizeError(TAG, 400, `"${_id}" must be format ObjectId type`);
+                    let error = new CustomizeError(TAG, 400, `"${_id}" phải là kiểu ObjectId`);
                     throw error;
                 }
                 condition._id = { $eq: _id };
@@ -238,6 +238,8 @@ class EmployeeService {
                 condition.email = new RegExp(fullname, 'i');
             }
 
+            let total = await Employee.count(condition);
+
             let rs = await Employee.find(condition)
                 .populate({ path: "role", select: "_id name permission", model: "Role" }).exec() || [];
 
@@ -245,7 +247,7 @@ class EmployeeService {
             let arrResponse = rs.map(tmp => {
                 return employeeDTO.infoResponse(tmp);
             })
-            return arrResponse;
+            return { total, list: arrResponse };
         } catch (error) {
             throw error;
         }
@@ -261,16 +263,18 @@ class EmployeeService {
             let emp = await Employee.findOne({ $or: [{ username: username }, { email: username }] })
                 .populate({ path: "role", select: "_id name permission", model: "Role" }).exec();
             if (!emp) {
-                throw new CustomizeError(TAG, 400, `Not found account with username = "${username}"`);
+                throw new CustomizeError(TAG, 400, `Không tìm thấy account với username là "${username}"`);
             }
             let hashPwd = emp.password;
 
             let check = await bcrypt.compare(password, hashPwd);
             if (!check) {
-                throw new CustomizeError(TAG, 400, "Password is wrong");
+                throw new CustomizeError(TAG, 400, "Mật khẩu đã nhập sai");
             }
 
             let payload = employeeDTO.infoPayload(emp);
+
+            console.log("payload: ", payload);
 
             let token = jwt.sign(payload, Constant.secret, { expiresIn: Constant.tokentokenExpiresIn, algorithm: Constant.algorithm });
             return token;

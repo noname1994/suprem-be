@@ -1,0 +1,67 @@
+{
+  "_id": "string",
+  "name": "string",
+  "type": "string",
+  "percentFormula": {
+    "purchasedQuantity": 0,
+    "reducedPercent": 0
+  },
+  "giftFormula": {
+    "purchasedQuantity": 0,
+    "donatedQuantity": 0,
+    "donatedProuct": "string"
+  },
+  "description": "string",
+  "createdAt": "2018-07-17T08:14:41.120Z",
+  "updatedAt": "2018-07-17T08:14:41.120Z"
+}
+
+
+1. create :
+{
+    name,
+    type,
+    percentFormula, 
+    giftFormula,
+    description
+}
+ex:
+{
+    "name": "Promotion 1",
+    "type": "PERCENT",
+    "percentFormula": {
+        "purchasedQuantity": 10,
+        "reducedPercent": 10
+    },
+    "description": "nothing ... "
+}
+
+2. Update
+{
+    _id,
+    name,
+    type,
+    percentFormula,
+    giftFormula,
+    description
+}
+ex:
+{
+    "_id": "5b4da8896f3f42119032816f",
+    "percentFormula": {
+        "purchasedQuantity": 10,
+        "reducedPercent": 20
+    },
+    "name": "Promotion 2.1",
+    "type": "PERCENT",
+    "description": "nothing ........... "
+}
+
+3. Delete
+requestParams  : arrId : objectId, ObjectId
+
+4. Get all
+requestParams: type, pageNum, pageSize
+
+5. Get by id
+path : _id : objectId

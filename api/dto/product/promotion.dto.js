@@ -1,18 +1,21 @@
 class PromotionDTO {
 
     infoCreate(body) {
-        let tmp = {};
-        let type = body.type;
-        let name = body.name;
-        tmp.name = name;
-        tmp.type = type;
-        if (type == "PERCENT") {
-            tmp.percent_formula = body.percentFormula;
-        } else if (type == "GIFT") {
-            tmp.gift_formula = body.giftFormula;
-        }
-        tmp.description = body.description;
-        tmp.createdAt = Date.now();
+        let tmp = {
+            name: body.name,
+            scope: body.scope,
+            type: body.type,
+            minimumMoney: body.minimumMoney,
+            minimumQuantity: body.minimumQuantity,
+            donatedProduct: body.donatedProduct,
+            reducedPercent: body.reducedPercent,
+            appliedProduct: body.appliedProduct,
+			imageCover: body.imageCover,
+            description: body.description,
+            startedDate: body.startedDate,
+            endedDate: body.endedDate,
+            createdAt: Date.now()
+        };
 
         let newPromotion = {};
         for (let key of Object.keys(tmp)) {
@@ -24,21 +27,22 @@ class PromotionDTO {
     }
 
     infoUpdate(body) {
-        let tmp = {};
-        let _id = body._id;
-        let name = body.name;
-        let type = body.type;
-        tmp._id = _id;
-        tmp.name = name;
-        tmp.type = type;
-        if (type == "PERCENT") {
-            tmp.percent_formula = body.percentFormula;
-        } else if (type == "GIFT") {
-            tmp.gift_formula = body.giftFormula;
-        }
-        tmp.description = body.description;
-        tmp.updatedAt = Date.now();
-
+        let tmp = {
+            _id: body._id,
+            name: body.name,
+            scope: body.scope,
+            type: body.type,
+            minimumMoney: body.minimumMoney,
+            minimumQuantity: body.minimumQuantity,
+            donatedProduct: body.donatedProduct,
+            reducedPercent: body.reducedPercent,
+            appliedProduct: body.appliedProduct,
+			imageCover: body.imageCover,
+            description: body.description,
+            startedDate: body.startedDate,
+            endedDate: body.endedDate,
+            updatedAt: Date.now()
+        };
         let newPromotion = {};
         for (let key of Object.keys(tmp)) {
             if (tmp[key] != null && tmp[key] != undefined) {
@@ -50,22 +54,23 @@ class PromotionDTO {
     }
 
     infoResponse(promotion) {
-        let tmp = {};
-        tmp._id = promotion._id;
-        tmp.name = promotion.name;
-        tmp.type = promotion.type;
-
-        if (tmp.type == "PERCENT") {
-            tmp.percentFormula = promotion.percentFormula;
-        } else if (tmp.type == "GIFT") {
-            tmp.giftFormula = promotion.giftFormula;
-        }
-
-        tmp.description = promotion.description;
-        tmp.createdAt = promotion.createdAt;
-        tmp.updatedAt = promotion.updatedAt;
-
-        return tmp;
+        return {
+            _id: promotion._id,
+            name: promotion.name,
+            scope: promotion.scope,
+            type: promotion.type,
+            minimumMoney: promotion.minimumMoney,
+            minimumQuantity: promotion.minimumQuantity,
+            donatedProduct: promotion.donatedProduct,
+            reducedPercent: promotion.reducedPercent,
+            appliedProduct: promotion.appliedProduct,
+			imageCover: promotion.imageCover ? promotion.imageCover.subString(5,promotion.imageCover.length()) : "",,
+            description: promotion.description,
+            startedDate: promotion.startedDate,
+            endedDate: promotion.endedDate,
+            createdAt: promotion.createdAt,
+            updatedAt: promotion.updatedAt
+        };
     }
 }
 

@@ -17,6 +17,7 @@ fs.existsSync(path.join(appRoot.toString(), Constant.imageUploadPath)) || fs.mkd
 fs.existsSync(path.join(appRoot.toString(), Constant.documentUploadPath)) || fs.mkdirSync(path.join(appRoot.toString(), Constant.documentUploadPath));
 fs.existsSync(path.join(appRoot.toString(), Constant.imageAvatarPath)) || fs.mkdirSync(path.join(appRoot.toString(), Constant.imageAvatarPath));
 fs.existsSync(path.join(appRoot.toString(), Constant.imageProductPath)) || fs.mkdirSync(path.join(appRoot.toString(), Constant.imageProductPath));
+fs.existsSync(path.join(appRoot.toString(), Constant.imageBannerPath)) || fs.mkdirSync(path.join(appRoot.toString(), Constant.imageBannerPath));
 fs.existsSync(path.join(appRoot.toString(), Constant.otherPath)) || fs.mkdirSync(path.join(appRoot.toString(), Constant.otherPath));
 
 
@@ -31,7 +32,9 @@ const storage = multer.diskStorage({
             callback(null, Constant.imageProductPath);
         } else if (type.toLowerCase() == "document") {
             callback(null, Constant.documentUploadPath);
-        } else {
+        } else if (type.toLowerCase() == "image_banner"){
+            callback(null, Constant.imageBannerPath);
+        }else {
             callback(null, Constant.otherPath);
         }
     },

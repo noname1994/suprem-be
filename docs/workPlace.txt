@@ -1,0 +1,30 @@
+{
+    "_id": "5b471769664b561368679a02",
+    "workPlace": {
+        "salary": {
+            "baseSalary": 4000000,
+            "positionSalary": 0,
+            "allowanceSalary": 0
+        },
+        "roles": [
+            "5b3def9bd6bf142c7c816b36"
+        ],
+        "_id": "5b471769664b561368679a07",
+        "storage": "5b4718080d1b4c2dd851918f",
+        "monthly_salary": []
+    }
+}
+
+{
+  "_id": "5b471769664b561368679a02",
+  "workPlace": {
+    "_id": "5b471cca470a8833c05c5d34",
+    "salary": {
+      "baseSalary": 2000000,
+      "positionSalary": 0,
+      "allowanceSalary": 0
+    },
+    "role": "5b3def9bd6bf142c7c816b36",
+    "storage": "5b4718080d1b4c2dd851918f"
+  }
+}

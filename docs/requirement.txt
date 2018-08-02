@@ -56,8 +56,5 @@
 	- Tạo thẻ khách hàng thân thiết ( discuss )
 	- Tự động phân bố cấp độ khách hàng để khuyến mại, chăm sóc ( discuss )
 
-- so sánh trừu tượng và đóng gói
-- so sánh kế thừa và đa hình
-- so sánh override và overload
-phân biệt đc String buffer và string builder
+
 

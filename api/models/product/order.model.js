@@ -60,6 +60,7 @@ const CustomerSchema = new Schema(
         },
         arrProduct: [
             {
+                _id: false,
                 product: {
                     type: Schema.Types.ObjectId,
                     ref: "Product"

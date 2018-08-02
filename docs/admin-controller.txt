@@ -2,11 +2,25 @@
   "fullname": "Trần Đức Ninh",
   "gen": "163313968",
   "email": "tranducninhnd94@hotmail.com",
-  "address": {
+ "address": {
     "detail": "Số 1, Phạm Văn Bạch",
-    "ward": "Phường Yên Hòa",
-    "district": "Quận Cầu Giấy",
-    "province": "Hà Nội"
+    "ward": {
+      "_id": 8,
+      "name": "Nguyễn Trung Trực",
+      "type": "Phường",
+      "location": "21 02 36N, 105 50 43E"
+    },
+    "district": {
+      "_id": 1,
+      "name": "Ba Đình",
+      "type": "Quận",
+      "location": "21 02 08N, 105 49 38E"
+    },
+    "province": {
+      "_id": 1,
+      "name": "Hà Nội",
+      "type": "Thành Phố"
+    }
   },
   "username": "tranducninh",
   "facebookPage": [
@@ -29,7 +43,7 @@
   "workPlaces": [
     {
       "storage": "5b3df3c603ccf728c0ac5adc",
-      "roles": [
+      "role": [
         "5b3def9bd6bf142c7c816b36"
       ],
       "salary": {

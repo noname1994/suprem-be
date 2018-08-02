@@ -15,13 +15,6 @@ class ProductDTO {
                     priority: ele.priority
                 }
             }) : [],
-            promotion: body.promotion ? body.promotion.map(ele => {
-                return {
-                    information: ele.information,
-                    startedDate: ele.startedDate,
-                    endedDate: ele.endedDate
-                }
-            }) : [],
             description: body.description,
             createdAt: Date.now()
         }
@@ -51,13 +44,6 @@ class ProductDTO {
                     color: ele.color,
                     image: ele.image ? ele.image : [],
                     priority: ele.priority
-                }
-            }) : null,
-            promotion: body.promotion ? body.promotion.map(ele => {
-                return {
-                    information: ele.information,
-                    startedDate: ele.startedDate,
-                    endedDate: ele.endedDate
                 }
             }) : null,
             description: body.description,
@@ -90,14 +76,6 @@ class ProductDTO {
                     priority: ele.priority
                 }
             }) : [],
-            promotion: product.promotion ? product.promotion
-                .filter(ele => {
-                    if (ele.information) return true;
-                    return false;
-                })
-                .map(ele => {
-                    return ele
-                }) : [],
             description: product.description,
             createdAt: product.createdAt,
             updatedAt: product.updatedAt

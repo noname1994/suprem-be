@@ -311,7 +311,7 @@ paths:
           description: Server Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  /file:
+  /file/upload:
     post:
       tags:
         - File
@@ -353,6 +353,7 @@ paths:
           description: Server Error
           schema:
             $ref: "#/definitions/ErrorResponse" 
+  /file/download:
     get:
       tags:
         - File
@@ -368,6 +369,90 @@ paths:
           type: string
           description: path
           required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+  /file-upload:
+    get:
+      tags:
+        - File
+      summary: get all file from server
+      description: ""
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: type
+          type: string
+          description:  type of file
+          enum:
+            - AVATAR
+            - IMAGE_PRODUCT
+            - IMAGE_BANNER
+            - DOCUMENT
+            - OTHER
+          required: false
+        - in: query
+          name: pageNum
+          type: number
+          description:  page number
+          default: 0
+        - in: query
+          name: pageSize
+          type: number
+          description:  page size
+          default: 100
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        "400":
+          description: Client Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "500":
+          description: Server Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+  /file-upload/banner:
+    put:
+      tags:
+        - File
+      summary: Update status of banner image
+      security: 
+        - jwt: []
+      description: ""
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: arrId
+          description: array ids of file
+          required: true
+          type: array
+          items: 
+            type: string
+        - in: query
+          name: status
+          enum:
+            - SHOW
+            - HIDDEN
+          default: SHOW
       responses:
         "200":
           description: Success
@@ -710,25 +795,39 @@ paths:
         - application/json
       parameters:
         - in: query
-          name: type
+          name: name
+          type: string
+          required: false
+        - in: query
+          name: status
           type: string
           enum:
-            - PERCENT
-            - GIFT
-          description: PERCENT || GIFT 
+            - AVAILABLE
+            - UNAVAIABLE
+            - DISABLE
+            - DELETED
+          description: AVAILABLE || UNAVAIABLE || DISABLE || DELETED
+          required: false
+        - in: query
+          name: maxPrice
+          type: number
+          description: maxnimum price
+          required: false 
+        - in: query
+          name: minPrice
+          type: number
+          description: minimum price
           required: false
         - in: query
           name: pageNum
           type: number
           description: page number
           default: 0
-          required: false
         - in: query
           name: pageSize
           type: number
           description: page size
           default: 100
-          required: false
       responses:
         "200":
           description: Success
@@ -880,6 +979,11 @@ paths:
       produces:
         - application/json
       parameters:
+        - in: query
+          name: name
+          type: string
+          description: name of category
+          required: false
         - in: query
           name: status
           type: string
@@ -1036,21 +1140,19 @@ definitions:
       avatar: 
         type: string
         example: http://localhost:8080/images/avater/default.jpg
-      roles:
-        type: array
-        items:
-          properties:
-            name:
+      role:
+        properties:
+          name:
+            type: string
+          permission:
+            type: array
+            items:
               type: string
-            permission:
-              type: array
-              items:
-                type: string
         example:
-          - name: Employee
-            permission:
-              - permission 1
-              - permission 2
+          name: Employee
+          permission:
+            - permission 1
+            - permission 2
       salary:
         properties:
           baseSalary: 
@@ -1230,10 +1332,8 @@ definitions:
     properties:
       _id:
         type: string
-      roles:
-        type: array
-        items:
-          type: string
+      role:
+        type: string
       salary:
         type: object
         properties:
@@ -1245,9 +1345,7 @@ definitions:
             type: string
     example:
       _id: 5b471769664b561368679a02
-      roles:
-        - 5b471769664b561368679a02
-        - 5b471769664b561368679a02
+      role: 5b471769664b561368679a02
       salary:
         baseSalary: 4000000
         positionSalary: 0
@@ -1266,28 +1364,46 @@ definitions:
         type: string
       name:
         type: string
+        example: Promotion 1
+      scope:
+        type: string
+        enum:
+          - STORE
+          - PRODUCT
+        default: STORE
       type:
         type: string
-      percentFormula:
-        properties:
-          purchasedQuantity:
-            type: number
-            default: 1
-          reducedPercent:
-            type: number
-            default: 0
-      giftFormula:
-        properties:
-          purchasedQuantity:
-            type: number
-            default: 0
-          donatedQuantity:
-            type: number
-            default: 0
-          donatedProduct:
-            type: string
+        enum:
+          - TOTAL_MONEY
+          - PURCHASED_QUANTITY
+        default: TOTAL_MONEY
+      minimumMoney:
+        type: number
+        example: 1000000
+      minimumQuantity:
+        type: number
+        example: 10
+      reducedPercent:
+        type: number
+        example: 5
+      donatedProduct:
+        type: array
+        items:
+          type: string
+      appliedProduct: 
+        type: array
+        items:
+          type: string
       description:
         type: string
+      startedDate:
+        type: string
+        format: date
+        example: 2017-07-21 
+      endedDate:
+        type: string
+        format: date
+        example: 2017-09-21 
       createdAt:
         type: string
         format: date-time
@@ -1302,9 +1418,7 @@ definitions:
         type: string
       category:
         type: string
-        enum:
-          - Category 1
-          - Category 2
+        example: 5b56cec4098b7c2a58f3744e
       tag:
         type: string
         enum:
@@ -1337,20 +1451,6 @@ definitions:
                     type: string
             priority:
               type: number
-      promotion:
-        type: array
-        items: 
-          properties:
-            information:
-              type: string
-            startedDate:
-              type: string
-              format: date
-              example: 2017-07-21 
-            endedDate:
-              type: string
-              format: date
-              example: 2017-07-21 
       description: 
         type: string
   CategoryModel:

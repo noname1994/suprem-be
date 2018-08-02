@@ -1,0 +1,63 @@
+1. Province
+{
+	_id: {
+		type: String,
+		required: true
+	},
+	name: {
+		type: String
+	},
+	type: {
+		type: String
+	}
+}
+
+2. District
+{
+	_id: {
+		type: String,
+		required: true
+	},
+	name: {
+		type: String
+	},
+	type: {
+		type: String
+	},
+	location: {
+		type: String
+	},
+	province: {
+		type: String,
+		ref: "Province"
+	}
+}
+
+3. Ward
+{
+	_id: {
+		type: String,
+		required: true
+	},
+	name: {
+		type: String
+	},
+	type: {
+		type: String
+	},
+	location: {
+		type: String
+	},
+	district: {
+		type: String,
+		ref: "District"
+	}
+}
+
+
+Get All Province
+Response :
+{
+
+
+}

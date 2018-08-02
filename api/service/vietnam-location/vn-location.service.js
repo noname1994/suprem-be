@@ -11,7 +11,7 @@ class VNLocationService {
         try {
             let result = await Province.find();
             if (!result) {
-                throw new CustomizeError(TAG, 400, "Not found any province !");
+                throw new CustomizeError(TAG, 400, "Không tìm thấy dữ liệu !");
             }
             return result;
         } catch (error) {
@@ -23,12 +23,12 @@ class VNLocationService {
         try {
 
             if (!provinceId) {
-                throw new CustomizeError(TAG, 400, "Not found provinceId !");
+                throw new CustomizeError(TAG, 400, "không tìm thấy provinceId !");
             }
 
             let result = await District.find({ province: provinceId });
             if (!result) {
-                throw new CustomizeError(TAG, 400, "Not found any district !");
+                throw new CustomizeError(TAG, 400, "Không tìm thấy dữ liệu !");
             }
             return result;
         } catch (error) {
@@ -40,12 +40,12 @@ class VNLocationService {
         try {
 
             if (!districtId) {
-                throw new CustomizeError(TAG, 400, "Not found districtId !");
+                throw new CustomizeError(TAG, 400, "không tìm thấy districtId !");
             }
 
             let result = await Ward.find({ district: districtId });
             if (!result) {
-                throw new CustomizeError(TAG, 400, "Not found any ward !");
+                throw new CustomizeError(TAG, 400, "Không tìm thấy dữ liệu  !");
             }
             return result;
         } catch (error) {

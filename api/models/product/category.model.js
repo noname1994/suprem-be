@@ -13,6 +13,9 @@ const CategorySchema = new mongoose.Schema(
             enum: ["ACTIVE", "INACTIVE", "DELETED"],
             default: "ACTIVE"
         },
+		imageCover:{
+			type: String
+		},
         description: {
             type: String
         },

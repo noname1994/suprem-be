@@ -3,7 +3,8 @@ class CategoryDTO {
     infoCreate(body) {
         return {
             name: body.name,
-            description: body.name,
+            description: body.description,
+			imageCover: body.imageCover,
             createdAt: Date.now()
         }
     }
@@ -12,6 +13,7 @@ class CategoryDTO {
         let tmp = {
             _id: body._id,
             name: body.name,
+			imageCover: body.imageCover,
             status: body.status,
             description: body.description,
             updatedAt: Date.now()
@@ -31,6 +33,7 @@ class CategoryDTO {
             _id: category._id,
             name: category.name,
             status: category.status,
+			imageCover: category.imageCover ? category.imageCover.subString(5,category.imageCover.length()) : "",
             description: category.description,
             createdAt: category.createdAt,
             updatedAt: category.updatedAt

@@ -1,0 +1,169 @@
+{
+  "_id": ObjectId,
+  "fullname": String,
+  "gen": String,
+  "email": String,
+  "address": {
+    "detail": String,
+    "ward": {
+      "_id": 8,
+      "name": "Nguy?n Trung Tr?c",
+      "type": "Phu?ng",
+      "location": "21 02 36N, 105 50 43E",
+			"district": "001"
+    },
+    "district": {
+      "_id": 1,
+      "name": "Ba Ðình",
+      "type": "Qu?n",
+      "location": "21 02 08N, 105 49 38E"
+			"province": "01"
+    },
+    "province": {
+      "_id": 1,
+      "name": "Hà N?i",
+      "type": "Thành Ph?"
+    }
+  },
+  "username": String,
+  "password": String,
+  "facebookPage": [
+    {
+      "url": String
+    }
+  ],
+  "phoneNumber": [
+    {
+      "number": String
+    }
+  ],
+  "avatar": String,
+	"role": {
+			"name": "Employee",
+			"permission": [
+				"permission 1",
+				"permission 2"
+			]
+	},
+	"salary": {
+		"baseSalary": Number,
+		"positionSalary": Number,
+		"allowanceSalary": Number
+	},
+	"monthlySalary": [
+		{
+			"status": "NOT_RECEIVED || RECEIVED",
+			"dateReceived": DateTime,
+			"baseSalary": Number,
+			"positionSalary": Number,
+			"allowanceSalary": Number,
+			"promotionSalary": Number
+		}
+	],
+	"dateWorking": DateTime,
+ 
+  "isSuperAdmin": boolean,
+  "status": "ACTIVE || INACTIVE || DELETED",
+  "latestAcess": DateTime,
+  "createdAt": DateTime,
+  "updatedAt": DateTime
+}
+
+1. Create
+	{
+		fullname,
+		gen,
+		email,
+		address: {
+			detail,
+			ward,
+			district,
+			province
+		},
+		username,
+		password,
+		facebookPage,
+		phoneNumber,
+		avatar,
+		role,
+		salary,
+		?dateWorking 
+	}
+
+2. Update - Employee
+	{
+		fullname,
+		gen,
+		email,
+		address,
+		username,
+		facebookPage,
+		phoneNumber,
+		avatar
+	}
+	
+3. Change password
+	{
+		newPassword
+	}
+	
+4. New Work place - Admin
+	{
+		_id (_id emp),
+		workPlace: {
+			storage,
+			role,
+			salary: {
+				baseSalary,
+				positionSalary,
+				allowanceSalary
+			},
+			date_working
+		}
+	}
+	
+5. Update Work place - Admin
+	{
+		_id,
+		role,
+		salary :{
+			baseSalary,
+			positionSalary,
+			allowanceSalary
+		}
+	}
+	
+6. Response
+	{
+		_id,
+		fullname,
+		gen, 
+		email,
+		address,
+		username,
+		facebookPage,
+		phoneNumber,
+		avatar,
+	
+		role,
+		salary :{
+			baseSalary,
+			positionSalary,
+			allowanceSalary
+		},
+		monthlySalary : [
+			{
+				status,
+				dateReceived,
+				baseSalary,
+				positionSalary,
+				promotionSalary,
+				allowanceSalary
+			}
+		],
+	
+		status,
+		latestAccess,
+		createdAt,
+		updatedAt
+	}

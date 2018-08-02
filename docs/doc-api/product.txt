@@ -1,0 +1,56 @@
+{
+  "_id": "string",
+  "name": "string",
+  "category": "Category 1",
+  "tag": "Tag 1",
+  "originalPrice": 0,
+  "salePrice": 0,
+  "status": "AVAILABLE",
+  "colorImage": [
+    {
+      "_id": "string",
+      "color": "string",
+      "image": [
+        {
+          "url": "string"
+        }
+      ],
+      "priority": 0
+    }
+  ],
+  "promotion": [
+    {
+      "information": "string",
+      "startedDate": "2017-07-21T00:00:00.000Z",
+      "endedDate": "2017-07-21T00:00:00.000Z"
+    }
+  ],
+  "description": "string"
+}
+
+1.create
+{
+    name,
+    category,
+    tag,
+    originalPrice,
+    salePrice,
+    status,
+    colorImage,
+    promotion,
+    description
+}
+
+2. update
+{
+    _id,
+    name,
+    category,
+    tag,
+    originalPrice,
+    salePrice,
+    status,
+    colorImage,
+    promotion,
+    description
+}

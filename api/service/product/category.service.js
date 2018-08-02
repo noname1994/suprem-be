@@ -17,7 +17,7 @@ class CategoryService {
             let name = newCategory.name;
             let tmp = await Category.findOne({ name: name });
             if (tmp) {
-                throw new CustomizeError(TAG, 400, `category namme = "${name}" is existed !`);
+                throw new CustomizeError(TAG, 400, `category với tên là "${name}" đã tồn tại !`);
             }
 
             let category = new Category(newCategory);
@@ -38,19 +38,19 @@ class CategoryService {
 
             let _id = newCategory._id;
             if (!mongoose.Types.ObjectId.isValid(_id)) {
-                throw new CustomizeError(TAG, 400, `"${_id}" must be format ObjectId type`);
+                throw new CustomizeError(TAG, 400, `"${_id}" phải là kiểu ObjectId`);
             }
 
             tmp = await Category.findById(_id);
             if (!tmp) {
-                throw new CustomizeError(TAG, 400, "Category not existed !");
+                throw new CustomizeError(TAG, 400, "Category không tồn tại !");
             }
 
             let name = newCategory.name;
             if (name) {
                 tmp = await Category.findOne({ name: name, _id: { $ne: _id } });
                 if (tmp) {
-                    throw new CustomizeError(TAG, 400, `category namme = "${name}" is existed !`);
+                    throw new CustomizeError(TAG, 400, `category với tên là "${name}" đã tồn tại !`);
                 }
             }
 
@@ -70,6 +70,12 @@ class CategoryService {
     async findAll(params) {
         try {
             let condition = {};
+
+            let name = params.name;
+            if (name) {
+                condition.name = new RegExp(name, 'i');
+            }
+
             let status = params.status;
             if (status) {
                 condition.status = status;
@@ -80,13 +86,15 @@ class CategoryService {
             let limit = Number(pageSize);
             let offset = Number(pageNum) * Number(pageSize);
 
+            let total = await Category.count(condition) || 0;
+
             let rs = await Category.find(condition).limit(limit).skip(offset).exec() || [];
 
             let arrResponse = rs.map(ele => {
                 return categoryDTO.infoResponse(ele);
             })
 
-            return arrResponse;
+            return { total, list: arrResponse };
         } catch (error) {
             throw error;
         }
@@ -104,6 +112,9 @@ class CategoryService {
     async findById(_id) {
         try {
             let rs = await Category.findById(_id);
+            if (!rs) {
+                throw new CustomizeError(TAG, 400, "Category không tồn tại !");
+            }
             let categoryResponse = categoryDTO.infoResponse(rs);
             return categoryResponse;
         } catch (error) {

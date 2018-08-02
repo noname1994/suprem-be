@@ -17,7 +17,7 @@ class PromotionService {
             let name = newPromotion.name;
             let tmp = await Promotion.findOne({ name: name });
             if (tmp) {
-                throw new CustomizeError(TAG, 400, `Promotion name "${name}" is existed !`);
+                throw new CustomizeError(TAG, 400, `Khuyến mại với tên "${name}" đã tồn tại !`);
             }
             let promotion = new Promotion(newPromotion);
             let rs = await promotion.save();
@@ -35,18 +35,18 @@ class PromotionService {
             let newPromotion = promotionDTO.infoUpdate(_body);
             let _id = newPromotion._id;
             if (!mongoose.Types.ObjectId.isValid(_id)) {
-                throw new CustomizeError(TAG, 400, `"${_id}" must be format ObjectId type`);
+                throw new CustomizeError(TAG, 400, `"${_id}" phải là kiểu ObjectId`);
             }
 
             tmp = await Promotion.findById(_id);
             if (!tmp) {
-                throw new CustomizeError(TAG, 400, "Promotion not exist !");;
+                throw new CustomizeError(TAG, 400, "Khuyến mại cần cập nhật không tồn tại !");;
             }
 
             let name = newPromotion.name;
             tmp = await Promotion.findOne({ name: name, _id: { $ne: _id } });
             if (tmp) {
-                throw new CustomizeError(TAG, 400, `Promotion name "${name}" is existed !`);
+                throw new CustomizeError(TAG, 400, `Khuyến mại với tên "${name}" đã tồn tại !`);
             }
 
             await Promotion.updateOne({ _id: _id }, newPromotion);
@@ -72,11 +72,13 @@ class PromotionService {
             let limit = Number(pageSize);
             let offset = Number(pageNum) * Number(pageSize);
 
+            let total = await Promotion.count(condition) || 0;
+
             let rs = await Promotion.find(condition).limit(limit).skip(offset).exec() || [];
             let arrResponse = rs.map(ele => {
                 return promotionDTO.infoResponse(ele);
             })
-            return arrResponse;
+            return { total, list: arrResponse };
         } catch (error) {
             throw error;
         }
@@ -85,9 +87,12 @@ class PromotionService {
     async findById(_id) {
         try {
             if (!mongoose.Types.ObjectId.isValid(_id)) {
-                throw new CustomizeError(TAG, 400, `"${_id}" must be format ObjectId type`);
+                throw new CustomizeError(TAG, 400, `"${_id}" phải là kiểu ObjectId`);
             }
             let rs = await Promotion.findById(_id);
+            if (!rs) {
+                throw new CustomizeError(TAG, 400, "Khuyến mại không tồn tại !");
+            }
             let promotionResponse = promotionDTO.infoResponse(rs);
             return promotionResponse;
         } catch (error) {

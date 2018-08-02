@@ -52,11 +52,11 @@ router
     /**
      * Admin router
      */
-    .post("/admin/employee", auth.isSuperAdmin, adminController.createEmployee)
+    .post("/admin/employee", auth.isAuthorization, adminController.createEmployee)
     .get("/admin/employee", auth.isAuthorization, adminController.findEmployeeByParams)
-    .delete("/admin/employee", auth.isSuperAdmin, adminController.deleteEmployee)
-    .put("/admin/employee", auth.isSuperAdmin, adminController.updateEmployee)
-    .get("/admin/role", auth.isSuperAdmin, adminController.getAllRoles)
+    .delete("/admin/employee", auth.isAuthorization, adminController.deleteEmployee)
+    .put("/admin/employee", auth.isAuthorization, adminController.updateEmployee)
+    .get("/admin/role", auth.isAuthorization, adminController.getAllRoles)
 
     /**
      * Employee router
@@ -72,8 +72,10 @@ router
     /**
      * File
      */
-    .post("/file", auth.isLogin, fileController.uploadFile, fileUploadController.createFileUpload)
-    .get("/file", auth.isLogin, fileController.downloadFile)
+    .post("/file/upload", auth.isAuthorization, fileController.uploadFile, fileUploadController.createFileUpload)
+    .get("/file/download", auth.isAuthorization, fileController.downloadFile)
+    .get("/file-upload", auth.isAuthorization, fileUploadController.getAllFileUpload)
+    .put("/file-upload/banner", auth.isAuthorization, fileUploadController.updateStatusBannerImage)
     /**
      * VN-location
      */
@@ -83,27 +85,27 @@ router
     /**
      * Promotion
      */
-    .get("/promotion", auth.isSuperAdmin, promotionController.getAllPromotion)
-    .post("/promotion", auth.isSuperAdmin, promotionController.createPromotion)
-    .put("/promotion", auth.isSuperAdmin, promotionController.updatePromotion)
-    .delete("/promotion", auth.isSuperAdmin, promotionController.deletePromotion)
-    .get("/promotion/:_id", auth.isSuperAdmin, promotionController.getByIdPromotion)
+    .get("/promotion", promotionController.getAllPromotion)
+    .post("/promotion", auth.isAuthorization, promotionController.createPromotion)
+    .put("/promotion", auth.isAuthorization, promotionController.updatePromotion)
+    .delete("/promotion", auth.isAuthorization, promotionController.deletePromotion)
+    .get("/promotion/:_id", promotionController.getByIdPromotion)
     /**
      * Product
      */
-    .get("/product", auth.isSuperAdmin, productController.getAllProduct)
-    .post("/product", auth.isSuperAdmin, productController.createProduct)
-    .put("/product", auth.isSuperAdmin, productController.updateProduct)
-    .delete("/product", auth.isSuperAdmin, productController.deleteProduct)
-    .get("/product/:_id", auth.isSuperAdmin, productController.getByIdProduct)
+    .get("/product", productController.getAllProduct)
+    .post("/product", auth.isAuthorization, productController.createProduct)
+    .put("/product", auth.isAuthorization, productController.updateProduct)
+    .delete("/product", auth.isAuthorization, productController.deleteProduct)
+    .get("/product/:_id", productController.getByIdProduct)
     /**
      * Category
      */
-    .get("/category", auth.isSuperAdmin, categoryController.getAllCategory)
-    .post("/category", auth.isSuperAdmin, categoryController.createCategory)
-    .put("/category", auth.isSuperAdmin, categoryController.updateCategory)
-    .delete("/category", auth.isSuperAdmin, categoryController.deleteCategory)
-    .get("/category/:_id", auth.isSuperAdmin, categoryController.getByIdCategory)
+    .get("/category", categoryController.getAllCategory)
+    .post("/category", auth.isAuthorization, categoryController.createCategory)
+    .put("/category", auth.isAuthorization, categoryController.updateCategory)
+    .delete("/category", auth.isAuthorization, categoryController.deleteCategory)
+    .get("/category/:_id", categoryController.getByIdCategory)
     /**
     * VN-location
     */

@@ -15,7 +15,10 @@ const roles = [
     {
         name: "SUPER_ADMIN",
         permission: [
-            "ALL"
+            {
+                path: "ALL",
+                method: "ALL"
+            }
         ]
     },
     {
@@ -33,7 +36,20 @@ const roles = [
     {
         name: "STOCKER",
         permission: [
+            "/file:POST",
+            "/file:GET",
 
+            "/product:POST",
+            "/product:GET",
+            "/product:PUT",
+            "/product:DELETE",
+            "/product/:_id:GET",
+
+            "/category:POST",
+            "/category:GET",
+            "/category:PUT",
+            "/category:DELETE",
+            "/category/:_id:GET"
         ]
     },
     {

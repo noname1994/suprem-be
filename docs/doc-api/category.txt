@@ -1,0 +1,28 @@
+Response
+{
+    "_id": "string",
+    "name": "string",
+    "status": "ACTIVE",
+    "description": "string",
+    "createdAt": "2018-07-18T02:35:40.480Z",
+    "updatedAt": "2018-07-18T02:35:40.480Z"
+}
+
+1. created
+{
+    name,
+    description
+}
+
+2. updated
+{
+    _id,
+    name,
+    description
+}
+
+3 . delete
+request params : arrId 
+
+4. get
+requestParams : type (), pageNum, pageSize
