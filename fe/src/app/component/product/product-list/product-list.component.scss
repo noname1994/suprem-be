@@ -49,48 +49,121 @@
     .main-table{
         
         padding: 20px;
+        margin: auto;
+        min-height: 200px;
+        max-height: 600px;
+        overflow: auto;
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
+
+            td, th{
+                border: 1px solid rgb(121, 113, 113);
+                text-align: center;
+            }
+            
+            th{
+                background-color: rgb(156, 146, 146);
+            }
+
+            tr:nth-child(even) {
+                background-color: #fff;
+            }
+
+            td img{
+                max-width: 100px;
+            }
+
+            .stt{
+                min-width: 30px;
+            }
+            .name{
+                min-width: 300px;
+            }
+
+            .category{
+                min-width: 300px;
+            }
+
+            .orginal-price{
+                min-width: 200px;
+            }
+
+            .sale-price{
+                min-width: 200px;
+            }
+
+            .status{
+                min-width: 200px;
+            }
+
+            .image-cover{
+                min-width: 200px;
+            }
+    
+
+            .color-image{
+                min-width: 300px;
+            }
+
+            .description{
+                min-width: 300px;
+            }
+
+            .action{
+                min-width: 200px;
+            }
+
+            td button{
+                background-color: Transparent;
+                background-repeat:no-repeat;
+                max-width: 30px;
+                border: none;
+                cursor:pointer;
+                overflow: hidden;
+                outline:none;
+                height: 35px;
+                position: relative;
+                width: 100%;
+                text-align: left;
+                padding-bottom: 0px;
+                margin-bottom: 10px;
+                margin-right: 5px;
+                &:hover{
+                    .icon-view-detail{
+                        color: red;
+                    }
+                }
+               
+                &:hover{
+                    .icon-edit{
+                        color: #0ce71eea;
+                    }
+                }
+            }
+
+        } 
+    }
+    .pagination-div {
+        padding-right: 30px;
+        float: right;
+        a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
         }
-       
-        td, th{
-            border: 1px solid #333;
-            text-align: left;
-            padding: 8px;
+        a.active {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
         }
         
-        tr:nth-child(even) {
-            background-color: #fff;
+        a:hover:not(.active) {
+            background-color: #ddd;
+            border-radius: 5px;
         }
 
-        td button{
-            background-color: Transparent;
-            background-repeat:no-repeat;
-            max-width: 30px;
-            border: none;
-            cursor:pointer;
-            overflow: hidden;
-            outline:none;
-            height: 35px;
-            position: relative;
-            width: 100%;
-            text-align: left;
-            padding-bottom: 0px;
-            margin-bottom: 10px;
-            margin-right: 5px;
-            &:hover{
-                .icon-view-detail{
-                    color: red;
-                }
-            }
-           
-            &:hover{
-                .icon-edit{
-                    color: #0ce71eea;
-                }
-            }
-        }
     }
 }

@@ -25,6 +25,48 @@
                 td{
                     padding-left: 20px;
                 }
+
+                .upload-img{
+                    float: left;
+                    width: 100px;
+                    height: 100px;
+                    margin-bottom: 20px;
+                    img{
+                        border-radius: 4px;
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .remove{
+                        position: absolute;
+                        top:0; 
+                        right:0;
+                        width: 100px;
+                        height: 100px;
+                        display:none;
+                        button{
+                            margin-left:75%;
+                            background-color: Transparent;
+                            background-repeat:no-repeat;
+                            border: none;
+                            cursor:pointer;
+                            overflow: hidden;
+                            outline:none;
+                            position: relative;
+                            text-align: center;
+                            mat-icon{
+                                color: red;
+                            }
+                        }
+                    }
+                    &:hover{
+                        .remove{
+                            display: block;
+                            background: rgba(132,132,132, 0.5);
+                        }
+                    }
+                    
+                }
+
             }
 
         }

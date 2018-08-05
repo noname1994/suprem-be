@@ -34,7 +34,7 @@
           <th class="action">Action</th>
         </tr>
         <tr *ngFor="let category of arrCategory; let i = index">
-          <td>{{i + 1}}</td>
+          <td>{{pageNum * pageSize + i + 1}}</td>
           <td>{{category.name}}</td>
           <td>
             <img [src]="category.imageCover" />

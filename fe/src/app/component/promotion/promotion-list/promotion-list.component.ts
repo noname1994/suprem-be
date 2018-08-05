@@ -46,17 +46,16 @@ export class PromotionListComponent implements OnInit {
    */
 
   setupPagination() {
-    let numberPage = Math.round(this.totalRecord / this.pageSize);
 
-    console.log(this.totalRecord, ' - -', numberPage);
+    this.arrIndexPage = [];
+    this.arrSelectedIndexPage = [];
+    let numberPage = this.totalRecord / this.pageSize;
 
-    if (this.totalRecord % this.pageSize != 0) {
-      ++numberPage;
-    }
     for (let i = 0; i < numberPage; i++) {
       this.arrIndexPage.push(i);
       this.arrSelectedIndexPage.push(false);
     }
+    this.arrSelectedIndexPage[this.positionIndexPageCliced] = true;
     console.log(this.arrIndexPage)
   }
 
@@ -69,7 +68,6 @@ export class PromotionListComponent implements OnInit {
       this.arrPromotion = entityRes.value.list;
       this.totalRecord = entityRes.value.total;
       this.setupPagination();
-      this.arrSelectedIndexPage[0] = true;
     }, (httpError: HttpErrorResponse) => {
       this.handleError(httpError.error);
     })
@@ -96,10 +94,12 @@ export class PromotionListComponent implements OnInit {
   onChangePageSize(value) {
     this.pageSize = value;
     this.params.pageSize = this.pageSize;
+    this.positionIndexPageCliced = 0;
     this.getAllPromotion();
   }
 
   changePageNum(index) {
+    console.log("changePageNum : ", index);
     this.pageNum = index;
     this.params.pageNum = this.pageNum;
   }
@@ -109,7 +109,7 @@ export class PromotionListComponent implements OnInit {
       this.arrSelectedIndexPage[this.positionIndexPageCliced] = false;
       this.arrSelectedIndexPage[this.positionIndexPageCliced - 1] = true;
       this.positionIndexPageCliced = this.positionIndexPageCliced - 1;
-      this.changePageNum(this.positionIndexPageCliced - 1);
+      this.changePageNum(this.positionIndexPageCliced);
       this.getAllPromotion();
     }
   }
@@ -130,7 +130,7 @@ export class PromotionListComponent implements OnInit {
       this.arrSelectedIndexPage[this.positionIndexPageCliced] = false;
       this.arrSelectedIndexPage[this.positionIndexPageCliced + 1] = true;
       this.positionIndexPageCliced = this.positionIndexPageCliced + 1;
-      this.changePageNum(this.positionIndexPageCliced + 1);
+      this.changePageNum(this.positionIndexPageCliced);
       this.getAllPromotion();
     }
   }

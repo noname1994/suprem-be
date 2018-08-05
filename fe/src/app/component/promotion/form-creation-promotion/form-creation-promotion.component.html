@@ -5,9 +5,9 @@
     </div>
   </div>
   <div class="main">
-    <div class="main-table">
+    <form class="promotion-form" [formGroup]="fgPromotion" #f="ngForm">
+      <div class="main-table">
 
-      <form class="promotion-form" [formGroup]="fgPromotion">
         <table>
           <tr>
             <td>
@@ -134,9 +134,7 @@
           </tr>
           <tr>
             <td>
-              <button mat-menu-item matTooltip="Upload Ảnh đại diện" matTooltipPosition="below" (click)="imgFileInput.click()">
-                <mat-icon style="color: green">image</mat-icon>
-              </button>
+              <mat-icon matTooltip="Upload Ảnh đại diện" matTooltipPosition="below" (click)="imgFileInput.click()" style="color: green; cursor: pointer;">image</mat-icon>
               <input hidden accept="image/*" type="file" #imgFileInput (change)="fileChangeEvent($event)" name="file">
             </td>
             <td>
@@ -151,18 +149,11 @@
             </td>
           </tr>
         </table>
-
-      </form>
-
-    </div>
-    <div class="user-action">
-      <button (click)="insertNewPromotion()">ADD</button>
-      <button>RESET</button>
-      <p *ngIf="fgPromotion.invalid "> Form chưa hợp lệ ! </p>
-    </div>
+      </div>
+      <div class="user-action">
+        <button (click)="insertNewPromotion()">ADD</button>
+        <button>RESET</button>
+      </div>
+    </form>
   </div>
 </div>
-
-<li>
-  <button mat-raised-button (click)="openDialog()">Pick one</button>
-</li>

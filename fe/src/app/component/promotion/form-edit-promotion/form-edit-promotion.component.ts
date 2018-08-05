@@ -120,7 +120,6 @@ export class FormEditPromotionComponent implements OnInit, OnDestroy {
     this.imageCover = promotion.imageCover;
   }
 
-
   fileChangeEvent(fileInput): void {
     if (fileInput.target.files && fileInput.target.files[0]) {
       this.arrFileUpload = Array.prototype.slice.call(fileInput.target.files);
@@ -232,6 +231,7 @@ export class FormEditPromotionComponent implements OnInit, OnDestroy {
 
   subFunctionInsertPromotion(newPromotion) {
     this.subscriptionEditPromotion = this.promotionService.updatePromotion(newPromotion).subscribe((entityRes: SuccessResponse<Promotion>) => {
+      this.promotion = entityRes.value;
       this.notificationService.createNotification(
         NotificationComponent,
         { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');

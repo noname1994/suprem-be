@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PromotionService } from '../../../service/product/promotion.service';
 import { NotificationService } from '../../../service/popups/notification.service';
@@ -67,22 +67,40 @@ export class FormCreationPromotionComponent implements OnInit, OnDestroy {
 
   private arrDonatedProduct = [];
 
+  @ViewChild('f') myForm;
+
   constructor(private promotionService: PromotionService, private notificationService: NotificationService,
     private fileService: FileService, private dialogService: DialogService) { }
 
   ngOnInit() {
 
+    this.initFormGroup();
+
+  }
+
+  initFormGroup() {
+
+    this.name = new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]);
+    this.scope = new FormControl('ALL_PRODUCT', [Validators.required]);
+    this.type = new FormControl('TOTAL_MONEY', [Validators.required]);
+    this.minimumMoney = new FormControl('', [Validators.min(1000)]);
+    this.minimumQuantity = new FormControl('', [Validators.min(1)]);
+    this.donatedProduct = new FormControl('');
+    this.reducedPercent = new FormControl('', [Validators.min(1), Validators.max(100)]);
+    this.description = new FormControl('', [Validators.maxLength(500)]);
+    this.startedDate = new FormControl('', [Validators.required]);
+    this.endedDate = new FormControl('', [Validators.required]);
     this.fgPromotion = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
-      scope: new FormControl('ALL_PRODUCT', [Validators.required]),
-      type: new FormControl('TOTAL_MONEY', [Validators.required]),
-      minimumMoney: new FormControl('', [Validators.min(1000)]),
-      minimumQuantity: new FormControl('', [Validators.min(1)]),
-      donatedProduct: new FormControl(''),
-      reducedPercent: new FormControl('', [Validators.min(1), Validators.max(100)]),
-      description: new FormControl('', [Validators.maxLength(500)]),
-      startedDate: new FormControl('', [Validators.required]),
-      endedDate: new FormControl('', [Validators.required]),
+      name: this.name,
+      scope: this.scope,
+      type: this.type,
+      minimumMoney: this.minimumMoney,
+      minimumQuantity: this.minimumQuantity,
+      donatedProduct: this.donatedProduct,
+      reducedPercent: this.reducedPercent,
+      description: this.description,
+      startedDate: this.startedDate,
+      endedDate: this.endedDate
     })
 
   }
@@ -99,6 +117,14 @@ export class FormCreationPromotionComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  resetFormGroup() {
+    this.myForm.resetForm();
+    this.imageCover = null;
+    this.arrDonatedProduct = [];
+    this.arrAppliedProduct = [];
+    this.arrFileUpload = [];
+  }
 
   removeImage() {
     console.log("remove image");
@@ -186,6 +212,7 @@ export class FormCreationPromotionComponent implements OnInit, OnDestroy {
 
   subFunctionInsertPromotion(newPromotion) {
     this.subscriptionInsertPromotion = this.promotionService.createPromotion(newPromotion).subscribe((entityRes: SuccessResponse<Promotion>) => {
+      this.resetFormGroup();
       this.notificationService.createNotification(
         NotificationComponent,
         { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');

@@ -5,8 +5,8 @@
     </div>
   </div>
   <div class="main">
-    <div class="content-input">
-      <form [formGroup]="fgCategory">
+    <form [formGroup]="fgCategory" #f="ngForm">
+      <div class="content-input">
         <table>
           <tr>
             <td>
@@ -49,12 +49,11 @@
             </td>
           </tr>
         </table>
-      </form>
-    </div>
-    <div class="user-action">
-      <button (click)="insertNewCategory()">ADD</button>
-      <button>RESET</button>
-      <p *ngIf="fgCategory.invalid "> Form chưa hợp lệ ! </p>
-    </div>
+      </div>
+      <div class="user-action">
+        <button (click)="insertNewCategory()">ADD</button>
+        <button>RESET</button>
+      </div>
+    </form>
   </div>
 </div>

@@ -60,7 +60,7 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
   initFormGroup() {
     this.fgCategory = new FormGroup(
       {
-        _id: new FormControl({ value: this.category._id, disabled: true }),
+        _id: new FormControl(""),
         name: new FormControl(this.category.name, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
         description: new FormControl(this.category.description, [Validators.maxLength(500)])
       }
@@ -131,7 +131,7 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
 
 
   subUpdateCategory(newCategory) {
-    this.subscriptionEditCategory = this.categoryService.createCategory(newCategory)
+    this.subscriptionEditCategory = this.categoryService.updateCategory(newCategory)
       .subscribe((entityRes: SuccessResponse<any>) => {
         this.notificationService.createNotification(
           NotificationComponent,

@@ -8,7 +8,7 @@
     <div class="content-input">
       <form class="product-form">
         <div class="name">
-          <form>
+          <form [formGroup]="fgProduct">
             <table>
               <tr>
                 <td>
@@ -16,7 +16,7 @@
                 </td>
                 <td>
                   <mat-form-field>
-                    <input matInput placeholder="">
+                    <input matInput placeholder="" formControlName="name">
                   </mat-form-field>
                 </td>
                 <td>
@@ -24,7 +24,7 @@
                 </td>
                 <td>
                   <mat-form-field>
-                    <mat-select [(value)]="arrCategory && arrCategory[0] ? arrCategory[0].name : selectedCategory">
+                    <mat-select [(value)]="arrCategory && arrCategory[0] ? arrCategory[0].name : selectedCategory" formControlName="category">
                       <mat-option *ngFor="let category of arrCategory; let i = index" [value]="category.name" selected>
                         {{category.name}}
                       </mat-option>
@@ -38,7 +38,7 @@
                 </td>
                 <td>
                   <mat-form-field>
-                    <input matInput placeholder="">
+                    <input matInput placeholder="" formControlName="originalPrice">
                   </mat-form-field>
                 </td>
                 <td>
@@ -46,22 +46,66 @@
                 </td>
                 <td>
                   <mat-form-field>
-                    <input matInput placeholder="">
+                    <input matInput placeholder="" formControlName="salePrice">
                   </mat-form-field>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <button mat-menu-item matTooltip="Upload Ảnh đại diện" matTooltipPosition="below" (click)="imgFileInput.click()">
-                    <mat-icon style="color: green">image</mat-icon>
-                  </button>
-                  <input hidden accept="image/*" type="file" #imgFileInput (change)="fileChangeEvent($event)" name="file">
+                  <mat-icon style="color: green; cursor: pointer;" matTooltip="Upload Ảnh đại diện" (click)="imgFileInput.click()">image</mat-icon>
+                  <input hidden accept="image/*" type="file" #imgFileInput (change)="fileChangeEvent($event)" name="file" multiple>
                 </td>
-                <td>
-                  <img *ngIf="imgCoverSource" [src]="imgCoverSource" style="max-width: 400px" />
+                <td colspan="3">
+                  <div *ngFor="let imageCover of arrColorImage; let i = index" class="upload-img" style="position: relative">
+                    <img *ngIf="imageCover" [src]="imageCover" />
+                    <div class="remove" *ngIf="imageCover">
+                      <button matTooltip="Xóa ảnh" matTooltipPosition="below" (click)="removeImage(i)">
+                        <mat-icon>clear</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+
+
                 </td>
               </tr>
+              <!-- <tr *ngFor="let itemrow of fgProduct.controls.colorImage.controls; let i=index" [formGroupName]="i">
+                <td>
+                  <label>Color</label>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <input matInput placeholder="" formControlName="color">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <button mat-menu-item matTooltip="Thêm màu mới" matTooltipPosition="below" (click)="addNewRow()">
+                    <mat-icon style="color: green">add_box</mat-icon>
+                  </button>
+                  <button *ngIf="fgProduct.controls.colorImage.controls.length > 1" mat-menu-item matTooltip="Delete" matTooltipPosition="below"
+                    (click)="deleteRow()">
+                    <mat-icon style="color: green">remove</mat-icon>
+                  </button>
+                </td>
+              </tr> -->
             </table>
+            <!-- <div formArrayName="colorImage">
+              <h4>Màu - Ảnh</h4>
+              <div *ngFor="let itemrow of fgProduct.controls.colorImage.controls; let i=index" [formGroupName]="i">
+                <div class="form-group">
+                  <label>Color</label>
+                  <mat-form-field>
+                    <input matInput placeholder="" formControlName="color">
+                  </mat-form-field>
+                </div>
+                <button *ngIf="fgProduct.controls.colorImage.controls.length > 1" mat-menu-item matTooltip="Delete" matTooltipPosition="below"
+                  (click)="deleteRow()">
+                  <mat-icon style="color: green">remove</mat-icon>
+                </button>
+              </div>
+            </div>
+            <button mat-menu-item matTooltip="Thêm màu mới" matTooltipPosition="below" (click)="addNewRow()">
+              <mat-icon style="color: green">add_box</mat-icon>
+            </button> -->
           </form>
 
         </div>
@@ -73,4 +117,3 @@
     </div>
   </div>
 </div>
-

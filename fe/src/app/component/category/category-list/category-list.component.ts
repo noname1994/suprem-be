@@ -52,14 +52,16 @@ export class CategoryListComponent implements OnInit, OnDestroy {
 
   // pagination
   setupPagination() {
+
+    this.arrSelectedIndexPage = [];
+    this.arrIndexPage = [];
     let numberPage = this.totalRecord / this.pageSize;
 
-    if (this.totalRecord % this.pageSize != 0) {
-      ++numberPage;
-    }
-    for (let i = 1; i <= numberPage; i++) {
+    for (let i = 0; i < numberPage; i++) {
       this.arrIndexPage.push(i);
+      this.arrSelectedIndexPage[i] = false;
     }
+    this.arrSelectedIndexPage[this.positionIndexPageCliced] = true;
     console.log(this.arrIndexPage)
   }
 
@@ -93,7 +95,9 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   }
 
   onChangePageSize(value) {
+    this.pageSize = value;
     this.params.pageSize = value;
+    this.positionIndexPageCliced = 0;
     this.getAllCategory();
   }
 
@@ -107,7 +111,7 @@ export class CategoryListComponent implements OnInit, OnDestroy {
       this.arrSelectedIndexPage[this.positionIndexPageCliced] = false;
       this.arrSelectedIndexPage[this.positionIndexPageCliced - 1] = true;
       this.positionIndexPageCliced = this.positionIndexPageCliced - 1;
-      this.changePageNum(this.positionIndexPageCliced - 1);
+      this.changePageNum(this.positionIndexPageCliced);
       this.getAllCategory();
     }
   }
@@ -128,7 +132,7 @@ export class CategoryListComponent implements OnInit, OnDestroy {
       this.arrSelectedIndexPage[this.positionIndexPageCliced] = false;
       this.arrSelectedIndexPage[this.positionIndexPageCliced + 1] = true;
       this.positionIndexPageCliced = this.positionIndexPageCliced + 1;
-      this.changePageNum(this.positionIndexPageCliced + 1);
+      this.changePageNum(this.positionIndexPageCliced);
       this.getAllCategory();
     }
   }

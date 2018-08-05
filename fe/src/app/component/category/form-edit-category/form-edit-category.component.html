@@ -10,16 +10,6 @@
         <table>
           <tr>
             <td>
-              <label>ID</label>
-            </td>
-            <td>
-              <mat-form-field>
-                <input matInput type="text" formControlName="_id">
-              </mat-form-field>
-            </td>
-          </tr>
-          <tr>
-            <td>
               <label>Tên Danh Mục</label>
             </td>
             <td>
@@ -80,9 +70,8 @@
       </form>
     </div>
     <div class="user-action">
-      <button (click)="updateCategory()">Save</button>
+      <button (click)="updateCategory()">Update</button>
       <button>RESET</button>
-      <p *ngIf="fgCategory.invalid "> Form chưa hợp lệ ! </p>
     </div>
   </div>
 </div>

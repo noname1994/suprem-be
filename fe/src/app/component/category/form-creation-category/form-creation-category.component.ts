@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { CategoryService } from '../../../service/product/category.service';
 import { NotificationComponent } from '../../popups/notification/notification.component';
@@ -38,6 +38,7 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
   private subscriptionUploadFile: Subscription;
 
 
+  @ViewChild('f') myForm;
 
 
   ngOnInit() {
@@ -52,6 +53,13 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
 
   removeImage() {
     console.log("remove image");
+    this.imageCover = null;
+    this.arrFileUpload = [];
+  }
+
+
+  resetFormGroup() {
+    this.myForm.resetForm();
     this.imageCover = null;
     this.arrFileUpload = [];
   }
@@ -91,6 +99,7 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
 
   subFucntionNewCategory(newCategory) {
     this.subscriptionCreateCategory = this.categoryService.createCategory(newCategory).subscribe((entityRes: SuccessResponse<any>) => {
+      this.resetFormGroup();
       this.notificationService.createNotification(
         NotificationComponent,
         { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end'
