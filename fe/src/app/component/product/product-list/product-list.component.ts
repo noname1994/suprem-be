@@ -130,6 +130,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * action
+   */
+  actionOpenFormEditProduct(_id) {
+    this.router.navigateByUrl('/product/edit/' + _id);
+  }
+
+  /**
   * handle error
   */
   private handleError(error) {

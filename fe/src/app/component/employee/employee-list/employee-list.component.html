@@ -1,81 +1,58 @@
 <div class="emp-component">
-    <div class="top">
-      <div class="title">
-        <h4>Danh sách Nhân viên</h4>
-      </div>
-      <div class="btn-action">
-        <div class="total-element">
-          <span>Total :</span> 100
-        </div>
-        <div class="page-size">
-          <span>View :</span>
-          <select>
-            <option label="10" value="string:10" selected="selected">10</option>
-            <option label="20" value="string:10">20</option>
-            <option label="30" value="string:10">30</option>
-            <option label="50" value="string:10">50</option>
-          </select>
-        </div>
-  
-        <button (click) = "openFormCreateionEmp()">create</button>
-        <button>Delete</button>
-        <button>Clear Filter</button>
-      </div>
+  <div class="top">
+    <div class="title">
+      <h4>Danh sách Nhân viên</h4>
     </div>
-    <div class="main">
-      <div class="main-table">
-        <table>
-          <tr>
-            <th>STT</th>
-            <th>Fullname</th>
-            <th>Số chứng minh</th>
-            <th>Email</th>
-            <th>Tài Khoản</th>
-            <th>Vị trí(Role)</th>
-            <th>Lương</th>
-            <th>Ngày làm việc</th>
-            <th>Trạng thái</th>
-            <th>Action</th>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Trần Đức Ninh</td>
-            <td>163313968</td>
-            <td>tranducninhnd94@hotmail.com</td>
-            <td>tranducninhnd94</td>
-            <td>SUPER_ADMIN</td>
-            <th>10,000,000 VNĐ</th>
-            <td>26/07/2018</td>
-            <td>ACTIVE</td>
-            <td>
-              <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
-                <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
-              </button>
-              <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
-                <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Trần Đức Ninh</td>
-            <td>163313968</td>
-            <td>tranducninhnd94@hotmail.com</td>
-            <td>tranducninhnd94</td>
-            <td>SUPER_ADMIN</td>
-            <th>10,000,000 VNĐ</th>
-            <td>26/07/2018</td>
-            <td>ACTIVE</td>
-            <td>
-              <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
-                <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
-              </button>
-              <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
-                <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
-              </button>
-            </td>
-          </tr>
-        </table>
+    <div class="btn-action">
+      <div class="total-element">
+        <span>Total :</span> {{totalRecord}}
       </div>
+      <button (click)="openFormCreateionEmp()">create</button>
     </div>
   </div>
+  <div class="main">
+    <div class="main-table">
+      <table>
+        <tr>
+          <th class="stt">STT</th>
+          <th class="fullname">Fullname</th>
+          <th class="gen">Số chứng minh</th>
+          <th class="email">Email</th>
+          <th class="username">Tài Khoản</th>
+          <th class="role">Vị trí(Role)</th>
+          <th class="phone-number">Số Điện Thoại</th>
+          <th class="facebook-page">Link Facabook</th>
+          <th class="salary">Lương</th>
+          <th class="date-working">Ngày làm việc</th>
+          <th class="status">Trạng thái</th>
+          <th class="action">Action</th>
+        </tr>
+        <tr *ngFor="let employee of arrEmp; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{employee.fullname}}</td>
+          <td>{{employee.gen}}</td>
+          <td>{{employee.email}}</td>
+          <td>{{employee.username}}</td>
+          <td>
+            <p> {{employee.role ? employee.role.name : '-'}} </p>
+          </td>
+          <td>{{employee.phoneNumber}}</td>
+          <td>{{employee.facebookPage}}</td>
+          <td>
+            <p>{{employee.salary.baseSalary }}</p>
+          </td>
+          <td>{{employee.dateWorking }}</td>
+          <td>ACTIVE</td>
+          <td>
+            <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
+              <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
+            </button>
+            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
+              <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

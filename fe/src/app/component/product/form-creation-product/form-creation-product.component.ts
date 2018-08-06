@@ -122,9 +122,7 @@ export class FormCreationProductComponent implements OnInit, OnDestroy {
       reader.onload = (e: any) => {
         this.arrColorImage.push(e.target.result);
       }
-      for (let i = 0 ; i < fileInput.target.files.length; i++){
-        reader.readAsDataURL(fileInput.target.files[i]);
-      }
+      reader.readAsDataURL(fileInput.target.files[0]);
     }
   }
 

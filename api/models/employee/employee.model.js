@@ -77,24 +77,12 @@ const EmployeeSchema = new Schema(
             required: true,
             default: "abc13579"
         },
-        facebookPage: [
-            {
-                _id: false,
-                url: {
-                    type: String
-                },
-
-            },
-        ],
-        phoneNumber: [
-            {
-                _id: false,
-                number: {
-                    type: String
-                },
-                
-            }
-        ],
+        facebookPage: {
+            type: String
+        },
+        phoneNumber: {
+            type: String
+        },
         avatar: {
             type: String
         },

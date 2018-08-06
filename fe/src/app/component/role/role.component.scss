@@ -18,17 +18,35 @@
             font-family: arial, sans-serif;
             border-collapse: collapse;
             width: 100%;
+
+            th{
+                background-color: rgb(156, 146, 146);
+            }
+
+            td, th{
+                border: 1px solid #333;
+                text-align: center;
+                padding: 8px;
+            }
+            
+            tr:nth-child(even) {
+                background-color: #fff;
+            }
+
+            .stt{
+                width: 5%;
+            }
+
+            .name{
+                width: 25%;
+            }
+
+            .description{
+                width: 70%;
+            }
         }
        
-        td, th{
-            border: 1px solid #333;
-            text-align: left;
-            padding: 8px;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #fff;
-        }
+      
 
         td button{
             background-color: Transparent;

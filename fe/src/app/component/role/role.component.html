@@ -1,60 +1,23 @@
 <div class="emp-component">
   <div class="top">
     <div class="title">
-      <h4>Danh sách Nhân viên</h4>
+      <h4>Danh sách Role</h4>
     </div>
   </div>
   <div class="main">
     <div class="main-table">
       <table>
         <tr>
-          <th>STT</th>
-          <th>Tên</th>
-          <th>Mô tả chi tiết</th>
+          <th class="stt">STT</th>
+          <th class="name">Tên</th>
+          <th class="description">Mô tả chi tiết</th>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>Supper_ADMIN</td>
-          <td>FULL PERMISSION</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>ADMIN</td>
-          <td> Chưa xác định </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td> STOCKER</td>
+        <tr *ngFor="let role of arrRole; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{role.name}}</td>
           <td>
-            <tr>
-              <td>- Thêm sản phẩm</td>
-            </tr>
-            <tr>
-              <td>- Thêm sản phẩm</td>
-            </tr>
-            <tr>
-              <td>- Thêm sản phẩm</td>
-            </tr>
-            <tr>
-              <td>- Thêm sản phẩm</td>
-            </tr>
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td> ACCOUNTANT</td>
-          <td>
-            <tr>
-              <td>- Thêm sản phẩm</td>
-            </tr>
-            <tr>
-              <td>- Thêm sản phẩm</td>
-            </tr>
-            <tr>
-              <td>- Thêm sản phẩm</td>
-            </tr>
-            <tr>
-              <td>- Thêm sản phẩm</td>
+            <tr *ngFor="let tmp of role.description; let i = index">
+              <td style="border: none"> - {{tmp}}</td>
             </tr>
           </td>
         </tr>

@@ -20,7 +20,7 @@ export class ProductService {
         return this.httpClient.get(Constant.URL_PRODUCT_MANAGER, options);
     }
 
-    createPromotion(newPromotion) {
+    createProduct(newProduct) {
         let httpHeaders = new HttpHeaders({
             "authorization": `JWT ${Constant.EXAMPLE_JWT}`,
             'Content-Type': 'application/json; charset=utf-8'
@@ -29,10 +29,10 @@ export class ProductService {
         let options = {
             headers: httpHeaders
         }
-        return this.httpClient.post(Constant.URL_PROMOTION_MANAGER, newPromotion, options);
+        return this.httpClient.post(Constant.URL_PRODUCT_MANAGER, newProduct, options);
     }
 
-    updatePromotion(newPromotion) {
+    updateProduct(newProduct) {
         let httpHeaders = new HttpHeaders({
             "authorization": `JWT ${Constant.EXAMPLE_JWT}`,
             'Content-Type': 'application/json; charset=utf-8'
@@ -41,14 +41,15 @@ export class ProductService {
         let options = {
             headers: httpHeaders
         }
-        return this.httpClient.put(Constant.URL_PROMOTION_MANAGER, newPromotion, options);
+        console.log("newProduct 1234 : ", newProduct);
+        return this.httpClient.put(Constant.URL_PRODUCT_MANAGER, newProduct, options);
     }
 
     checkNameCategory(name) {
 
     }
 
-    getCategoryById(_id) {
-        return this.httpClient.get(`${Constant.URL_CATEGORY_MANAGER}/${_id}`);
+    getProduct(_id) {
+        return this.httpClient.get(`${Constant.URL_PRODUCT_MANAGER}/${_id}`);
     }
 }

@@ -5,121 +5,124 @@
     </div>
   </div>
   <div class="main">
-    <div class="person-infomation">
-      <div class="base-information">
-        <div class="title">
-          <p>
-            1. Thông tin cơ bản
-          </p>
+    <form [formGroup]="fgEmployee"  #f="ngForm">
+      <div class="person-infomation">
+        <div class="base-information">
+          <div class="title">
+            <p>
+              1. Thông tin cơ bản
+            </p>
+          </div>
+
+          <div class="content-input">
+
+            <mat-form-field>
+              <input matInput placeholder="Họ và tên" required formControlName="fullname">
+              <mat-error *ngIf="email.invalid">{{getErrorFieldFullname()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Số chứng minh" required formControlName="gen">
+              <mat-error *ngIf="email.invalid">{{getErrorFieldGen()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Tài khoản đăng nhập" required formControlName="username">
+              <mat-error *ngIf="email.invalid">{{getErrorFieldUsername()}}</mat-error>
+            </mat-form-field>
+
+            <br>
+
+            <mat-form-field>
+              <input matInput placeholder="Email" required formControlName="email">
+              <mat-error *ngIf="email.invalid">{{getErrorFieldEmail()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select placeholder="Vị trí - Chức vụ" formControlName="role">
+                <mat-option *ngFor="let role of arrRole" [value]="role">
+                  {{role.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput [matDatepicker]="dateWorking" placeholder="Ngày bắt đầu làm việc" formControlName="dateWorking">
+              <mat-datepicker-toggle matSuffix [for]="dateWorking"></mat-datepicker-toggle>
+              <mat-datepicker #dateWorking></mat-datepicker>
+            </mat-form-field>
+          </div>
         </div>
 
-        <div class="content-input">
+        <div class="address-phone-social">
+          <div class="Title">
+            <p>2. Thông tin liên lạc</p>
+          </div>
+          <div class="content-input">
+            <p>2.1. Địa chỉ</p>
+            <div formGroupName="address">
+              <mat-form-field>
+                <mat-select placeholder="Thành phố" formControlName="province" (selectionChange)="provinceChange($event.value)">
+                  <mat-option *ngFor="let province of arrProvince" [value]="province">
+                    {{province.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-select placeholder="Quận - Huyện" formControlName="district" (selectionChange)="districtChange($event.value)">
+                  <mat-option *ngFor="let district of arrDistrict" [value]="district">
+                    {{district.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
 
-          <mat-form-field>
-            <input matInput placeholder="Họ và tên">
-          </mat-form-field>
+              <mat-form-field>
+                <mat-select placeholder="Thôn - Xóm" formControlName="ward">
+                  <mat-option *ngFor="let ward of arrWard" [value]="ward">
+                    {{ward.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                <input matInput placeholder="Số nhà" formControlName="detail">
+              </mat-form-field>
+            </div>
 
-          <mat-form-field>
-            <input matInput placeholder="Số chứng minh">
-          </mat-form-field>
+            <p>2.2.Số điện thoại/ Địa chỉ Facebook</p>
+            <mat-form-field>
+              <input matInput placeholder="Số điện thoại" formControlName="phoneNumber">
+            </mat-form-field>
 
-          <br>
-
-          <mat-form-field>
-            <input matInput placeholder="Tài khoản đăng nhập">
-          </mat-form-field>
-
-          <mat-form-field>
-            <input matInput placeholder="Email" [formControl]="email" required>
-            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-
-          <br>
-
-          <mat-form-field>
-            <mat-select placeholder="Vị trí - Chức vụ">
-              <mat-option *ngFor="let role of arrRole" [value]="role.name">
-                {{role.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Ngày bắt đầu làm việc">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Địa chỉ facebook" formControlName="facebookPage">
+            </mat-form-field>
+          </div>
         </div>
 
+        <div class="salary" formGroupName="salary">
+          <div class="Title">
+            <p>3. Lương</p>
+          </div>
+          <div class="content-input">
+            <mat-form-field>
+              <input matInput type="number" placeholder="Lương cơ bản" required formControlName="baseSalary">
+              <mat-error *ngIf="email.invalid">{{getErrorFieldBaseSalary()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="number" placeholder="Trợ cấp vị trí" formControlName="positionSalary">
+              <mat-error *ngIf="email.invalid">{{getErrorFieldPositionSalary()}}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput type="number" placeholder="Hỗ trợ thêm" formControlName="allowanceSalary">
+              <mat-error *ngIf="email.invalid">{{getErrorFieldAllowanceSalary()}}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
 
+        <div class="user-action">
+          <button (click)="actionInsertEmployee()">Lưu thông tin</button>
+          <button>Reset Form</button>
+        </div>
       </div>
-
-      <div class="address-phone-social">
-        <div class="Title">
-          <p>2. Thông tin liên lạc</p>
-        </div>
-        <div class="content-input">
-          <p>2.1. Địa chỉ</p>
-
-          <mat-form-field>
-            <mat-select placeholder="Thành phố">
-              <mat-option *ngFor="let province of arrProvince" [value]="province.name">
-                {{province.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-select placeholder="Quận - Huyện">
-              <mat-option *ngFor="let district of arrDistrict" [value]="district.name">
-                {{district.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-select placeholder="Thôn - Xóm">
-              <mat-option *ngFor="let ward of arrWard" [value]="ward.name">
-                {{ward.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput placeholder="Số nhà">
-          </mat-form-field>
-          <p>2.2.Số điện thoại</p>
-          <mat-form-field>
-            <input matInput placeholder="Số điện thoại">
-          </mat-form-field>
-          <p>2.3.Facebook</p>
-          <mat-form-field>
-            <input matInput placeholder="Địa chỉ facebook">
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="salary">
-        <div class="Title">
-          <p>3. Lương</p>
-        </div>
-        <div class="content-input">
-
-          <mat-form-field>
-            <input matInput type="number" placeholder="Lương cơ bản">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="number" placeholder="Trợ cấp vị trí">
-          </mat-form-field>
-          <mat-form-field>
-            <input matInput type="number" placeholder="Hỗ trợ thêm">
-          </mat-form-field>
-
-        </div>
-      </div>
-
-      <div class="user-action">
-        <button>Lưu thông tin</button>
-        <button>Reset Form</button>
-      </div>
-
-    </div>
+    </form>
   </div>
 </div>

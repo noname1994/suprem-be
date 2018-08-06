@@ -22,6 +22,7 @@ import { BannerImageListComponent } from "../component/banner-image/banner-image
 import { FormCreationBannerImgComponent } from "../component/banner-image/form-creation-banner-img/form-creation-banner-img.component";
 import { FormEditCategoryComponent } from "../component/category/form-edit-category/form-edit-category.component";
 import { FormEditPromotionComponent } from "../component/promotion/form-edit-promotion/form-edit-promotion.component";
+import { FormEditProductComponent } from "../component/product/form-edit-product/form-edit-product.component";
 
 const routes: Routes = [
     {
@@ -100,6 +101,10 @@ const routes: Routes = [
                     {
                         path: "create",
                         component: FormCreationProductComponent
+                    },
+                    {
+                        path: "edit/:_id",
+                        component: FormEditProductComponent
                     }
                 ]
             },

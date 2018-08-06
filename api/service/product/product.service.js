@@ -40,11 +40,13 @@ class ProductService {
 
     async update(_body) {
         try {
-            let newProduct = productDTO.infoCreate(_body);
+            let newProduct = productDTO.infoUpdate(_body);
 
             let tmp;
 
+            
             let _id = newProduct._id;
+            console.log("_id", _id);
             if (!mongoose.Types.ObjectId.isValid(_id)) {
                 throw new CustomizeError(TAG, 400, `"${_id}" phải là kiểu ObjectId`);
             }

@@ -1,7 +1,7 @@
 <div class="emp-component">
   <div class="top">
     <div class="title">
-      <h4>Tạo Mới Sản Phẩm</h4>
+      <h4>Xem & Chỉnh Sửa Sản Phẩm</h4>
     </div>
   </div>
   <div class="main">
@@ -24,8 +24,8 @@
             </td>
             <td>
               <mat-form-field>
-                <mat-select [(value)]="arrCategory && arrCategory[0] ? arrCategory[0] : selectedCategory" formControlName="category">
-                  <mat-option *ngFor="let category of arrCategory; let i = index" [value]="category" selected>
+                <mat-select [(value)]="product.category" [compareWith]="compareObjects" formControlName="category">
+                  <mat-option *ngFor="let category of arrCategory; let i = index" [value]="category">
                     {{category.name}}
                   </mat-option>
                 </mat-select>
@@ -109,47 +109,47 @@
             </td>
           </tr>
           <!-- <tr *ngFor="let itemrow of fgProduct.controls.colorImage.controls; let i=index" [formGroupName]="i">
-                <td>
-                  <label>Color</label>
-                </td>
-                <td>
-                  <mat-form-field>
-                    <input matInput placeholder="" formControlName="color">
-                  </mat-form-field>
-                </td>
-                <td>
-                  <button mat-menu-item matTooltip="Thêm màu mới" matTooltipPosition="below" (click)="addNewRow()">
-                    <mat-icon style="color: green">add_box</mat-icon>
-                  </button>
+                  <td>
+                    <label>Color</label>
+                  </td>
+                  <td>
+                    <mat-form-field>
+                      <input matInput placeholder="" formControlName="color">
+                    </mat-form-field>
+                  </td>
+                  <td>
+                    <button mat-menu-item matTooltip="Thêm màu mới" matTooltipPosition="below" (click)="addNewRow()">
+                      <mat-icon style="color: green">add_box</mat-icon>
+                    </button>
+                    <button *ngIf="fgProduct.controls.colorImage.controls.length > 1" mat-menu-item matTooltip="Delete" matTooltipPosition="below"
+                      (click)="deleteRow()">
+                      <mat-icon style="color: green">remove</mat-icon>
+                    </button>
+                  </td>
+                </tr> -->
+        </table>
+        <!-- <div formArrayName="colorImage">
+                <h4>Màu - Ảnh</h4>
+                <div *ngFor="let itemrow of fgProduct.controls.colorImage.controls; let i=index" [formGroupName]="i">
+                  <div class="form-group">
+                    <label>Color</label>
+                    <mat-form-field>
+                      <input matInput placeholder="" formControlName="color">
+                    </mat-form-field>
+                  </div>
                   <button *ngIf="fgProduct.controls.colorImage.controls.length > 1" mat-menu-item matTooltip="Delete" matTooltipPosition="below"
                     (click)="deleteRow()">
                     <mat-icon style="color: green">remove</mat-icon>
                   </button>
-                </td>
-              </tr> -->
-        </table>
-        <!-- <div formArrayName="colorImage">
-              <h4>Màu - Ảnh</h4>
-              <div *ngFor="let itemrow of fgProduct.controls.colorImage.controls; let i=index" [formGroupName]="i">
-                <div class="form-group">
-                  <label>Color</label>
-                  <mat-form-field>
-                    <input matInput placeholder="" formControlName="color">
-                  </mat-form-field>
                 </div>
-                <button *ngIf="fgProduct.controls.colorImage.controls.length > 1" mat-menu-item matTooltip="Delete" matTooltipPosition="below"
-                  (click)="deleteRow()">
-                  <mat-icon style="color: green">remove</mat-icon>
-                </button>
               </div>
-            </div>
-            <button mat-menu-item matTooltip="Thêm màu mới" matTooltipPosition="below" (click)="addNewRow()">
-              <mat-icon style="color: green">add_box</mat-icon>
-            </button> -->
+              <button mat-menu-item matTooltip="Thêm màu mới" matTooltipPosition="below" (click)="addNewRow()">
+                <mat-icon style="color: green">add_box</mat-icon>
+              </button> -->
 
       </div>
       <div class="user-action">
-        <button (click)="insertNewProduct()">ADD</button>
+        <button (click)="updateProduct()">Update</button>
         <button>RESET</button>
       </div>
     </form>

@@ -9,6 +9,9 @@ class ProductDTO {
             salePrice: body.salePrice,
             status: body.status,
             imageCover: body.imageCover,
+            material: body.material,
+            provider: body.provider,
+            madeIn: body.madeIn,
             colorImage: body.colorImage ? body.colorImage.map(ele => {
                 return {
                     color: ele.color,
@@ -31,7 +34,7 @@ class ProductDTO {
     }
 
 
-    infoUpdate(_body) {
+    infoUpdate(body) {
         let tmp = {
             _id: body._id,
             name: body.name,
@@ -41,6 +44,9 @@ class ProductDTO {
             salePrice: body.salePrice,
             status: body.status,
             imageCover: body.imageCover,
+            material: body.material,
+            provider: body.provider,
+            madeIn: body.madeIn,
             colorImage: body.colorImage ? body.colorImage.map(ele => {
                 return {
                     color: ele.color,
@@ -72,6 +78,9 @@ class ProductDTO {
             salePrice: product.salePrice,
             status: product.status,
             imageCover: product.imageCover,
+            material: product.material,
+            provider: product.provider,
+            madeIn: product.madeIn,
             colorImage: product.colorImage ? product.colorImage.map(ele => {
                 return {
                     color: ele.color,

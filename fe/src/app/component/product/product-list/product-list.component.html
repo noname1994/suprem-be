@@ -34,6 +34,9 @@
           <th class="status">Trạng Thái</th>
           <th class="image-cover">Ảnh Đại Diện</th>
           <th class="color-image">Màu Sản Phẩm</th>
+          <th class="material">Chất Liệu</th>
+          <th class="provider">Nhà Cung Cấp</th>
+          <th class="madeIn">Nơi Sản Xuất</th>
           <th class="description">Mô Tả</th>
           <th class="action">Action</th>
         </tr>
@@ -45,15 +48,18 @@
           <td>{{product.salePrice}}</td>
           <td>{{product.status}}</td>
           <td>
-            <img [src]="product.imageCover" />
+            <img [src]="product.imageCover && product.imageCover[0] ? product.imageCover[0] : null" />
           </td>
           <td>Trắng - Xanh - Đen</td>
+          <td>{{product.material}}</td>
+          <td>{{product.provider}}</td>
+          <td>{{product.madeIn}}</td>
           <td>{{product.description}}</td>
           <td>
             <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
               <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
             </button>
-            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
+            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit" (click) = "actionOpenFormEditProduct(product._id)">
               <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
             </button>
           </td>

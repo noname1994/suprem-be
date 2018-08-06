@@ -3,6 +3,8 @@ import { RoleService } from '../../service/employee/role.service';
 import { SuccessResponse } from '../../models/response/obj.success.res';
 import { Role } from '../../models/employee/role.model';
 import { throwError, Subscription } from 'rxjs';
+import { NotificationService } from '../../service/popups/notification.service';
+import { NotificationComponent } from '../popups/notification/notification.component';
 
 @Component({
   selector: 'app-role',
@@ -14,21 +16,17 @@ export class RoleComponent implements OnInit, OnDestroy {
 
   private subscriptionGetAllRole: Subscription;
 
-  private roles: Array<Role> = [];
+  private arrRole: Array<Role> = [];
 
-  constructor(private roleService: RoleService) { }
+  constructor(private roleService: RoleService, private notificationService: NotificationService) { }
 
   ngOnInit() {
-    console.log("oninit is called !");
     this.getAllRole();
   }
 
   getAllRole() {
     this.subscriptionGetAllRole = this.roleService.getAllRole().subscribe((entityRes: SuccessResponse<Array<Role>>) => {
-      console.log("data: ", entityRes);
-      if (entityRes.value) {
-        this.roles = entityRes.value;
-      }
+      this.arrRole = entityRes.value;
     }, error => {
       console.error("Error get role!");
       return throwError(error);
@@ -41,5 +39,13 @@ export class RoleComponent implements OnInit, OnDestroy {
     }
 
   }
+ /**
+  * handle error
+  */
+ private handleError(error) {
+  this.notificationService.createNotification(
+    NotificationComponent,
+    { code: error.code, message: error.message }, 2000, 'top', 'end');
+}
 
 }

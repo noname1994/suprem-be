@@ -55,6 +55,8 @@ import { PromotionService } from './service/product/promotion.service';
 import { DialogProductComponent } from './component/popups/dialog-product/dialog-product.component';
 import { DialogService } from './service/popups/dialog..service';
 import { ProductService } from './service/product/product.service';
+import { FormEditProductComponent } from './component/product/form-edit-product/form-edit-product.component';
+import { VNLocationService } from './service/vn-location/vn-location.service';
 
 
 
@@ -87,7 +89,8 @@ import { ProductService } from './service/product/product.service';
     FormEditCategoryComponent,
     FormEditPromotionComponent,
     NotificationComponent,
-    DialogProductComponent
+    DialogProductComponent,
+    FormEditProductComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +116,8 @@ import { ProductService } from './service/product/product.service';
     MatCheckboxModule
   ],
   entryComponents: [UserMenuComponent, NotificationComponent, DialogProductComponent],
-  providers: [DatePipe, RoleService, EmployeeService, CategoryService, NotificationService, FileService, PromotionService, DialogService, ProductService],
+  providers: [DatePipe, RoleService, EmployeeService, CategoryService, NotificationService, FileService, 
+    PromotionService, DialogService, ProductService, VNLocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

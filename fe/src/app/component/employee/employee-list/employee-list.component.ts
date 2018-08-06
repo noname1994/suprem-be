@@ -6,6 +6,9 @@ import { EmployeeService } from '../../../service/employee/employee.service';
 import { throwError } from 'rxjs';
 
 import { Router } from "@angular/router";
+import { NotificationService } from '../../../service/popups/notification.service';
+import { NotificationComponent } from '../../popups/notification/notification.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-employee-list',
@@ -16,7 +19,9 @@ export class EmployeeListComponent implements OnInit {
 
   private arrEmp: Array<Employee> = [];
 
-  constructor(private employeeService: EmployeeService, private router: Router) { }
+  private totalRecord: number = 0;
+
+  constructor(private employeeService: EmployeeService, private router: Router, private notificationService: NotificationService) { }
 
 
   ngOnInit() {
@@ -28,16 +33,28 @@ export class EmployeeListComponent implements OnInit {
     this.employeeService.getAllEmployee(params)
       .subscribe((entityRes: SuccessResponse<ArrayObject<Array<Employee>>>) => {
         console.log("entityRes: ", entityRes);
-        if (entityRes.value) {
-          this.arrEmp = entityRes.value.list;
-        }
-      }, error => {
-        console.error("Error get role!");
-        return throwError(error);
+        this.arrEmp = entityRes.value.list;
+        this.totalRecord = entityRes.value.total;
+      }, (httpError: HttpErrorResponse) => {
+        this.handleError(httpError.error);
       })
   }
 
   openFormCreateionEmp() {
     this.router.navigateByUrl('/employee/create');
   }
+
+
+
+  /**
+   * handle error 
+   */
+  private handleError(error) {
+    this.notificationService.createNotification(
+      NotificationComponent,
+      { code: error.code, message: error.message }, 2000, 'top', 'end');
+  }
+
+
+
 }

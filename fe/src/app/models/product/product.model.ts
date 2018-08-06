@@ -9,6 +9,10 @@ export class Product {
     originalPrice: number;
     salePrice: number;
     status: string; //["AVAILABLE", "UNAVAIABLE", "DISABLE", "DELETED"]
+    imageCover: Array<String>;
+    material: string;
+    provider: string;
+    madeIn: string;
     colorImage: Array<ColorImage>;
     description: string;
     createdAt: Date;

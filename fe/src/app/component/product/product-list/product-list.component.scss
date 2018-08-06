@@ -26,6 +26,7 @@
         }
        
         button{
+            outline: none;
             width: 100px;
             height: 33px;
             font-size: 14px;
@@ -104,6 +105,17 @@
     
 
             .color-image{
+                min-width: 300px;
+            }
+
+            .material{
+                min-width: 300px;
+            }
+
+            .provider{
+                min-width: 300px;
+            }
+            .madeIn{
                 min-width: 300px;
             }
 
