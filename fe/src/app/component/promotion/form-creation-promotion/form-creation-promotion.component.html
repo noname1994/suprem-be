@@ -1,4 +1,7 @@
 <div class="emp-component">
+  <div [ngClass]="{'loading': isLoading, 'non-loading': !isLoading}">
+    <img src="../../../assets/loading-img.gif" />
+  </div>
   <div class="top">
     <div class="title">
       <h4>Tạo Mới Khuyến Mại</h4>

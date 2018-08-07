@@ -17,6 +17,7 @@ import { Constant } from '../../../utils/constant';
 })
 export class FormCreationCategoryComponent implements OnInit, OnDestroy {
 
+  private isLoading: boolean = false;
 
   constructor(private categoryService: CategoryService, private notificationService: NotificationService, private fileService: FileService) { }
 
@@ -64,6 +65,10 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
     this.arrFileUpload = [];
   }
 
+  resetForm(){
+    this.resetFormGroup();
+  }
+
 
   fileChangeEvent(fileInput): void {
     if (fileInput.target.files && fileInput.target.files[0]) {
@@ -98,22 +103,22 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
 
 
   subFucntionNewCategory(newCategory) {
-    this.subscriptionCreateCategory = this.categoryService.createCategory(newCategory).subscribe((entityRes: SuccessResponse<any>) => {
-      this.resetFormGroup();
-      this.notificationService.createNotification(
-        NotificationComponent,
-        { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end'
-      );
-    }, error => {
-      this.notificationService.createNotification(
-        NotificationComponent,
-        { code: error.code, message: error.message }, 2000, 'top', 'end'
-      );
-    })
+    this.subscriptionCreateCategory = this.categoryService.createCategory(newCategory)
+      .subscribe((entityRes: SuccessResponse<any>) => {
+        this.isLoading = false;
+        this.resetFormGroup();
+        this.notificationService.createNotification(
+          NotificationComponent,
+          { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end'
+        );
+      }, (httpError: HttpErrorResponse) => {
+        this.handleError(httpError.error);
+      })
   }
 
   insertNewCategory() {
     if (this.fgCategory.valid) {
+      this.isLoading = true;
       let newCategoryObject = this.fgCategory.value;
       if (this.arrFileUpload && this.arrFileUpload.length > 0) {
         this.subscriptionUploadFile = this.fileService.uploadFile(this.arrFileUpload)
@@ -135,6 +140,7 @@ export class FormCreationCategoryComponent implements OnInit, OnDestroy {
   }
 
   private handleError(error) {
+    this.isLoading = false;
     this.notificationService.createNotification(
       NotificationComponent,
       { code: error.code, message: error.message }, 2000, 'top', 'end'

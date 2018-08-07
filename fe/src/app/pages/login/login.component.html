@@ -1,0 +1,49 @@
+<div class="main">
+  <div [ngClass]="{'loading': isLoading, 'non-loading': !isLoading}">
+    <img src="../../../assets/loading-img.gif" />
+  </div>
+  <div class="main-title">
+    <h4>Sign In To System !</h4>
+  </div>
+  <div class="main-input">
+    <form [formGroup]="fgLoginForm">
+      <table>
+        <tr>
+          <td>
+            <label>Tài Khoản</label>
+          </td>
+          <td>
+            <mat-form-field hintLabel="[4 - 15] characters">
+              <input matInput placeholder="" type="text" formControlName="username">
+              <mat-error *ngIf="fgLoginForm.controls.username.invalid">{{getErrorFieldUsername()}}</mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label>Mật Khẩu</label>
+          </td>
+          <td>
+            <mat-form-field>
+              <input matInput placeholder="" type="password" formControlName="password">
+              <mat-error *ngIf="fgLoginForm.controls.password.invalid">{{getErrorFieldPassword()}}</mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center;">
+            <input type="checkbox">
+          </td>
+          <td>
+            Remember me!
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="padding-top: 30px;">
+            <button (click)="actionLogin()">Login</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>

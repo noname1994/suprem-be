@@ -1,4 +1,7 @@
 <div class="emp-component">
+  <div [ngClass]="{'loading': isLoading, 'non-loading': !isLoading}">
+    <img src="../../../assets/loading-img.gif" />
+  </div>
   <div class="top">
     <div class="title">
       <h4>Danh sách Loại Sản phẩm</h4>
@@ -18,8 +21,6 @@
       </div>
 
       <button (click)="openFormCreationProduct()">create</button>
-      <button>Delete</button>
-      <button>Clear Filter</button>
     </div>
   </div>
   <div class="main">
@@ -56,11 +57,11 @@
           <td>{{product.madeIn}}</td>
           <td>{{product.description}}</td>
           <td>
-            <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
-              <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
-            </button>
-            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit" (click) = "actionOpenFormEditProduct(product._id)">
+            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit" (click)="actionOpenFormEditProduct(product._id)">
               <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
+            </button>
+            <button matTooltip="Xóa" matTooltipPosition="below" class="btn-delete" (click)="deleteProduct(product._id)">
+              <mat-icon class="icon-edit mat-icon material-icons">delete</mat-icon>
             </button>
           </td>
         </tr>

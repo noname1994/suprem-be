@@ -1,4 +1,7 @@
 <div class="emp-component">
+  <div [ngClass]="{'loading': isLoading, 'non-loading': !isLoading}">
+    <img src="../../../assets/loading-img.gif" />
+  </div>
   <div class="top">
     <div class="title">
       <h4>Xem & Chỉnh Sửa Sản Phẩm</h4>
@@ -7,7 +10,6 @@
   <div class="main">
     <form [formGroup]="fgProduct" #f="ngForm">
       <div class="content-input">
-
         <table>
           <tr>
             <td>
@@ -149,8 +151,7 @@
 
       </div>
       <div class="user-action">
-        <button (click)="updateProduct()">Update</button>
-        <button>RESET</button>
+        <button (click)="updateProduct()">Lưu Thông Tin</button>
       </div>
     </form>
   </div>

@@ -3,15 +3,17 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { Role } from '../../models/employee/role.model';
 import { Constant } from '../../utils/constant';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Injectable()
 export class ProductService {
 
-    constructor(private httpClient: HttpClient) {
 
+    constructor(private httpClient: HttpClient, private cookieService: CookieService) {
     }
     getALlProduct(params) {
+
         // let httpHeaders = new HttpHeaders({ "authorization": `JWT ${Constant.EXAMPLE_JWT}` });
         let options = {
             // headers: httpHeaders,
@@ -21,8 +23,10 @@ export class ProductService {
     }
 
     createProduct(newProduct) {
+        let token = this.cookieService.get(Constant.TOKEN_NAME);
+
         let httpHeaders = new HttpHeaders({
-            "authorization": `JWT ${Constant.EXAMPLE_JWT}`,
+            "authorization": `JWT ${token}`,
             'Content-Type': 'application/json; charset=utf-8'
         });
 
@@ -33,8 +37,10 @@ export class ProductService {
     }
 
     updateProduct(newProduct) {
+        let token = this.cookieService.get(Constant.TOKEN_NAME);
+
         let httpHeaders = new HttpHeaders({
-            "authorization": `JWT ${Constant.EXAMPLE_JWT}`,
+            "authorization": `JWT ${token}`,
             'Content-Type': 'application/json; charset=utf-8'
         });
 
@@ -51,5 +57,23 @@ export class ProductService {
 
     getProduct(_id) {
         return this.httpClient.get(`${Constant.URL_PRODUCT_MANAGER}/${_id}`);
+    }
+
+    deleteProduct(arrId) {
+        let token = this.cookieService.get(Constant.TOKEN_NAME);
+
+        let httpHeaders = new HttpHeaders({
+            "authorization": `JWT ${token}`,
+            'Content-Type': 'application/json; charset=utf-8'
+        });
+
+        let params = { arrId: arrId };
+
+        let options = {
+            headers: httpHeaders,
+            params: params
+        }
+
+        return this.httpClient.delete(`${Constant.URL_PRODUCT_MANAGER}`, options);
     }
 }

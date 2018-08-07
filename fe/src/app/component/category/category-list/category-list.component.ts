@@ -9,6 +9,8 @@ import { ArrayObject } from '../../../models/response/array.res';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from '../../../service/popups/notification.service';
 import { NotificationComponent } from '../../popups/notification/notification.component';
+import { DialogConfirmComponent } from '../../popups/dialog-confirm/dialog-confirm.component';
+import { DialogService } from '../../../service/popups/dialog..service';
 
 @Component({
   selector: 'app-category-list',
@@ -17,6 +19,7 @@ import { NotificationComponent } from '../../popups/notification/notification.co
 })
 export class CategoryListComponent implements OnInit, OnDestroy {
 
+  private isLoading: boolean = false;
 
   private arrCategory: Array<Category>;
 
@@ -44,9 +47,11 @@ export class CategoryListComponent implements OnInit, OnDestroy {
    */
   private subscriptionGetAll: Subscription;
 
-  constructor(private router: Router, private categoryService: CategoryService, private notificationService: NotificationService) { }
+  constructor(private router: Router, private categoryService: CategoryService, private notificationService: NotificationService,
+    private dialogService: DialogService) { }
 
   ngOnInit() {
+
     this.getAllCategory();
   }
 
@@ -69,11 +74,14 @@ export class CategoryListComponent implements OnInit, OnDestroy {
    * Call Api
    */
   getAllCategory() {
+    this.isLoading = true;
     this.subscriptionGetAll = this.categoryService.getALlCategory(this.params).subscribe((resEntity: SuccessResponse<ArrayObject<Category[]>>) => {
+      this.isLoading = false;
       this.totalRecord = resEntity.value.total;
       this.arrCategory = resEntity.value.list;
       this.setupPagination();
     }, (httpError: HttpErrorResponse) => {
+      this.isLoading = false;
       this.handleError(httpError.error);
     })
   }
@@ -84,6 +92,27 @@ export class CategoryListComponent implements OnInit, OnDestroy {
    */
   openFormCreationCategory() {
     this.router.navigateByUrl('/category/create');
+  }
+
+
+  private subcriptionDialog: Subscription;
+  private subcriptionDeleteCategory: Subscription;
+  deleteCategory(_id) {
+    const dialogRef = this.dialogService.createDialog(DialogConfirmComponent, null, '300', '200');
+    this.subcriptionDialog = dialogRef.afterClosed().subscribe((data: any) => {
+      if (data && data.confirm) {
+        this.isLoading = true;
+        let arrId = [_id];
+        this.subcriptionDeleteCategory = this.categoryService.deleteCategory(arrId).subscribe((entityRes: SuccessResponse<any>) => {
+          this.notificationService.createNotification(
+            NotificationComponent,
+            { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');
+          this.getAllCategory();
+        }, (httpError: HttpErrorResponse) => {
+          this.handleError(httpError.error);
+        })
+      }
+    })
   }
 
   openViewDetailCategory(_id) {
@@ -152,6 +181,12 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.subscriptionGetAll) {
       this.subscriptionGetAll.unsubscribe;
+    }
+    if (this.subcriptionDialog) {
+      this.subcriptionDialog.unsubscribe();
+    }
+    if (this.subcriptionDeleteCategory) {
+      this.subcriptionDeleteCategory.unsubscribe();
     }
   }
 }

@@ -3,16 +3,20 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { Role } from '../../models/employee/role.model';
 import { Constant } from '../../utils/constant';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Injectable()
 export class PromotionService {
 
-    constructor(private httpClient: HttpClient) {
 
+    constructor(private httpClient: HttpClient, private cookieService: CookieService) {
     }
+
     getALlPromotion(params) {
-        let httpHeaders = new HttpHeaders({ "authorization": `JWT ${Constant.EXAMPLE_JWT}` });
+        let token = this.cookieService.get(Constant.TOKEN_NAME);
+
+        let httpHeaders = new HttpHeaders({ "authorization": `JWT ${token}` });
         let options = {
             headers: httpHeaders,
             params: params
@@ -21,8 +25,10 @@ export class PromotionService {
     }
 
     createPromotion(newPromotion) {
+        let token = this.cookieService.get(Constant.TOKEN_NAME);
+
         let httpHeaders = new HttpHeaders({
-            "authorization": `JWT ${Constant.EXAMPLE_JWT}`,
+            "authorization": `JWT ${token}`,
             'Content-Type': 'application/json; charset=utf-8'
         });
 
@@ -33,8 +39,10 @@ export class PromotionService {
     }
 
     updatePromotion(newPromotion) {
+        let token = this.cookieService.get(Constant.TOKEN_NAME);
+
         let httpHeaders = new HttpHeaders({
-            "authorization": `JWT ${Constant.EXAMPLE_JWT}`,
+            "authorization": `JWT ${token}`,
             'Content-Type': 'application/json; charset=utf-8'
         });
 
@@ -50,5 +58,23 @@ export class PromotionService {
 
     getPromotionById(_id) {
         return this.httpClient.get(`${Constant.URL_PROMOTION_MANAGER}/${_id}`);
+    }
+
+    deletePromotion(arrId) {
+        let token = this.cookieService.get(Constant.TOKEN_NAME);
+
+        let httpHeaders = new HttpHeaders({
+            "authorization": `JWT ${token}`,
+            'Content-Type': 'application/json; charset=utf-8'
+        });
+
+        let params = { arrId: arrId };
+
+        let options = {
+            headers: httpHeaders,
+            params: params
+        }
+
+        return this.httpClient.delete(`${Constant.URL_PROMOTION_MANAGER}`, options);
     }
 }

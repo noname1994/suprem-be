@@ -1,4 +1,7 @@
-<div class="emp-component">
+<div class="category-component">
+  <div [ngClass]="{'loading': isLoading, 'non-loading': !isLoading}">
+    <img src="../../../assets/loading-img.gif" />
+  </div>
   <div class="top">
     <div class="title">
       <h4>Tạo Mới Loại Sản Phẩm</h4>
@@ -32,9 +35,7 @@
           </tr>
           <tr>
             <td>
-              <button mat-menu-item matTooltip="Upload Ảnh đại diện" matTooltipPosition="below" (click)="imgFileInput.click()">
-                <mat-icon style="color: green">image</mat-icon>
-              </button>
+              <mat-icon style="color: green; cursor: pointer;"  matTooltip="Upload Ảnh đại diện" matTooltipPosition="below" (click)="imgFileInput.click()">image</mat-icon>
               <input hidden accept="image/*" type="file" #imgFileInput (change)="fileChangeEvent($event)" name="file">
             </td>
             <td>
@@ -51,8 +52,8 @@
         </table>
       </div>
       <div class="user-action">
-        <button (click)="insertNewCategory()">ADD</button>
-        <button>RESET</button>
+        <button (click)="insertNewCategory()">Lưu Thông Tin</button>
+        <button (click)="resetForm()">RESET</button>
       </div>
     </form>
   </div>

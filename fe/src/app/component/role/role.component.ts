@@ -5,6 +5,7 @@ import { Role } from '../../models/employee/role.model';
 import { throwError, Subscription } from 'rxjs';
 import { NotificationService } from '../../service/popups/notification.service';
 import { NotificationComponent } from '../popups/notification/notification.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-role',
@@ -27,9 +28,8 @@ export class RoleComponent implements OnInit, OnDestroy {
   getAllRole() {
     this.subscriptionGetAllRole = this.roleService.getAllRole().subscribe((entityRes: SuccessResponse<Array<Role>>) => {
       this.arrRole = entityRes.value;
-    }, error => {
-      console.error("Error get role!");
-      return throwError(error);
+    }, (httpError: HttpErrorResponse) => {
+      this.handleError(httpError.error);
     })
   }
 

@@ -120,7 +120,7 @@ class ProductService {
             let total = await Product.count(condition) || 0;
 
             let rs = await Product.find(condition)
-                .populate({ path: "category", select: fieldsCategory, model: "Category" });
+                .populate({ path: "category", select: fieldsCategory, model: "Category" }).limit(limit).skip(offset);
                 // .populate({
                 //     path: "promotion.information", select: fieldsPromotion, model: "Promotion",
                 //     populate: { path: "giftFormula.donatedProduct", select: fieldsProduct, model: "Product" }

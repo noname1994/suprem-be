@@ -1,3 +1,15 @@
+.loading{
+    position: fixed;
+    top: 30%;
+    bottom: 0;
+    left: 45%;
+    right: 0;
+    z-index: 1000;
+}
+.non-loading{
+    display: none;
+}
+
 .top{
     margin-top: 10px;
     border: 1px solid #ddd;
@@ -86,15 +98,20 @@
                 padding-bottom: 0px;
                 margin-bottom: 10px;
                 margin-right: 5px;
-                &:hover{
-                    .icon-view-detail{
-                        color: red;
-                    }
-                }
-               
+            }
+            .btn-edit{
+                color: #23661aea;
                 &:hover{
                     .icon-edit{
-                        color: #0ce71eea;
+                        color: #3a3d3aea;
+                    }
+                }
+            }
+            .btn-delete{
+                color: red;
+                &:hover{
+                    .icon-edit{
+                        color: #3a3d3aea;
                     }
                 }
             }

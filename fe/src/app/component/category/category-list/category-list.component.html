@@ -1,4 +1,7 @@
 <div class="emp-component">
+  <div [ngClass]="{'loading': isLoading, 'non-loading': !isLoading}">
+    <img src="../../../assets/loading-img.gif" />
+  </div>
   <div class="top">
     <div class="title">
       <h4>Danh Mục</h4>
@@ -18,8 +21,6 @@
       </div>
 
       <button (click)="openFormCreationCategory()">create</button>
-      <button>Delete</button>
-      <button>Clear Filter</button>
     </div>
   </div>
   <div class="main">
@@ -44,6 +45,9 @@
           <td>
             <button matTooltip="View & Edit" matTooltipPosition="below" class="btn-edit" (click)="openEditForm(category._id)">
               <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
+            </button>
+            <button matTooltip="Xóa" matTooltipPosition="below" class="btn-delete" (click)="deleteCategory(category._id)">
+              <mat-icon class="icon-edit mat-icon material-icons">delete</mat-icon>
             </button>
           </td>
         </tr>

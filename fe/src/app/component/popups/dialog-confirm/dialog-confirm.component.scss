@@ -1,0 +1,36 @@
+.main{
+
+    .main-title{
+        text-align: center;
+    }
+    .main-action{
+        button{
+            outline: none;
+            width: 100px;
+            height: 25px;
+            font-size: 10px;
+            font-weight: 300;
+            border-radius: 15px;
+            
+            color: #fff;
+            opacity: 1%;
+            margin: 0 4px;
+            border-color: #26a69a;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-confirm{
+            background-color: #26a69a;
+            &:hover{
+                background-color: #0f5a52;
+           }
+        }
+        .btn-cancel{
+            background-color: #58595a;
+            &:hover{
+                background-color: #1b1d1d;
+            }
+        }
+    }
+
+}

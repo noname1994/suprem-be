@@ -21,7 +21,8 @@ import { Constant } from '../../../utils/constant';
 })
 export class FormEditPromotionComponent implements OnInit, OnDestroy {
 
-
+  private isLoading: boolean = false;
+	
   private promotion: Promotion = new Promotion();
 
   private fgPromotion: FormGroup;
@@ -83,7 +84,6 @@ export class FormEditPromotionComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService, private fileService: FileService) { }
 
   ngOnInit() {
-
     this.fgPromotion = new FormGroup({
       _id: new FormControl({ value: '' }),
       name: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
@@ -96,8 +96,10 @@ export class FormEditPromotionComponent implements OnInit, OnDestroy {
       startedDate: new FormControl('', [Validators.required]),
       endedDate: new FormControl('', [Validators.required]),
     })
+    
+    this.isLoading = true;
 
-    this.getCategoryById();
+    this.getPromotionById();
   }
 
 
@@ -141,9 +143,10 @@ export class FormEditPromotionComponent implements OnInit, OnDestroy {
    * call api
    */
 
-  getCategoryById() {
+  getPromotionById() {
     const _id = this.activatedRoute.snapshot.paramMap.get('_id');
     this.subscriptionPromotionById = this.promotionService.getPromotionById(_id).subscribe((entityRes: SuccessResponse<Promotion>) => {
+      this.isLoading = false;
       this.promotion = entityRes.value;
       this.setValueFromGroup(this.promotion);
     }, (httpError: HttpErrorResponse) => {
@@ -231,6 +234,7 @@ export class FormEditPromotionComponent implements OnInit, OnDestroy {
 
   subFunctionInsertPromotion(newPromotion) {
     this.subscriptionEditPromotion = this.promotionService.updatePromotion(newPromotion).subscribe((entityRes: SuccessResponse<Promotion>) => {
+      this.isLoading = false;
       this.promotion = entityRes.value;
       this.notificationService.createNotification(
         NotificationComponent,
@@ -242,6 +246,7 @@ export class FormEditPromotionComponent implements OnInit, OnDestroy {
 
   editPromotion() {
     if (this.fgPromotion.valid) {
+      this.isLoading = true;
       let newPromotionObject = this.fgPromotion.value;
       newPromotionObject.donatedProduct = this.arrDonatedProduct ? this.arrDonatedProduct.map(ele => {
         return ele._id;
@@ -313,12 +318,14 @@ export class FormEditPromotionComponent implements OnInit, OnDestroy {
   * handle error
   */
   private handleError(error) {
+    this.isLoading = false;
     this.notificationService.createNotification(
       NotificationComponent,
       { code: error.code, message: error.message }, 2000, 'top', 'end');
   }
 
   ngOnDestroy(): void {
+    this.isLoading = false;
     if (this.subscriptionDialog1) {
       this.subscriptionDialog1.unsubscribe();
     }

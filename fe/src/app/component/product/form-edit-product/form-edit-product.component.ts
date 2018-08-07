@@ -23,6 +23,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FormEditProductComponent implements OnInit {
 
+  private isLoading: boolean = false;
+
   private imageCover;
 
   private product: Product = new Product();
@@ -72,6 +74,7 @@ export class FormEditProductComponent implements OnInit {
     private notificationService: NotificationService, private _fb: FormBuilder, private fileService: FileService) { }
 
   ngOnInit() {
+    
     this.initFormGroup();
     this.getAllCategory();
     this.getProduct();
@@ -225,8 +228,10 @@ export class FormEditProductComponent implements OnInit {
   }
 
   getProduct() {
+    this.isLoading = true;
     const _id = this.activatedRoute.snapshot.paramMap.get('_id');
     this.productService.getProduct(_id).subscribe((entityRes: SuccessResponse<Product>) => {
+      this.isLoading = false;
       this.product = entityRes.value;
       this.setValueFormGroup(this.product);
     }, (httpError: HttpErrorResponse) => {
@@ -236,6 +241,7 @@ export class FormEditProductComponent implements OnInit {
 
   subUpdateProduct(newProduct) {
     this.subcriptionUpdateProduct = this.productService.updateProduct(newProduct).subscribe((entityRes: SuccessResponse<any>) => {
+      this.isLoading = false;
       this.notificationService.createNotification(
         NotificationComponent,
         { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');
@@ -247,6 +253,7 @@ export class FormEditProductComponent implements OnInit {
 
   updateProduct() {
     if (this.fgProduct.valid) {
+      this.isLoading = true;
       let newProduct = this.fgProduct.value;
       console.log("category : ", newProduct.category);
       console.log("newProduct :", newProduct);
@@ -288,6 +295,7 @@ export class FormEditProductComponent implements OnInit {
  * handle error
  */
   private handleError(error) {
+    this.isLoading = false;
     this.notificationService.createNotification(
       NotificationComponent,
       { code: error.code, message: error.message }, 2000, 'top', 'end');

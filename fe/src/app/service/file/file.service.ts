@@ -3,18 +3,22 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { Role } from '../../models/employee/role.model';
 import { Constant } from '../../utils/constant';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Injectable()
 export class FileService {
 
-    constructor(private httpClient: HttpClient) {
 
+    constructor(private httpClient: HttpClient, private cookieService: CookieService) {
     }
 
     uploadFile(files) {
+
+        let token = this.cookieService.get(Constant.TOKEN_NAME);
+
         let httpHeaders = new HttpHeaders({
-            "authorization": `JWT ${Constant.EXAMPLE_JWT}`
+            "authorization": `JWT ${token}`
         });
 
         let formData: FormData = new FormData();

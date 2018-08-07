@@ -24,6 +24,8 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute, private categoryService: CategoryService,
     private notificationService: NotificationService, private fileSerive: FileService) { }
 
+  private isLoading: boolean = false;
+
   private category: Category = new Category();
 
   private defaultDate = new Date();
@@ -81,7 +83,9 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
 
   getCategoryById() {
     const _id = this.activatedRoute.snapshot.paramMap.get('_id');
+    this.isLoading = true;
     this.subscriptionGetCategory = this.categoryService.getCategoryById(_id).subscribe((entityRes: SuccessResponse<Category>) => {
+      this.isLoading = false;
       this.category = entityRes.value;
       this.setValueFormGroup(this.category);
     }, (httpError: HttpErrorResponse) => {
@@ -133,6 +137,7 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
   subUpdateCategory(newCategory) {
     this.subscriptionEditCategory = this.categoryService.updateCategory(newCategory)
       .subscribe((entityRes: SuccessResponse<any>) => {
+        this.isLoading = false;
         this.notificationService.createNotification(
           NotificationComponent,
           { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');
@@ -147,6 +152,7 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
    */
   updateCategory() {
     if (this.fgCategory.valid) {
+      this.isLoading = true;
       let newCategoryObject = this.fgCategory.value;
       if (this.arrFileUpload && this.arrFileUpload.length > 0) {
         this.subscriptionUploadFile = this.fileSerive.uploadFile(this.arrFileUpload)
@@ -181,6 +187,7 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
 
 
   private handleError(error) {
+    this.isLoading = false;
     this.notificationService.createNotification(
       NotificationComponent,
       { code: error.code, message: error.message }, 2000, 'top', 'end');

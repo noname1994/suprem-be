@@ -23,6 +23,8 @@ export class Constant {
     public static MSG_SUCCESS = "SUCCESS";
 
     public static KEY_FILE_NAME_UPLOAD = "file";
+
+    public static TOKEN_NAME = "token";
     /**
      * URL File
      */
@@ -61,6 +63,11 @@ export class Constant {
     public static URL_VN_LOCATION_DISTRICT = Constant.URL_PREFIX + "/vn-location/district";
 
     public static URL_VN_LOCATION_WARD = Constant.URL_PREFIX + "/vn-location/ward";
+
+    /**
+     * Login/ logout
+     */
+    public static URL_LOGIN = Constant.URL_PREFIX + "/login";
 
     public static EXAMPLE_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjUxYWU4ODE2NzE3NDFlYjA4OTNkNTMiLCJmdWxsbmFtZSI6IlN1cGVyIEFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQGhvdG1haWwuY29tIiwicm9sZSI6eyJwZXJtaXNzaW9uIjpbIkFMTCJdLCJfaWQiOiI1YjUxOWI5NThjNTMwMjBmZWNiZWExZDIiLCJuYW1lIjoiU1VQRVJfQURNSU4ifSwiZGF0ZVdvcmtpbmciOiIyMDE4LTA3LTIwVDA5OjQyOjMwLjU5OVoiLCJpYXQiOjE1MzI1MDQwODIsImV4cCI6MTUzMzgxODA4Mn0.rNT49mJ2vJbu2SUKmDF9xpBb5rtvmoJHoSI46ZiEd84";
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
+import { CookieService } from 'ngx-cookie-service';
+import { Constant } from '../../utils/constant';
 
 @Component({
   selector: 'app-pages',
@@ -17,11 +19,19 @@ export class PagesComponent implements OnInit {
 
   public isMenuCustomer: Boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private cookieService: CookieService) { }
 
 
 
   ngOnInit() {
+    if (!this.cookieService.check(Constant.TOKEN_NAME)) {
+      this.router.navigateByUrl("/system/login");
+    }
+  }
+
+  actionLogout() {
+    this.cookieService.deleteAll();
+    this.router.navigateByUrl("/system/login");
   }
 
 

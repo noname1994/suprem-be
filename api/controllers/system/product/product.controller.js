@@ -33,10 +33,10 @@ class ProductController {
 
     async deleteProduct(req, res, next) {
         try {
-            let str = req.arrId;
+            let str = req.query.arrId;
             let arrId = str.split(",");
             let rawResponse = await productService.delete(arrId);
-            let entityResponse = standardResponse.success(200, productResponse);
+            let entityResponse = standardResponse.success(200, rawResponse);
 
             return res.status(200).json(entityResponse);
         } catch (error) {

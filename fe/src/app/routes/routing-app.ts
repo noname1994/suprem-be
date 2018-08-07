@@ -23,6 +23,7 @@ import { FormCreationBannerImgComponent } from "../component/banner-image/form-c
 import { FormEditCategoryComponent } from "../component/category/form-edit-category/form-edit-category.component";
 import { FormEditPromotionComponent } from "../component/promotion/form-edit-promotion/form-edit-promotion.component";
 import { FormEditProductComponent } from "../component/product/form-edit-product/form-edit-product.component";
+import { LoginComponent } from "../pages/login/login.component";
 
 const routes: Routes = [
     {
@@ -153,9 +154,13 @@ const routes: Routes = [
                         component: FormEditPromotionComponent
                     }
                 ]
-            }
+            },
         ]
     },
+    {
+        path: "system/login",
+        component: LoginComponent
+    }
 ];
 
 // export const Routing = RouterModule.forRoot(routes, { useHash: true });

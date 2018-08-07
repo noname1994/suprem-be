@@ -9,6 +9,8 @@ import { NotificationService } from '../../../service/popups/notification.servic
 import { NotificationComponent } from '../../popups/notification/notification.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { DialogService } from '../../../service/popups/dialog..service';
+import { DialogConfirmComponent } from '../../popups/dialog-confirm/dialog-confirm.component';
 
 @Component({
   selector: 'app-product-list',
@@ -16,6 +18,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
+
+  private isLoading: boolean = false;
 
   private arrProduct: Array<Product> = [];
 
@@ -38,9 +42,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
    */
   private subcriptionGetAllProduct: Subscription;
 
-  constructor(private router: Router, private productService: ProductService, private notificationService: NotificationService) { }
+  private subcriptionDeleteProduct: Subscription;
+
+  constructor(private router: Router, private productService: ProductService, private dialogService: DialogService,
+    private notificationService: NotificationService) { }
 
   ngOnInit() {
+
     this.getALlProduct();
   }
 
@@ -48,13 +56,33 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl("/product/create");
   }
 
+  private subcriptionDialog: Subscription;
+  deleteProduct(_id) {
+    const dialogRef = this.dialogService.createDialog(DialogConfirmComponent, null, '300', '200');
+    this.subcriptionDialog = dialogRef.afterClosed().subscribe((data: any) => {
+      if (data && data.confirm) {
+        this.isLoading = true;
+        let arrId = [_id];
+        this.subcriptionDeleteProduct = this.productService.deleteProduct(arrId).subscribe((entityRes: SuccessResponse<any>) => {
+          this.notificationService.createNotification(
+            NotificationComponent,
+            { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');
+          this.getALlProduct();
+        }, (httpError: HttpErrorResponse) => {
+          this.handleError(httpError.error);
+        })
+      }
+    })
+  }
 
   /**
    * call api
    */
 
   getALlProduct() {
+    this.isLoading = true;
     this.subcriptionGetAllProduct = this.productService.getALlProduct(this.params).subscribe((entityRes: SuccessResponse<ArrayObject<Product[]>>) => {
+      this.isLoading = false;
       this.arrProduct = entityRes.value.list;
       this.totalRecord = entityRes.value.total;
       this.setupPagination();
@@ -140,6 +168,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   * handle error
   */
   private handleError(error) {
+    this.isLoading = false;
     this.notificationService.createNotification(
       NotificationComponent,
       { code: error.code, message: error.message }, 2000, 'top', 'end');
@@ -150,6 +179,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.subcriptionGetAllProduct) {
       this.subcriptionGetAllProduct.unsubscribe();
+    }
+    if (this.subcriptionDialog) {
+      this.subcriptionDialog.unsubscribe();
+    }
+    if (this.subcriptionDeleteProduct) {
+      this.subcriptionDeleteProduct.unsubscribe();
     }
   }
 

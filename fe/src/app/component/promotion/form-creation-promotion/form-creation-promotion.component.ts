@@ -21,6 +21,8 @@ import { DialogService } from '../../../service/popups/dialog..service';
 })
 export class FormCreationPromotionComponent implements OnInit, OnDestroy {
 
+  private isLoading: boolean = false;
+
   private fgPromotion: FormGroup;
 
   private name: FormControl;
@@ -212,6 +214,7 @@ export class FormCreationPromotionComponent implements OnInit, OnDestroy {
 
   subFunctionInsertPromotion(newPromotion) {
     this.subscriptionInsertPromotion = this.promotionService.createPromotion(newPromotion).subscribe((entityRes: SuccessResponse<Promotion>) => {
+      this.isLoading = false;
       this.resetFormGroup();
       this.notificationService.createNotification(
         NotificationComponent,
@@ -223,6 +226,7 @@ export class FormCreationPromotionComponent implements OnInit, OnDestroy {
 
   insertNewPromotion() {
     if (this.fgPromotion.valid) {
+      this.isLoading = true;
       let newPromotionObject = this.fgPromotion.value;
       newPromotionObject.donatedProduct = this.arrDonatedProduct ? this.arrDonatedProduct.map(ele => {
         return ele._id;
@@ -290,12 +294,14 @@ export class FormCreationPromotionComponent implements OnInit, OnDestroy {
   * handle error
   */
   private handleError(error) {
+    this.isLoading = false;
     this.notificationService.createNotification(
       NotificationComponent,
       { code: error.code, message: error.message }, 2000, 'top', 'end');
   }
 
   ngOnDestroy(): void {
+    this.isLoading = false;
     if (this.subscriptionInsertPromotion) {
       this.subscriptionInsertPromotion.unsubscribe();
     }

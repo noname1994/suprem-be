@@ -1,4 +1,15 @@
 .emp-component {
+    .loading{
+        position: fixed;
+        top: 30%;
+        bottom: 0;
+        left: 45%;
+        right: 0;
+        z-index: 1000;
+    }
+    .non-loading{
+        display: none;
+    }
     .top{
         border: 1px solid #ddd;
         height: 60px;
@@ -76,12 +87,12 @@
 
         }
         .user-action{
-            margin: 30px 0 30px 0;
-            padding-left: 100px;
+            margin: 30px 0 100px 0;
+            padding-left: 200px;
             clear: left;
             button{
                 outline: none;
-                 width: 100px;
+                 width: 150px;
                  height: 33px;
                  font-size: 14px;
                  font-weight: 500;

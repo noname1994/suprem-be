@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+
+import { CookieService } from 'ngx-cookie-service';
+
 /**
  * Metarial
  */
@@ -57,6 +60,8 @@ import { DialogService } from './service/popups/dialog..service';
 import { ProductService } from './service/product/product.service';
 import { FormEditProductComponent } from './component/product/form-edit-product/form-edit-product.component';
 import { VNLocationService } from './service/vn-location/vn-location.service';
+import { LoginComponent } from './pages/login/login.component';
+import { DialogConfirmComponent } from './component/popups/dialog-confirm/dialog-confirm.component';
 
 
 
@@ -90,7 +95,9 @@ import { VNLocationService } from './service/vn-location/vn-location.service';
     FormEditPromotionComponent,
     NotificationComponent,
     DialogProductComponent,
-    FormEditProductComponent
+    FormEditProductComponent,
+    LoginComponent,
+    DialogConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -115,9 +122,9 @@ import { VNLocationService } from './service/vn-location/vn-location.service';
     MatDialogModule,
     MatCheckboxModule
   ],
-  entryComponents: [UserMenuComponent, NotificationComponent, DialogProductComponent],
+  entryComponents: [UserMenuComponent, NotificationComponent, DialogProductComponent, DialogConfirmComponent],
   providers: [DatePipe, RoleService, EmployeeService, CategoryService, NotificationService, FileService, 
-    PromotionService, DialogService, ProductService, VNLocationService],
+    PromotionService, DialogService, ProductService, VNLocationService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

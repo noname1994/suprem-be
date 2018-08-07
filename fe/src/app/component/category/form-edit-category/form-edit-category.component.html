@@ -1,4 +1,7 @@
 <div class="emp-component">
+  <div [ngClass]="{'loading': isLoading, 'non-loading': !isLoading}">
+    <img src="../../../assets/loading-img.gif" />
+  </div>
   <div class="top">
     <div class="title">
       <h4>Tạo Mới Loại Sản Phẩm</h4>
@@ -70,8 +73,7 @@
       </form>
     </div>
     <div class="user-action">
-      <button (click)="updateCategory()">Update</button>
-      <button>RESET</button>
+      <button (click)="updateCategory()">Lưu Thông Tin</button>
     </div>
   </div>
 </div>
