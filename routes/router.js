@@ -76,6 +76,7 @@ router
     .get("/file/download", auth.isAuthorization, fileController.downloadFile)
     .get("/file-upload", auth.isAuthorization, fileUploadController.getAllFileUpload)
     .put("/file-upload/banner", auth.isAuthorization, fileUploadController.updateStatusBannerImage)
+    .get("/file-upload/banner",  fileUploadController.getAllBanner)
     /**
      * VN-location
      */
@@ -113,7 +114,11 @@ router
         (req, res, next) => {
             next();
         }, (req, res, next) => {
-            res.render(`${appRoot}/public/template/bill.html`, { msg: "Hello world!" });
+            res.sendFile(`${appRoot}/public/template/bill.html`, { msg: "Hello world!" });
         })
+
+/**
+ * ADMIN MANAGER
+ */
 
 module.exports = router;

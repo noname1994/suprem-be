@@ -1,6 +1,6 @@
 <div class="emp-component">
   <div [ngClass]="{'loading': isLoading, 'non-loading': !isLoading}">
-    <img src="../../../assets/loading-img.gif" />
+    <img src="../../../manager-system/store-app/assets/loading-img.gif" />
   </div>
   <div class="top">
     <div class="title">
@@ -47,7 +47,7 @@
           <td>{{pageNum * pageSize + i + 1}}</td>
           <td>{{promotion.name}}</td>
           <td>
-            <img [src]="promotion.imageCover" />
+            <img [src]="promotion.imageCover ? promotion.imageCover : ''" />
           </td>
           <td>{{promotion.scope == 'ALL_PRODUCT' ? 'Tất Cả' : 'Theo Sản Phẩm'}}</td>
           <td>{{promotion.type == 'TOTAL_MONEY' ? 'Tổng Tiền' : 'Số Lượng'}}</td>

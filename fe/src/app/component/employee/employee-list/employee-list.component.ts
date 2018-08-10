@@ -17,9 +17,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class EmployeeListComponent implements OnInit {
 
-  private arrEmp: Array<Employee> = [];
+  public arrEmp: Array<Employee> = [];
 
-  private totalRecord: number = 0;
+  public totalRecord: number = 0;
 
   constructor(private employeeService: EmployeeService, private router: Router, private notificationService: NotificationService) { }
 

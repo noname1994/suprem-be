@@ -19,9 +19,9 @@ import { DialogConfirmComponent } from '../../popups/dialog-confirm/dialog-confi
 })
 export class ProductListComponent implements OnInit, OnDestroy {
 
-  private isLoading: boolean = false;
+  public isLoading: boolean = false;
 
-  private arrProduct: Array<Product> = [];
+  public arrProduct: Array<Product> = [];
 
   private pageNum: number = Constant.DEFAULT_PAGE_NUMBER;
 
@@ -29,13 +29,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   private params = { pageSize: this.pageSize, pageNum: this.pageNum };
 
-  private totalRecord = 0;
+  public totalRecord = 0;
 
-  private positionIndexPageCliced: number = 0;
+  public positionIndexPageCliced: number = 0;
 
-  private arrSelectedIndexPage: Array<boolean> = [];
+  public arrSelectedIndexPage: Array<boolean> = [];
 
-  private arrIndexPage: Array<number> = [];
+  public arrIndexPage: Array<number> = [];
 
   /**
    * Subscription

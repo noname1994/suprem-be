@@ -21,53 +21,53 @@ import { DialogService } from '../../../service/popups/dialog..service';
 })
 export class FormCreationPromotionComponent implements OnInit, OnDestroy {
 
-  private isLoading: boolean = false;
+  public isLoading: boolean = false;
 
-  private fgPromotion: FormGroup;
+  public fgPromotion: FormGroup;
 
-  private name: FormControl;
+  public name: FormControl;
 
-  private scope: FormControl;
+  public scope: FormControl;
 
-  private type: FormControl;
+  public type: FormControl;
 
-  private minimumMoney: FormControl;
+  public minimumMoney: FormControl;
 
-  private minimumQuantity: FormControl;
+  public minimumQuantity: FormControl;
 
-  private donatedProduct: FormControl;
+  public donatedProduct: FormControl;
 
-  private reducedPercent: FormControl;
+  public reducedPercent: FormControl;
 
-  private description: FormControl;
+  public description: FormControl;
 
-  private startedDate: FormControl;
+  public startedDate: FormControl;
 
-  private endedDate: FormControl;
+  public endedDate: FormControl;
 
-  private arrScope = ["ALL_PRODUCT", "SPECIAL_PRODUCT"];
+  public arrScope = ["ALL_PRODUCT", "SPECIAL_PRODUCT"];
 
-  private arrType = ["TOTAL_MONEY", "PURCHASED_QUANTITY"];
+  public arrType = ["TOTAL_MONEY", "PURCHASED_QUANTITY"];
 
-  private arrProduct = [];
+  public arrProduct = [];
 
-  private defaultSelectd = "Không có dữ liệu";
+  public defaultSelectd = "Không có dữ liệu";
 
-  private arrAppliedProduct = [];
+  public arrAppliedProduct = [];
 
-  private isAppliedProduct: Boolean = false;
+  public isAppliedProduct: Boolean = false;
 
-  private isAppliedTotalMoney: Boolean = true;
+  public isAppliedTotalMoney: Boolean = true;
 
-  private imageCover;
+  public imageCover;
 
-  private arrFileUpload = [];
+  public arrFileUpload = [];
 
   private subscriptionUploadFile: Subscription;
 
   private subscriptionInsertPromotion: Subscription;
 
-  private arrDonatedProduct = [];
+  public arrDonatedProduct = [];
 
   @ViewChild('f') myForm;
 
@@ -134,6 +134,13 @@ export class FormCreationPromotionComponent implements OnInit, OnDestroy {
     this.arrFileUpload = [];
   }
 
+  deleteDonatedProduct(i) {
+    this.arrDonatedProduct.splice(i, 1);
+  }
+
+  deleteAppliedProduct(i) {
+    this.arrAppliedProduct.splice(i, 1);
+  }
 
 
   /**

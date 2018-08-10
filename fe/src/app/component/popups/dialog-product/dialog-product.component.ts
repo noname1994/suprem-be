@@ -16,15 +16,15 @@ import { element } from 'protractor';
 export class DialogProductComponent implements OnInit, OnDestroy {
 
 
-  private arrProduct: Array<Product> = [];
+  public arrProduct: Array<Product> = [];
 
   private params = { pageSize: 1000, pageNum: 0 };
 
   private subscriptionGetAllProduct: Subscription;
 
-  private defaultImage = "../../../../assets/Koala.jpg";
+  public defaultImage = "../../../../assets/Koala.jpg";
 
-  private arrIsSelect = [];
+  public arrIsSelect = [];
 
   constructor(private productService: ProductService, private dialogRef: MatDialogRef<DialogProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {

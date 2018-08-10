@@ -30,43 +30,43 @@ export class FormCreationEmpComponent implements OnInit, OnDestroy {
 
   arrRole: Role[] = [];
 
-  private fgEmployee: FormGroup;
+  public fgEmployee: FormGroup;
 
-  private fullname: FormControl;
+  public fullname: FormControl;
 
-  private gen: FormControl;
+  public gen: FormControl;
 
-  private email: FormControl;
+  public email: FormControl;
 
-  private address: FormGroup;
+  public address: FormGroup;
 
-  private detail: FormControl;
+  public detail: FormControl;
 
-  private province: FormControl;
+  public province: FormControl;
 
-  private district: FormControl;
+  public district: FormControl;
 
-  private ward: FormControl;
+  public ward: FormControl;
 
-  private username: FormControl;
+  public username: FormControl;
 
-  private facebookPage: FormControl;
+  public facebookPage: FormControl;
 
-  private phoneNumber: FormControl;
+  public phoneNumber: FormControl;
 
   // private avatar: FormControl;
 
-  private role: FormControl;
+  public role: FormControl;
 
-  private salary: FormGroup;
+  public salary: FormGroup;
 
-  private baseSalary: FormControl;
+  public baseSalary: FormControl;
 
-  private positionSalary: FormControl;
+  public positionSalary: FormControl;
 
-  private allowanceSalary: FormControl;
+  public allowanceSalary: FormControl;
 
-  private dateWorking: FormControl;
+  public dateWorking: FormControl;
 
   private subcriptionGetAllDistrict: Subscription;
 

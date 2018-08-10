@@ -1,6 +1,6 @@
 <div class="emp-component">
   <div [ngClass]="{'loading': isLoading, 'non-loading': !isLoading}">
-    <img src="../../../assets/loading-img.gif" />
+    <img src="../../../manager-system/store-app/assets/loading-img.gif" />
   </div>
   <div class="top">
     <div class="title">
@@ -86,17 +86,23 @@
               </label>
             </td>
             <td colspan="4">
-              <a *ngFor="let donatedProduct of arrDonatedProduct">{{donatedProduct.name}}</a>
+              <div class="tag">
+                <a href="javascript:void(0);" *ngFor="let donatedProduct of arrDonatedProduct; let i = index" matTooltip="Click để Xóa" matTooltipPosition="above"
+                  (click)="deleteDonatedProduct(i)">{{donatedProduct.name}}</a>
+              </div>
             </td>
           </tr>
           <tr *ngIf="isAppliedProduct">
             <td>
-              <label>Sản phẩm Áp Dụng (*)
+              <label>Sản phẩm Áp Dụng
                 <mat-icon style="color: green; cursor: pointer;" matTooltip="Chọn Sản phẩm" (click)="iconAddAppliedProductClicked()">add_box</mat-icon>
               </label>
             </td>
             <td colspan="4">
-              <a *ngFor="let appliedProduct of arrAppliedProduct">{{appliedProduct.name}}</a>
+              <div class="tag">
+                <a href="javascript:void(0);" *ngFor="let appliedProduct of arrAppliedProduct; let i = index" matTooltip="Click để Xóa" matTooltipPosition="above"
+                  (click)="deleteAppliedProduct(i)">{{appliedProduct.name}}</a>
+              </div>
             </td>
           </tr>
           <tr>

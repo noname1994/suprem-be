@@ -20,23 +20,23 @@ import { DialogService } from '../../../service/popups/dialog..service';
 export class PromotionListComponent implements OnInit, OnDestroy {
 
 
-  private isLoading: boolean = false;
+  public isLoading: boolean = false;
 
   private pageNum: number = Constant.DEFAULT_PAGE_NUMBER;
 
   private pageSize: number = Constant.DEFAULT_PAGE_SIZE;
 
-  private params: any = { pageNum: this.pageNum, pageSize: this.pageSize };
+  public params: any = { pageNum: this.pageNum, pageSize: this.pageSize };
 
-  private totalRecord: number = 0;
+  public totalRecord: number = 0;
 
-  private arrPromotion: Array<Promotion>;
+  public arrPromotion: Array<Promotion>;
 
-  private arrIndexPage: Array<Number> = [];
+  public arrIndexPage: Array<Number> = [];
 
-  private arrSelectedIndexPage: Array<Boolean> = [];
+  public arrSelectedIndexPage: Array<Boolean> = [];
 
-  private positionIndexPageCliced = 0;
+  public positionIndexPageCliced = 0;
 
   constructor(private router: Router, private promotionService: PromotionService, private notificationService: NotificationService,
     private dialogService: DialogService) { }

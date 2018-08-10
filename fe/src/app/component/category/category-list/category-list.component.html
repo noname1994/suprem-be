@@ -1,6 +1,6 @@
 <div class="emp-component">
   <div [ngClass]="{'loading': isLoading, 'non-loading': !isLoading}">
-    <img src="../../../assets/loading-img.gif" />
+    <img src="../../../manager-system/store-app/assets/loading-img.gif" />
   </div>
   <div class="top">
     <div class="title">
@@ -38,7 +38,7 @@
           <td>{{pageNum * pageSize + i + 1}}</td>
           <td>{{category.name}}</td>
           <td>
-            <img [src]="category.imageCover" />
+            <img [src]="category.imageCover ? category.imageCover : ''" />
           </td>
           <td>{{category.status}}</td>
           <td>{{category.description}}</td>
@@ -54,9 +54,10 @@
       </table>
     </div>
     <div class="pagination-div">
-      <a href="javascript:void(0);" (click)="preIndexPageClicked()">&laquo;</a>
-      <a href="javascript:void(0);" (click)="IndexPageClicked(index)" [ngClass]="{'active': arrSelectedIndexPage[index]}" *ngFor="let index of arrIndexPage">{{index + 1}}</a>
-      <a href="javascript:void(0);" (click)="lastIndexPageClicked()">&raquo;</a>
+      <a href="#" onclick="return false;" (click)="preIndexPageClicked()">&laquo;</a>
+      <a href="#" onclick="return false;" (click)="IndexPageClicked(index)" [ngClass]="{'active': arrSelectedIndexPage[index]}"
+        *ngFor="let index of arrIndexPage">{{index + 1}}</a>
+      <a href="#" onclick="return false;" (click)="lastIndexPageClicked()">&raquo;</a>
     </div>
   </div>
 </div>

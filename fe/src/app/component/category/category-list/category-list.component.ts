@@ -19,27 +19,27 @@ import { DialogService } from '../../../service/popups/dialog..service';
 })
 export class CategoryListComponent implements OnInit, OnDestroy {
 
-  private isLoading: boolean = false;
+  public isLoading: boolean = false;
 
-  private arrCategory: Array<Category>;
+  public arrCategory: Array<Category>;
 
-  private defaultDate = new Date();
+  public defaultDate = new Date();
 
-  private defaultImageCover = "../../../../assets/Koala.jpg";
+  public defaultImageCover = "../../../../assets/Koala.jpg";
 
   private pageNum: number = Constant.DEFAULT_PAGE_NUMBER;
 
   private pageSize: number = Constant.DEFAULT_PAGE_SIZE;
 
-  private totalRecord: number = 100;
+  public totalRecord: number = 100;
 
   private params = { pageNum: this.pageNum, pageSize: this.pageSize }
 
-  private arrIndexPage: Array<Number> = [];
+  public arrIndexPage: Array<Number> = [];
 
-  private arrSelectedIndexPage: Array<Boolean> = [];
+  public arrSelectedIndexPage: Array<Boolean> = [];
 
-  private positionIndexPageCliced = 0;
+  public positionIndexPageCliced = 0;
 
 
   /**
@@ -135,7 +135,7 @@ export class CategoryListComponent implements OnInit, OnDestroy {
     this.params.pageNum = this.pageNum;
   }
 
-  preIndexPageClicked(index) {
+  preIndexPageClicked() {
     if (this.positionIndexPageCliced > 0) {
       this.arrSelectedIndexPage[this.positionIndexPageCliced] = false;
       this.arrSelectedIndexPage[this.positionIndexPageCliced - 1] = true;

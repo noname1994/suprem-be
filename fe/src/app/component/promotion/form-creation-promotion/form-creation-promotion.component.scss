@@ -30,6 +30,16 @@
                 mat-form-field{
                     width: 300px;
                 }
+
+                .tag  a {
+                    background-color: #eaeaea;
+                    color: #333;
+                    padding: .3em .5em;
+                    margin-right: .5em;
+                    border-radius: 5px;
+                    text-decoration: none;
+                }
+
                 td{
                     padding-left: 20px;
                     padding-bottom: 20px; 

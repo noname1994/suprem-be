@@ -21,53 +21,53 @@ import { Constant } from '../../../utils/constant';
 })
 export class FormEditPromotionComponent implements OnInit, OnDestroy {
 
-  private isLoading: boolean = false;
+  public isLoading: boolean = false;
 	
-  private promotion: Promotion = new Promotion();
+  public promotion: Promotion = new Promotion();
 
-  private fgPromotion: FormGroup;
+  public fgPromotion: FormGroup;
 
-  private _id: FormControl;
+  public _id: FormControl;
 
-  private name: FormControl;
+  public name: FormControl;
 
-  private scope: FormControl;
+  public scope: FormControl;
 
-  private type: FormControl;
+  public type: FormControl;
 
-  private minimumMoney: FormControl;
+  public minimumMoney: FormControl;
 
-  private minimumQuantity: FormControl;
+  public minimumQuantity: FormControl;
 
-  private donatedProduct: FormControl;
+  public donatedProduct: FormControl;
 
-  private reducedPercent: FormControl;
+  public reducedPercent: FormControl;
 
-  private description: FormControl;
+  public description: FormControl;
 
-  private startedDate: FormControl;
+  public startedDate: FormControl;
 
-  private endedDate: FormControl;
+  public endedDate: FormControl;
 
-  private arrScope = ["ALL_PRODUCT", "SPECIAL_PRODUCT"];
+  public arrScope = ["ALL_PRODUCT", "SPECIAL_PRODUCT"];
 
-  private arrType = ["TOTAL_MONEY", "PURCHASED_QUANTITY"];
+  public arrType = ["TOTAL_MONEY", "PURCHASED_QUANTITY"];
 
-  private arrProduct = ["product 1", "product 2"];
+  public arrProduct = ["product 1", "product 2"];
 
-  private defaultSelectd = "Không có dữ liệu";
+  public defaultSelectd = "Không có dữ liệu";
 
-  private arrAppliedProduct = [];
+  public arrAppliedProduct = [];
 
-  private imageCover;
+  public imageCover;
 
-  private arrFileUpload = [];
+  public arrFileUpload = [];
 
-  private arrDonatedProduct = [];
+  public arrDonatedProduct = [];
 
-  private isAppliedProduct: Boolean = false;
+  public isAppliedProduct: Boolean = false;
 
-  private isAppliedTotalMoney: Boolean = true;
+  public isAppliedTotalMoney: Boolean = true;
 
   private subscriptionPromotionById: Subscription;
 

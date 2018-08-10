@@ -15,6 +15,7 @@
     "dateformat": "^3.0.3",
     "debug": "~2.6.9",
     "dotenv": "^6.0.0",
+    "ejs": "^2.6.1",
     "express": "~4.15.5",
     "express-validation": "^1.0.2",
     "facebook-api-video-upload": "1.4.0",

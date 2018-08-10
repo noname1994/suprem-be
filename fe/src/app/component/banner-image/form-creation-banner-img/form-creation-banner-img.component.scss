@@ -1,0 +1,61 @@
+ 
+.loading{
+    position: fixed;
+    top: 30%;
+    bottom: 0;
+    left: 45%;
+    right: 0;
+    z-index: 1000;
+}
+.non-loading{
+    display: none;
+}
+ .main{
+
+    .content-input{
+        margin: 30px;
+    }
+
+    .upload-img{
+        max-width: 500px;
+        img{
+            width: 100%;
+        }
+    }
+
+    .user-action{
+        margin: 30px 0 30px 0;
+        padding-left: 100px;
+        clear: left;
+       
+        button{
+            outline: none;
+             width: 150px;
+             height: 33px;
+             font-size: 14px;
+             font-weight: 500;
+             border-radius: 20px;
+            
+             color: #fff;
+             opacity: 1%;
+             margin: 0 4px;
+             border-color: #26a69a;
+             border: none;
+             cursor: pointer;
+             
+        }
+        .btn-upload{
+            background-color: #26a69a;
+            &:hover{
+                background-color: #0f5a52;
+            }
+        }
+        .btn-remove{
+            background-color: #242727;
+            &:hover{
+                background-color: #8b9090;
+            }
+        }
+    }
+   
+ }

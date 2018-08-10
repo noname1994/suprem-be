@@ -24,25 +24,25 @@ export class FormEditCategoryComponent implements OnInit, OnDestroy {
   constructor(private activatedRoute: ActivatedRoute, private categoryService: CategoryService,
     private notificationService: NotificationService, private fileSerive: FileService) { }
 
-  private isLoading: boolean = false;
+  public isLoading: boolean = false;
 
-  private category: Category = new Category();
+  public category: Category = new Category();
 
-  private defaultDate = new Date();
+  public defaultDate = new Date();
 
-  private defaultImageCover = "../../../../assets/Koala.jpg";
+  public defaultImageCover = "../../../../assets/Koala.jpg";
 
-  private fgCategory: FormGroup;
+  public fgCategory: FormGroup;
 
-  private _id: FormGroup;
+  public _id: FormGroup;
 
-  private name: FormControl;
+  public name: FormControl;
 
-  private description: FormControl;
+  public description: FormControl;
 
-  private imageCover;
+  public imageCover;
 
-  private arrFileUpload = [];
+  public arrFileUpload = [];
 
   private subscriptionEditCategory: Subscription;
 

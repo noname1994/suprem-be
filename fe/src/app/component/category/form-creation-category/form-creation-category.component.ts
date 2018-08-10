@@ -17,19 +17,19 @@ import { Constant } from '../../../utils/constant';
 })
 export class FormCreationCategoryComponent implements OnInit, OnDestroy {
 
-  private isLoading: boolean = false;
+  public isLoading: boolean = false;
 
   constructor(private categoryService: CategoryService, private notificationService: NotificationService, private fileService: FileService) { }
 
-  private fgCategory: FormGroup;
+  public fgCategory: FormGroup;
 
-  private name: FormControl;
+  public name: FormControl;
 
-  private description: FormControl;
+  public description: FormControl;
 
-  private imageCover;
+  public imageCover;
 
-  private arrFileUpload = [];
+  public arrFileUpload = [];
 
   /**
    * Subscription

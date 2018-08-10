@@ -6,10 +6,14 @@ var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 var morgan = require("morgan");
 var fs = require("fs");
-
+const appRoot = require('app-root-path');
 console.log("environment : ", process.env.NODE_ENV);
 
 var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 //swagger
 var swaggerUi = require("swagger-ui-express");
@@ -34,22 +38,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.get("/manager-system/store-app/", (req, res, next) => {
+  res.sendFile(`${appRoot}/public/manager-system/store-app/index.html`);
+})
+
+
 //fifter
 const FilterMiddleware = require("./middleware/filter.middleware");
 const filterMiddleware = new FilterMiddleware();
 app.use(filterMiddleware.filter);
 //test api
-app.use("/sayhello", (req, res, next) => {
-  res.json({ msg: "hello world!" });
-})
 
 // routes
 const router = require("./routes/router");
 app.use("/api/v1", router);
 
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
+  console.log(req.pathname + "   "+ req.originalUrl);
   var err = new Error("Not Found");
   err.status = 404;
   next(err);

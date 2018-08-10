@@ -17,13 +17,13 @@ import { Constant } from '../../utils/constant';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
-  private fgLoginForm: FormGroup;
+  public fgLoginForm: FormGroup;
 
-  private username: FormControl;
+  public username: FormControl;
 
-  private password: FormControl;
+  public password: FormControl;
 
-  private isLoading: boolean = false;
+  public isLoading: boolean = false;
 
   constructor(private employeeService: EmployeeService, private notificationService: NotificationService, private router: Router,
     private cookieService: CookieService) { }

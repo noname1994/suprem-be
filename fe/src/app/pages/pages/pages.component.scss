@@ -1,6 +1,14 @@
 .page-container{
     
     .page-sidenav{
+
+        @media screen and (max-width: 1024px){
+            width: 200px;
+            .arrow-down{
+                display: block;
+            }
+        }
+
         width: 14%;
         background-color: #fff;
 

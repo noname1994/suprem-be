@@ -47,7 +47,10 @@
 .main{
     margin-top: 5px;
     .main-table{
-        
+        margin: auto;
+        min-height: 200px;
+        max-height: 600px;
+        overflow: auto;
         padding: 20px;
         table {
             font-family: arial, sans-serif;
@@ -55,14 +58,37 @@
             width: 100%;
         }
        
+        th{
+            background-color: rgb(156, 146, 146);
+        }
+
         td, th{
             border: 1px solid #333;
-            text-align: left;
+            text-align: center;
             padding: 8px;
         }
         
         tr:nth-child(even) {
             background-color: #fff;
+        }
+
+        .stt{
+            width: 30px;
+        }
+
+        .imageCover{
+            width: 500px;
+        }
+
+        img{
+            max-width: 300px;
+        }
+
+        .status{
+            width: 100px;
+        }
+        .action{
+            width: 100px;
         }
 
         td button{

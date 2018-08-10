@@ -22,39 +22,39 @@ import { FileUplaod } from '../../../models/common/file-upload/file-upload.model
 })
 export class FormCreationProductComponent implements OnInit, OnDestroy {
 
-  private isLoading: boolean = false;
+  public isLoading: boolean = false;
 
-  private imageCover;
+  public imageCover;
 
-  private product: Product = new Product();
+  public product: Product = new Product();
 
-  private arrColorImage: Array<ColorImage> = [];
+  public arrColorImage: Array<ColorImage> = [];
 
-  private fgProduct: FormGroup;
+  public fgProduct: FormGroup;
 
-  private name: FormControl;
+  public name: FormControl;
 
-  private category: FormControl;
+  public category: FormControl;
 
-  private originalPrice: FormControl;
+  public originalPrice: FormControl;
 
-  private salePrice: FormControl;
+  public salePrice: FormControl;
 
-  private material: FormControl;
+  public material: FormControl;
 
-  private provider: FormControl;
+  public provider: FormControl;
 
-  private madeIn: FormControl;
+  public madeIn: FormControl;
 
-  private description: FormControl;
+  public description: FormControl;
 
-  private arrImage = [];
+  public arrImage = [];
 
-  private arrFileUpload = [];
+  public arrFileUpload = [];
 
-  private arrCategory: Category[] = [];
+  public arrCategory: Category[] = [];
 
-  private selectedCategory = "Không có dữ liệu";
+  public selectedCategory = "Không có dữ liệu";
 
 
   @ViewChild('f') myForm;
@@ -201,6 +201,10 @@ export class FormCreationProductComponent implements OnInit, OnDestroy {
       }, (httpError: HttpErrorResponse) => {
         this.handleError(httpError.error);
       })
+  }
+
+  resetForm(){
+    this.resetFormGroup();
   }
 
   private subcriptionCreateProduct: Subscription;

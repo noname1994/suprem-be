@@ -51,7 +51,7 @@ class FileUploadService {
             let arrResponse = result.map(tmp => {
                 return fileUploadDTO.infoResponse(tmp);
             })
-            let entityResponse = { total, arrResponse };
+            let entityResponse = { total, list: arrResponse };
             return entityResponse;
         } catch (error) {
             throw error;

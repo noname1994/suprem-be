@@ -42,6 +42,17 @@ class FileUploadController {
             next(error);
         }
     }
+
+    async getAllBanner(req, res, next) {
+        try {
+            let params = req.query;
+            let filesResponse = await fileUploadService.findAll({ type: 'IMAGE_BANNER' });
+            let entityResponse = standardRespone.success(200, filesResponse);
+            return res.status(200).json(entityResponse);
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 module.exports = FileUploadController;

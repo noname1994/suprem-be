@@ -6,6 +6,8 @@ import { DatePipe } from '@angular/common';
 
 import { CookieService } from 'ngx-cookie-service';
 
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+
 /**
  * Metarial
  */
@@ -120,10 +122,10 @@ import { DialogConfirmComponent } from './component/popups/dialog-confirm/dialog
     MatNativeDateModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   entryComponents: [UserMenuComponent, NotificationComponent, DialogProductComponent, DialogConfirmComponent],
-  providers: [DatePipe, RoleService, EmployeeService, CategoryService, NotificationService, FileService, 
+  providers: [DatePipe, RoleService, EmployeeService, CategoryService, NotificationService, FileService,
     PromotionService, DialogService, ProductService, VNLocationService, CookieService],
   bootstrap: [AppComponent]
 })

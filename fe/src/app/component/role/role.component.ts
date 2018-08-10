@@ -17,7 +17,7 @@ export class RoleComponent implements OnInit, OnDestroy {
 
   private subscriptionGetAllRole: Subscription;
 
-  private arrRole: Array<Role> = [];
+  public arrRole: Array<Role> = [];
 
   constructor(private roleService: RoleService, private notificationService: NotificationService) { }
 

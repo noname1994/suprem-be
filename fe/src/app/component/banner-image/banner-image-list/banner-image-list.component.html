@@ -5,18 +5,8 @@
     </div>
     <div class="btn-action">
       <div class="total-element">
-        <span>Total :</span> 100
+        <span>Total :</span> {{totalRecord}}
       </div>
-      <div class="page-size">
-        <span>View :</span>
-        <select>
-          <option label="10" value="string:10" selected="selected">10</option>
-          <option label="20" value="string:10">20</option>
-          <option label="30" value="string:10">30</option>
-          <option label="50" value="string:10">50</option>
-        </select>
-      </div>
-
       <button (click)="openFormCreationBannerImg()">create</button>
     </div>
   </div>
@@ -24,49 +14,23 @@
     <div class="main-table">
       <table>
         <tr>
-          <th>STT</th>
-          <th>Tên Sản Phẩm</th>
-          <th>Loại Sản Phẩm</th>
-          <th>Giá Bán</th>
-          <th>Giá Khuyến Mại</th>
-          <th>Trạng Thái</th>
-          <th>Ảnh Đại Diện</th>
-          <th>Màu Sản Phẩm</th>
-          <th>Action</th>
+          <th class="stt">STT</th>
+          <th class="imageCover">Ảnh Đại Diện</th>
+          <th class="status">Trạng Thái</th>
+          <th class="action">Action</th>
         </tr>
-        <tr>
-          <td>1</td>
-          <td>Áo Trắng</td>
-          <td>Category</td>
-          <td>75.000</td>
-          <td>----</td>
-          <td>ACTIVE</td>
-          <td>Ảnh hiển thị</td>
-          <td>Trắng - Xanh - Đen</td>
+        <tr *ngFor="let banner of arrBanner; let i = index">
+          <td>{{i + 1}}</td>
           <td>
-            <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
-              <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
-            </button>
-            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
-              <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
-            </button>
+            <img [src]="host+banner.path">
           </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Áo Sơ mi đen</td>
-          <td>Category</td>
-          <td>75.000</td>
-          <td>50.000</td>
-          <td>ACTIVE</td>
-          <td>Ảnh hiển thị</td>
-          <td>Trắng - Xanh - Đen</td>
+          <td>{{banner.status}}</td>
           <td>
-            <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">
-              <mat-icon class="icon-view-detail mat-icon material-icons">visibility</mat-icon>
-            </button>
             <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
               <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
+            </button>
+            <button matTooltip="delete" matTooltipPosition="below" class="btn-view-detail">
+              <mat-icon class="icon-view-detail mat-icon material-icons">clear</mat-icon>
             </button>
           </td>
         </tr>

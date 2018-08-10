@@ -83,23 +83,8 @@ const superAdmin = {
     },
     "username": "superadmin",
     "password": "abc13579",
-    "facebookPage": [
-        {
-            "url": "https://facebook.com.vn/tranducninhnd94"
-        },
-        {
-            "url": "https://facebook.com.vn/tranducninhnd95"
-        }
-    ],
-    "phoneNumber": [
-        {
-            "number": "0166-97-09094"
-        },
-        {
-            "number": "0166-97-09095"
-        }
-    ],
-    "avatar": "http://localhost:8080/images/avater/default.jpg",
+    "facebookPage": "https://facebook.com.vn/tranducninhnd94",
+    "phoneNumber": "01669709094",
     "role": "5b4c3a2783a8641f1c083ecc"
 
 }

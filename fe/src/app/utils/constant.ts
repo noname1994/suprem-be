@@ -22,6 +22,8 @@ export class Constant {
 
     public static MSG_SUCCESS = "SUCCESS";
 
+    public static KEY_NAME_TYPE_UPLOAD = "type";
+
     public static KEY_FILE_NAME_UPLOAD = "file";
 
     public static TOKEN_NAME = "token";
@@ -29,6 +31,10 @@ export class Constant {
      * URL File
      */
     public static URL_UPLOAD_FILE = Constant.URL_PREFIX + "/file/upload";
+
+    public static URL_GET_ALL_FILE_UPLOAD = Constant.URL_PREFIX + "/file-upload";
+
+    public static URL_GET_ALL_BANNER = Constant.URL_PREFIX + "/file-upload/banner";
 
     /**
      * URL role

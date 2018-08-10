@@ -1,6 +1,6 @@
 <div class="emp-component">
   <div [ngClass]="{'loading': isLoading, 'non-loading': !isLoading}">
-    <img src="../../../assets/loading-img.gif" />
+    <img src="../../../manager-system/store-app/assets/loading-img.gif" />
   </div>
   <div class="top">
     <div class="title">
@@ -49,7 +49,7 @@
           <td>{{product.salePrice}}</td>
           <td>{{product.status}}</td>
           <td>
-            <img [src]="product.imageCover && product.imageCover[0] ? product.imageCover[0] : null" />
+            <img [src]="product.imageCover && product.imageCover[0] ? product.imageCover[0] : ''" />
           </td>
           <td>Trắng - Xanh - Đen</td>
           <td>{{product.material}}</td>
