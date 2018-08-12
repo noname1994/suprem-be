@@ -53,9 +53,17 @@
           <td>{{promotion.type == 'TOTAL_MONEY' ? 'Tổng Tiền' : 'Số Lượng'}}</td>
           <td>{{promotion.minimumMoney}}</td>
           <td>{{promotion.minimumQuantity}}</td>
-          <td>{{promotion.donatedProduct}}</td>
+          <td>
+            <tr *ngFor="let donatedProduct of promotion.donatedProduct; let i = index">
+              <td style="border: none"> - {{donatedProduct.name}}</td>
+            </tr>
+          </td>
           <td>{{promotion.reducedPercent}}</td>
-          <td>{{promotion.appliedProduct}}</td>
+          <td>
+            <tr *ngFor="let appliedProduct of promotion.appliedProduct; let i = index">
+              <td style="border: none"> - {{appliedProduct.name}}</td>
+            </tr>
+          </td>
           <td>{{promotion.startedDate | date:'dd/MM/yyyy'}}</td>
           <td>{{promotion.endedDate | date:'dd/MM/yyyy'}}</td>
           <td>{{promotion.status}}</td>

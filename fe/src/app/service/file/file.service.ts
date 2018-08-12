@@ -61,8 +61,20 @@ export class FileService {
         let options = {
             headers: httpHeaders
         }
-        return this.httpClient.get(Constant.URL_GET_ALL_BANNER, options);
+        return this.httpClient.get(Constant.URL_BANNER_IMAGE, options);
     }
 
+    updateBannerStatus(_id, status) {
+        let token = this.cookieService.get(Constant.TOKEN_NAME);
 
+        let httpHeaders = new HttpHeaders({
+            "authorization": `JWT ${token}`
+        });
+
+        let options = {
+            headers: httpHeaders,
+            params: { _id: _id, status: status }
+        }
+        return this.httpClient.put(Constant.URL_BANNER_IMAGE,{}, options);
+    }
 }

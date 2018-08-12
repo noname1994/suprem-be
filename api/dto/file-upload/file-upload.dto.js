@@ -8,20 +8,22 @@ class FileUploadDTO {
             originalname: _body.originalname,
             encoding: _body.encoding,
             filename: _body.filename,
-            type: type
+            type: type,
+            statusImageBanner: type == 'IMAGE_BANNER' ? 'HIDDEN' : undefined
         }
     }
 
     infoResponse(result) {
         return {
             _id: result._id,
-            path: result.path ? result.path.substring(6,result.path.length) : "\\image_default.jpg",
+            path: result.path ? result.path.substring(6, result.path.length) : "\\image_default.jpg",
             size: result.size,
             mimetype: result.mimetype,
             originalname: result.originalname,
             encoding: result.encoding,
             filename: result.filename,
             type: result.type,
+            statusImageBanner: result.statusImageBanner,
             createAt: result.createAt
         }
     }

@@ -332,6 +332,7 @@ paths:
           enum:
             - AVATAR
             - IMAGE_PRODUCT
+            - IMAGE_BANNER
             - DOCUMENT
             - OTHER
           default: IMAGE_PRODUCT
@@ -469,17 +470,15 @@ paths:
         - jwt: []
       description: ""
       consumes:
-        - multipart/form-data
+        - application/json
       produces:
         - application/json
       parameters:
         - in: query
-          name: arrId
-          description: array ids of file
+          name: _id
+          description: id of file
           required: true
-          type: array
-          items: 
-            type: string
+          type: string
         - in: query
           name: status
           enum:

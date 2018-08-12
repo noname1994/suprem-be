@@ -74,7 +74,10 @@ class PromotionService {
 
             let total = await Promotion.count(condition) || 0;
 
-            let rs = await Promotion.find(condition).limit(limit).skip(offset).exec() || [];
+            let rs = await Promotion.find(condition).limit(limit).skip(offset)
+                .populate({ path: "donatedProduct", model: "Product" })
+                .populate({ path: "appliedProduct", model: "Product" })
+                .exec() || [];
             let arrResponse = rs.map(ele => {
                 return promotionDTO.infoResponse(ele);
             })

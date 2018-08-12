@@ -24,13 +24,13 @@
           <td>
             <img [src]="host+banner.path">
           </td>
-          <td>{{banner.status}}</td>
+          <td>{{banner.statusImageBanner == 'SHOW' ? 'ĐANG HIỆN THỊ' : 'KHÔNG ĐƯỢC HIỂN THỊ'}}</td>
           <td>
-            <button matTooltip="Chỉnh sửa" matTooltipPosition="below" class="btn-edit">
-              <mat-icon class="icon-edit mat-icon material-icons">edit</mat-icon>
+            <button matTooltip="cho phép hiển thị" matTooltipPosition="below" class="btn-show" (click)="updateBannerStatus(banner._id)">
+              <mat-icon class="icon-view-detail mat-icon material-icons" style="color: green">arrow_upward</mat-icon>
             </button>
-            <button matTooltip="delete" matTooltipPosition="below" class="btn-view-detail">
-              <mat-icon class="icon-view-detail mat-icon material-icons">clear</mat-icon>
+            <button matTooltip="delete" matTooltipPosition="below" class="btn-delete" (click)="deleteBanner(banner._id)">
+              <mat-icon class="icon-view-detail mat-icon material-icons" style="color: red">delete</mat-icon>
             </button>
           </td>
         </tr>

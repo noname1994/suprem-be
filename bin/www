@@ -31,7 +31,7 @@ var server = http.createServer(app);
 const DataInit = require("../db-init");
 const dataInit = new DataInit();
 mongoose.set("debug", true);
-mongoose.connect(config.database.url, (err) => {
+mongoose.connect(config.database.url,  (err) => {
   if (err) {
     console.log("Error connecting to db", err);
   } else {

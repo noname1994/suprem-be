@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const FileUpload = require("../../models/file-upload/file-upload.model");
 const FileUploadDTO = require("../../dto/file-upload/file-upload.dto");
 
@@ -46,7 +47,7 @@ class FileUploadService {
 
             let total = await FileUpload.count(condition) || 0;
 
-            let result = await FileUpload.find(condition).limit(limit).skip(offset) || [];
+            let result = await FileUpload.find(condition).sort("-statusImageBanner").limit(limit).skip(offset) || [];
 
             let arrResponse = result.map(tmp => {
                 return fileUploadDTO.infoResponse(tmp);
@@ -58,6 +59,17 @@ class FileUploadService {
         }
     }
 
+    async updateStatusBanner(bannerId, status) {
+
+        if (!mongoose.Types.ObjectId.isValid(bannerId)) {
+            throw new CustomizeError(TAG, 400, `"${bannerId}" phải là kiểu ObjectId`);
+        }
+        if (status == "SHOW") {
+            await FileUpload.updateMany({ type: "IMAGE_BANNER", statusImageBanner: status }, { statusImageBanner: "HIDDEN" });
+        }
+        let rs = await FileUpload.updateOne({ _id: bannerId }, { statusImageBanner: status });
+        return rs;
+    }
 
     async updateStatusImageBanner(arrId, status) {
         try {

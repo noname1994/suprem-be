@@ -11,9 +11,7 @@ console.log("environment : ", process.env.NODE_ENV);
 
 var app = express();
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('views', [path.join(__dirname, 'store-app')]);
 
 //swagger
 var swaggerUi = require("swagger-ui-express");
@@ -48,10 +46,14 @@ const FilterMiddleware = require("./middleware/filter.middleware");
 const filterMiddleware = new FilterMiddleware();
 app.use(filterMiddleware.filter);
 //test api
+app.use("/sayhello", (req, res, next) => {
+  res.json({ msg: "hello world!" });
+})
 
 // routes
 const router = require("./routes/router");
 app.use("/api/v1", router);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

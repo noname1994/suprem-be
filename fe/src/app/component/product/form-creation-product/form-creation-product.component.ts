@@ -120,14 +120,14 @@ export class FormCreationProductComponent implements OnInit, OnDestroy {
     if (this.fgProduct.controls.originalPrice.hasError('required')) {
       return 'Trường này không được trống';
     }
-    if (this.fgProduct.controls.name.hasError('min')) {
+    if (this.fgProduct.controls.originalPrice.hasError('min')) {
       return 'Giá phải lớn hơn hoặc bằng 1000';
     }
     return '';
   }
 
   getErrorFieldSalePrice() {
-    if (this.fgProduct.controls.name.hasError('min')) {
+    if (this.fgProduct.controls.salePrice.hasError('min')) {
       return 'Giá phải lớn hơn hoặc bằng 1000';
     }
     return '';
@@ -230,7 +230,7 @@ export class FormCreationProductComponent implements OnInit, OnDestroy {
       console.log("category : ", newProduct.category);
       console.log("newProduct :", newProduct);
       if (this.arrFileUpload && this.arrFileUpload.length > 0) {
-        this.subcriptionUploadFile = this.fileService.uploadFile(this.arrFileUpload).subscribe((entityRes: SuccessResponse<FileUplaod[]>) => {
+        this.subcriptionUploadFile = this.fileService.uploadFile(this.arrFileUpload, "IMAGE_PRODUCT").subscribe((entityRes: SuccessResponse<FileUplaod[]>) => {
           let imageCover = [];
           entityRes.value.forEach(ele => {
             imageCover.push(`${Constant.SERVER_HOST}${ele.path}`);

@@ -32,11 +32,10 @@ class FileUploadController {
 
     async updateStatusBannerImage(req, res, next) {
         try {
-            let str = req.query.arrId;
+            let _id = req.query._id;
             let status = req.query.status;
-            let arrId = str.split(",");
-            let rawResponse = await fileUploadService.updateStatusImageBanner(arrId, status);
-            let entityResponse = standardRespone.success(200, filesResponse);
+            let rawResponse = await fileUploadService.updateStatusBanner(_id, status);
+            let entityResponse = standardRespone.success(200, rawResponse);
             return res.status(200).json(entityResponse);
         } catch (error) {
             next(error);

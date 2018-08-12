@@ -41,7 +41,7 @@
           <td>
             <p>{{employee.salary.baseSalary }}</p>
           </td>
-          <td>{{employee.dateWorking }}</td>
+          <td>{{employee.dateWorking | date:'dd/MM/yyyy'}}</td>
           <td>ACTIVE</td>
           <td>
             <button matTooltip="Xem chi tiết" matTooltipPosition="below" class="btn-view-detail">

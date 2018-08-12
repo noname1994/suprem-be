@@ -74,7 +74,7 @@ export class FormEditProductComponent implements OnInit {
     private notificationService: NotificationService, private _fb: FormBuilder, private fileService: FileService) { }
 
   ngOnInit() {
-    
+
     this.initFormGroup();
     this.getAllCategory();
     this.getProduct();
@@ -120,7 +120,7 @@ export class FormEditProductComponent implements OnInit {
     this.fgProduct.controls.madeIn.setValue(product.madeIn);
     this.fgProduct.controls.description.setValue(product.description);
     this.arrImage = product.imageCover;
-    console.log("  this.fgProduct.controls._id.setValue(product._id): ",  this.fgProduct.controls._id.value)
+    console.log("  this.fgProduct.controls._id.setValue(product._id): ", this.fgProduct.controls._id.value)
   }
 
   resetFormGroup() {
@@ -146,14 +146,14 @@ export class FormEditProductComponent implements OnInit {
     if (this.fgProduct.controls.originalPrice.hasError('required')) {
       return 'Trường này không được trống';
     }
-    if (this.fgProduct.controls.name.hasError('min')) {
+    if (this.fgProduct.controls.originalPrice.hasError('min')) {
       return 'Giá phải lớn hơn hoặc bằng 1000';
     }
     return '';
   }
 
   getErrorFieldSalePrice() {
-    if (this.fgProduct.controls.name.hasError('min')) {
+    if (this.fgProduct.controls.salePrice.hasError('min')) {
       return 'Giá phải lớn hơn hoặc bằng 1000';
     }
     return '';
@@ -240,15 +240,16 @@ export class FormEditProductComponent implements OnInit {
   }
 
   subUpdateProduct(newProduct) {
-    this.subcriptionUpdateProduct = this.productService.updateProduct(newProduct).subscribe((entityRes: SuccessResponse<any>) => {
-      this.isLoading = false;
-      this.notificationService.createNotification(
-        NotificationComponent,
-        { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');
-      this.resetFormGroup();
-    }, (httpError: HttpErrorResponse) => {
-      this.handleError(httpError.error);
-    })
+    this.subcriptionUpdateProduct = this.productService.updateProduct(newProduct)
+      .subscribe((entityRes: SuccessResponse<any>) => {
+        this.isLoading = false;
+        this.notificationService.createNotification(
+          NotificationComponent,
+          { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end');
+        this.resetFormGroup();
+      }, (httpError: HttpErrorResponse) => {
+        this.handleError(httpError.error);
+      })
   }
 
   updateProduct() {
@@ -258,16 +259,17 @@ export class FormEditProductComponent implements OnInit {
       console.log("category : ", newProduct.category);
       console.log("newProduct :", newProduct);
       if (this.arrFileUpload && this.arrFileUpload.length > 0) {
-        this.subcriptionUploadFile = this.fileService.uploadFile(this.arrFileUpload).subscribe((entityRes: SuccessResponse<FileUplaod[]>) => {
-          let imageCover = [];
-          entityRes.value.forEach(ele => {
-            imageCover.push(`${Constant.SERVER_HOST}${ele.path}`);
+        this.subcriptionUploadFile = this.fileService.uploadFile(this.arrFileUpload, "IMAGE_PRODUCT")
+          .subscribe((entityRes: SuccessResponse<FileUplaod[]>) => {
+            let imageCover = [];
+            entityRes.value.forEach(ele => {
+              imageCover.push(`${Constant.SERVER_HOST}${ele.path}`);
+            })
+            newProduct.imageCover = imageCover;
+            this.subUpdateProduct(newProduct);
+          }, (httpError: HttpErrorResponse) => {
+            this.handleError(httpError.error);
           })
-          newProduct.imageCover = imageCover;
-          this.subUpdateProduct(newProduct);
-        }, (httpError: HttpErrorResponse) => {
-          this.handleError(httpError.error);
-        })
       } else {
         this.subUpdateProduct(newProduct);
       }

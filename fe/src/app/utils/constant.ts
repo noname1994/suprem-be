@@ -34,7 +34,7 @@ export class Constant {
 
     public static URL_GET_ALL_FILE_UPLOAD = Constant.URL_PREFIX + "/file-upload";
 
-    public static URL_GET_ALL_BANNER = Constant.URL_PREFIX + "/file-upload/banner";
+    public static URL_BANNER_IMAGE = Constant.URL_PREFIX + "/file-upload/banner";
 
     /**
      * URL role

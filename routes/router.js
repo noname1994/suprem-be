@@ -76,7 +76,7 @@ router
     .get("/file/download", auth.isAuthorization, fileController.downloadFile)
     .get("/file-upload", auth.isAuthorization, fileUploadController.getAllFileUpload)
     .put("/file-upload/banner", auth.isAuthorization, fileUploadController.updateStatusBannerImage)
-    .get("/file-upload/banner",  fileUploadController.getAllBanner)
+    .get("/file-upload/banner", auth.isAuthorization, fileUploadController.getAllBanner)
     /**
      * VN-location
      */

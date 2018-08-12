@@ -23,6 +23,8 @@ export class BannerImageListComponent implements OnInit {
 
   private subcriptionGetALl: Subscription;
 
+  private subcriptionUpdate: Subscription;
+
   public arrBanner = [];
 
   public host = Constant.SERVER_HOST;
@@ -39,8 +41,9 @@ export class BannerImageListComponent implements OnInit {
   }
 
   getAllFileUpload() {
+    this.isLoading = true;
     this.subcriptionGetALl = this.fileService.getAllBanner().subscribe((entityRes: SuccessResponse<ArrayObject<FileUplaod[]>>) => {
-      console.log(entityRes);
+      this.isLoading = true;
       this.arrBanner = entityRes.value.list;
       this.totalRecord = entityRes.value.total;
     }, (httpError: HttpErrorResponse) => {
@@ -59,5 +62,27 @@ export class BannerImageListComponent implements OnInit {
     if (this.subcriptionGetALl) {
       this.subcriptionGetALl.unsubscribe();
     }
+    if (this.subcriptionUpdate) {
+      this.subcriptionUpdate.unsubscribe();
+    }
+  }
+
+  updateBannerStatus(_id) {
+    this.isLoading = true;
+    let status = "SHOW";
+    this.subcriptionUpdate = this.fileService.updateBannerStatus(_id, status).subscribe((entityRes: SuccessResponse<any>) => {
+      this.isLoading = false;
+      this.notificationService.createNotification(
+        NotificationComponent,
+        { code: entityRes.code, message: entityRes.message }, 2000, 'top', 'end'
+      );
+      this.getAllFileUpload();
+    }, (httpError: HttpErrorResponse) => {
+      this.handleError(httpError.error);
+    })
+  }
+
+  deleteBanner(_id) {
+
   }
 }

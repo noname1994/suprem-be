@@ -242,7 +242,7 @@ export class FormCreationPromotionComponent implements OnInit, OnDestroy {
         return ele._id;
       }) : [];
       if (this.arrFileUpload && this.arrFileUpload.length > 0) {
-        this.subscriptionUploadFile = this.fileService.uploadFile(this.arrFileUpload)
+        this.subscriptionUploadFile = this.fileService.uploadFile(this.arrFileUpload, "IMAGE_PRODUCT")
           .subscribe((entityRes: SuccessResponse<FileUplaod[]>) => {
             this.imageCover = `${Constant.SERVER_HOST}${entityRes.value[0].path}`;
             newPromotionObject.imageCover = this.imageCover;
